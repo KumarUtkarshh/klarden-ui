@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "klarden-ui",
+  "homepage": "https://localhost:3000",
+  "author": "dev-o-los (https://localhost:3000)",
+  "items": [
+    {
+      "name": "hello-world",
+      "type": "registry:block",
+      "title": "Hello World",
+      "description": "A simple hello world component.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/hello-world.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

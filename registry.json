@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "klarden-ui",
+  "homepage": "https://localhost:3000",
+  "author": "dev-o-los (https://localhost:3000)",
+  "items": [
+    {
+      "name": "rich-button",
+      "type": "registry:component",
+      "title": "Rich Button",
+      "description": "A button component with rich styling and color variants.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/rich-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-slot"],
+      "registryDependencies": [],
+      "category": "button"
+    }
+  ]
+}
