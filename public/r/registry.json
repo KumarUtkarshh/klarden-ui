@@ -5,16 +5,34 @@
   "author": "dev-o-los (https://localhost:3000)",
   "items": [
     {
-      "name": "hello-world",
-      "type": "registry:block",
-      "title": "Hello World",
-      "description": "A simple hello world component.",
+      "name": "rich-button",
+      "type": "registry:component",
+      "title": "Rich Button",
+      "description": "A button component with rich styling and color variants.",
       "files": [
         {
-          "path": "registry/klarden-ui/hello-world.tsx",
+          "path": "registry/klarden-ui/rich-button.tsx",
           "type": "registry:component"
         }
-      ]
+      ],
+      "dependencies": ["@radix-ui/react-slot"],
+      "registryDependencies": [],
+      "category": "button"
+    },
+    {
+      "name": "command-orbit",
+      "type": "registry:component",
+      "title": "Command Orbit",
+      "description": "A circular command menu with orbiting actions and smooth animations.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/command-orbit.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"],
+      "registryDependencies": [],
+      "category": "navigation"
     }
   ]
 }

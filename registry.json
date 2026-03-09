@@ -18,6 +18,21 @@
       "dependencies": ["@radix-ui/react-slot"],
       "registryDependencies": [],
       "category": "button"
+    },
+    {
+      "name": "command-orbit",
+      "type": "registry:component",
+      "title": "Command Orbit",
+      "description": "A circular command menu with orbiting actions and smooth animations.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/command-orbit.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"],
+      "registryDependencies": [],
+      "category": "navigation"
     }
   ]
 }
