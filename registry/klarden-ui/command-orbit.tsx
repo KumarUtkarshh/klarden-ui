@@ -100,7 +100,7 @@ function OrbitItem({
         translateX: tx,
         translateY: ty,
         position: "absolute",
-        zIndex: 50, // Ensure it's above the backdrop
+        zIndex: 70, // Increased to be above the central button (60)
         willChange: "transform",
       }}
     >
@@ -135,7 +135,7 @@ function OrbitItem({
         />
 
         {showLabels && (
-          <span className="absolute -bottom-10 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-zinc-950 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-950 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest shadow-2xl translate-y-2 group-hover:translate-y-0">
+          <span className="absolute -bottom-8 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-zinc-950 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-950 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-widest shadow-2xl translate-y-1 group-hover:translate-y-0">
             {action.label}
           </span>
         )}
