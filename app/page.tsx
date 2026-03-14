@@ -4,12 +4,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/registry/klarden-ui/accordion";
+import OrbitContextMenu from "@/registry/klarden-ui/orbit-context-menu";
 import { RichButton } from "@/registry/klarden-ui/rich-button";
 import { Cpu, Github, Shield, Terminal, Zap } from "lucide-react";
 
 export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center bg-zinc-50 p-6 dark:bg-zinc-950">
+      <OrbitContextMenu />
       {/* Background Decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-zinc-200/50 blur-[120px] dark:bg-zinc-800/20" />

@@ -33,6 +33,36 @@
       "dependencies": ["framer-motion", "lucide-react"],
       "registryDependencies": [],
       "category": "navigation"
+    },
+    {
+      "name": "orbit-context-menu",
+      "type": "registry:component",
+      "title": "Orbit Context Menu",
+      "description": "A premium radial context menu with neumorphic styling and smooth animations.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/orbit-context-menu.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react"],
+      "registryDependencies": [],
+      "category": "navigation"
+    },
+    {
+      "name": "accordion",
+      "type": "registry:component",
+      "title": "Accordion",
+      "description": "A premium accordion component with smooth transitions.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/accordion.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["@radix-ui/react-accordion", "lucide-react"],
+      "registryDependencies": [],
+      "category": "layout"
     }
   ]
 }
