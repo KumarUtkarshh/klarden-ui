@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import React from "react";
 
-export const registry: Record<string, React.ComponentType<any>> = {
+export const registry: Record<string, React.ComponentType<Record<string, unknown>>> = {
   "rich-button": dynamic(() =>
     import("@/registry/klarden-ui/rich-button").then((mod) => mod.RichButton),
   ),

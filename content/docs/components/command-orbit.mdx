@@ -4,44 +4,74 @@ description: A premium radial command menu with orbiting actions and physics-bas
 category: Components
 ---
 
-The `CommandOrbit` is a sophisticated interaction hub. It features a central trigger that, when clicked, expands a set of secondary actions in a radial pattern with staggered entrance animations.
+The CommandOrbit is a sophisticated interaction hub. It features a central trigger that, when clicked, expands a set of secondary actions in a radial pattern with staggered entrance animations.
 
 ## Preview
 
-<ComponentPreview name="command-orbit" />
-
-## Usage
-
+<ComponentPreview name="command-orbit">
 ```tsx
 import { CommandOrbit } from "@/registry/klarden-ui/command-orbit";
 import { MessageSquare, Share2, Mail, Settings } from "lucide-react";
 
-const actions = [
-  { icon: MessageSquare, label: "Chat", color: "text-blue-500" },
-  { icon: Share2, label: "Share", color: "text-purple-500" },
-  { icon: Mail, label: "Email", color: "text-rose-500" },
-  { icon: Settings, label: "Config", color: "text-zinc-500" },
-];
-
 export default function Example() {
-  return (
-    <CommandOrbit actions={actions} radius={80} />
-  );
+  const actions = [
+    { icon: MessageSquare, label: "Chat", color: "text-blue-500" },
+    { icon: Share2, label: "Share", color: "text-purple-500" },
+    { icon: Mail, label: "Email", color: "text-rose-500" },
+    { icon: Settings, label: "Config", color: "text-zinc-500" },
+  ];
+
+return <CommandOrbit actions={actions} radius={100} />;
+}
+
+````
+</ComponentPreview>
+
+## Usage
+
+### Installation
+
+```bash
+npx shadcn@latest add https://klarden-ui.com/r/command-orbit.json
+````
+
+### Basic Example
+
+```tsx
+import { CommandOrbit } from "@/registry/klarden-ui/command-orbit";
+
+export default function App() {
+  return <CommandOrbit radius={80} />;
 }
 ```
 
-## Features
-
-- **Radial Layout**: Automatically calculates positions based on the number of actions provided.
-- **Physics-First Motion**: Uses spring dynamics for the expansion and "wobble" effects.
-- **Hover tooltips**: Integrated dark, pill-shaped tooltips for each orbiting action.
-- **3D Perspective**: Includes a subtle perspective transform that follows the cursor.
-
 ## Properties
 
-| Prop | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `actions` | `OrbitAction[]` | `defaultActions` | Array of actions to display in the orbit. |
-| `radius` | `number` | `80` | The distance from the center to the orbiting items. |
-| `showLabels` | `boolean` | `true` | Whether to show tooltips on hover. |
-| `className` | `string` | - | Additional CSS classes for the container. |
+<PropsTable
+  data={[
+    {
+      name: "actions",
+      type: "OrbitAction[]",
+      default: "defaultActions",
+      description: "Array of actions to display in the orbit.",
+    },
+    {
+      name: "radius",
+      type: "number",
+      default: "80",
+      description: "The distance from the center to the orbiting items.",
+    },
+    {
+      name: "showLabels",
+      type: "boolean",
+      default: "true",
+      description: "Whether to show tooltips on hover.",
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional CSS classes for the container.",
+    },
+  ]}
+/>

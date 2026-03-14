@@ -1,6 +1,6 @@
 import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
+import path from "path";
 
 const DOCS_PATH = path.join(process.cwd(), "content/docs");
 
@@ -17,7 +17,7 @@ export interface DocContent extends DocMetadata {
 
 export function getDocSlugs(dir: string = DOCS_PATH): string[] {
   if (!fs.existsSync(dir)) return [];
-  
+
   const files = fs.readdirSync(dir, { recursive: true }) as string[];
   return files
     .filter((file) => file.endsWith(".mdx"))
@@ -26,7 +26,7 @@ export function getDocSlugs(dir: string = DOCS_PATH): string[] {
 
 export function getDocBySlug(slug: string[]): DocContent | null {
   const fullPath = path.join(DOCS_PATH, ...slug) + ".mdx";
-  
+
   if (!fs.existsSync(fullPath)) return null;
 
   const fileContents = fs.readFileSync(fullPath, "utf8");

@@ -1,0 +1,56 @@
+---
+title: Portal Uploader
+description: A central circular drop zone with orbital animations and progress tracking.
+category: Components
+---
+
+The PortalUploader is a centerpiece component for file interactions. It activates a rapidly rotating orbital ring when a file is dragged over, providing a "vortex" feel for data absorption.
+
+## Preview
+
+<ComponentPreview name="portal-uploader">
+```tsx
+import { PortalUploader } from "@/registry/klarden-ui/portal-uploader";
+
+export default function Example() {
+  return (
+    <PortalUploader 
+      onUpload={(file) => console.log("Uploaded:", file.name)} 
+    />
+  );
+}
+```
+</ComponentPreview>
+
+## Usage
+
+### Installation
+
+```bash
+npx shadcn@latest add https://klarden-ui.com/r/portal-uploader.json
+```
+
+### Basic Example
+
+```tsx
+import { PortalUploader } from "@/registry/klarden-ui/portal-uploader";
+
+export default function App() {
+  return (
+    <PortalUploader 
+      accept="image/*"
+      onUpload={(file) => alert(`File ${file.name} received`)}
+    />
+  )
+}
+```
+
+## Properties
+
+<PropsTable 
+  data={[
+    { name: "onUpload", type: "(file: File) => void", default: "—", description: "Callback triggered when a file is successfully dropped." },
+    { name: "accept", type: "string", default: "—", description: 'Accepted file types (e.g., "image/*").' },
+    { name: "className", type: "string", default: "—", description: "Additional CSS classes for the container." },
+  ]}
+/>

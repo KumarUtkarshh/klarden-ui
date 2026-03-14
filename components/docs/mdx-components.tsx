@@ -1,11 +1,18 @@
-import { getComponentCode } from "@/lib/registry";
 import { cn } from "@/lib/utils";
 import { registry } from "@/registry/components";
 import React from "react";
 import { CodeBlock } from "./code-block";
 import { ComponentPreview } from "./component-preview";
+import { PropsTable, type PropsTableProps } from "./props-table";
 
 type ComponentProps = React.HTMLAttributes<HTMLElement>;
+
+interface PreProps extends React.HTMLAttributes<HTMLPreElement> {
+  children?: React.ReactElement<{
+    children: string;
+    className?: string;
+  }>;
+}
 
 export const mdxComponents = {
   // Pass all registry components globally to MDX
@@ -56,6 +63,45 @@ export const mdxComponents = {
       {...props}
     />
   ),
+  // Premium Table Styling
+  table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
+    <div className="my-6 w-full overflow-y-auto rounded-xl border border-zinc-200 dark:border-zinc-800">
+      <table
+        className={cn("w-full border-collapse text-sm", className)}
+        {...props}
+      />
+    </div>
+  ),
+  thead: ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead
+      className={cn(
+        "bg-zinc-50 dark:bg-zinc-900/50 border-b border-zinc-200 dark:border-zinc-800",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  th: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <th
+      className={cn(
+        "px-4 py-3 text-left font-black uppercase tracking-widest text-[10px] text-zinc-500 dark:text-zinc-400",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  td: ({ className, ...props }: React.HTMLAttributes<HTMLTableCellElement>) => (
+    <td
+      className={cn(
+        "px-4 py-3 text-zinc-600 dark:text-zinc-400 border-t border-zinc-100 dark:border-zinc-800/50",
+        className,
+      )}
+      {...props}
+    />
+  ),
   code: ({ className, ...props }: ComponentProps) => (
     <code
       className={cn(
@@ -65,6 +111,14 @@ export const mdxComponents = {
       {...props}
     />
   ),
+  // Standard Markdown code blocks
+  pre: ({ children, ...props }: PreProps) => {
+    // Extract code and language from nested code element
+    const code = children?.props?.children || "";
+    const language =
+      children?.props?.className?.replace("language-", "") || "tsx";
+    return <CodeBlock code={code} language={language} {...props} />;
+  },
   Step: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div
       className={cn(
@@ -72,26 +126,23 @@ export const mdxComponents = {
         className,
       )}
     >
-      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-900 dark:bg-zinc-50" />
+      <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-zinc-900 dark:bg-zinc-50 shadow-lg" />
       {props.children}
     </div>
   ),
   Steps: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={cn("mt-8 mb-12", className)} {...props} />
   ),
-  ComponentPreview: async ({
+  ComponentPreview: ({
     name,
-    className,
+    children,
   }: {
     name: string;
-    className?: string;
+    children?: React.ReactNode;
   }) => {
-    const code = getComponentCode(name) || "// Component not found";
-    return (
-      <ComponentPreview name={name} code={code}>
-        <CodeBlock code={code} language="tsx" className={className} />
-      </ComponentPreview>
-    );
+    // If children are provided, it's the usage code
+    // If not, we could fall back to implementation (but user wants usage)
+    return <ComponentPreview name={name} usageCode={children} />;
   },
-  CodeBlock: CodeBlock,
+  PropsTable: PropsTable,
 };
