@@ -21,19 +21,16 @@ export default function Example() {
     { icon: Settings, label: "Config", color: "text-zinc-500" },
   ];
 
-return <CommandOrbit actions={actions} radius={100} />;
+  return <CommandOrbit actions={actions} radius={100} />;
 }
-
-````
+```
 </ComponentPreview>
 
 ## Usage
 
 ### Installation
 
-```bash
-npx shadcn@latest add https://klarden-ui.com/r/command-orbit.json
-````
+<InstallBlock command="shadcn add https://klarden-ui.com/r/command-orbit.json" />
 
 ### Basic Example
 
@@ -47,31 +44,11 @@ export default function App() {
 
 ## Properties
 
-<PropsTable
+<PropsTable 
   data={[
-    {
-      name: "actions",
-      type: "OrbitAction[]",
-      default: "defaultActions",
-      description: "Array of actions to display in the orbit.",
-    },
-    {
-      name: "radius",
-      type: "number",
-      default: "80",
-      description: "The distance from the center to the orbiting items.",
-    },
-    {
-      name: "showLabels",
-      type: "boolean",
-      default: "true",
-      description: "Whether to show tooltips on hover.",
-    },
-    {
-      name: "className",
-      type: "string",
-      default: "—",
-      description: "Additional CSS classes for the container.",
-    },
+    { name: "actions", type: "OrbitAction[]", default: "defaultActions", description: "Array of actions to display in the orbit." },
+    { name: "radius", type: "number", default: "80", description: "The distance from the center to the orbiting items." },
+    { name: "showLabels", type: "boolean", default: "true", description: "Whether to show tooltips on hover." },
+    { name: "className", type: "string", default: "—", description: "Additional CSS classes for the container." },
   ]}
 />

@@ -3,7 +3,8 @@ import { registry } from "@/registry/components";
 import React from "react";
 import { CodeBlock } from "./code-block";
 import { ComponentPreview } from "./component-preview";
-import { PropsTable, type PropsTableProps } from "./props-table";
+import { InstallBlock } from "./install-block";
+import { PropsTable } from "./props-table";
 
 type ComponentProps = React.HTMLAttributes<HTMLElement>;
 
@@ -145,4 +146,5 @@ export const mdxComponents = {
     return <ComponentPreview name={name} usageCode={children} />;
   },
   PropsTable: PropsTable,
+  InstallBlock: InstallBlock,
 };

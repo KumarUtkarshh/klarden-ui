@@ -26,9 +26,7 @@ export default function Example() {
 
 ### Installation
 
-```bash
-npx shadcn@latest add https://klarden-ui.com/r/magnetic-dock.json
-```
+<InstallBlock command="shadcn add https://klarden-ui.com/r/magnetic-dock.json" />
 
 ### Custom Items
 
@@ -43,37 +41,17 @@ const items = [
 ];
 
 export default function App() {
-  return <MagneticDock items={items} magnification={80} distance={140} />;
+  return <MagneticDock items={items} magnification={80} distance={140} />
 }
 ```
 
 ## Properties
 
-<PropsTable
+<PropsTable 
   data={[
-    {
-      name: "items",
-      type: "DockItem[]",
-      default: "defaultItems",
-      description: "Array of items with icons and labels.",
-    },
-    {
-      name: "magnification",
-      type: "number",
-      default: "80",
-      description: "Maximum size of the icon when centered.",
-    },
-    {
-      name: "distance",
-      type: "number",
-      default: "140",
-      description: "The range of the magnetic effect in pixels.",
-    },
-    {
-      name: "className",
-      type: "string",
-      default: "—",
-      description: "Additional CSS classes for the dock.",
-    },
+    { name: "items", type: "DockItem[]", default: "defaultItems", description: "Array of items with icons and labels." },
+    { name: "magnification", type: "number", default: "80", description: "Maximum size of the icon when centered." },
+    { name: "distance", type: "number", default: "140", description: "The range of the magnetic effect in pixels." },
+    { name: "className", type: "string", default: "—", description: "Additional CSS classes for the dock." },
   ]}
 />
