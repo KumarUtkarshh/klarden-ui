@@ -9,14 +9,15 @@ import {
   useTransform,
 } from "framer-motion";
 import {
-  Home,
+  Compass,
+  Folder,
+  LayoutGrid,
   LucideIcon,
-  MessageSquare,
-  Search,
+  MessageCircle,
   Settings,
-  User,
+  Sparkles,
 } from "lucide-react";
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 interface DockItem {
   icon: LucideIcon;
@@ -32,10 +33,11 @@ interface MagneticDockProps {
 }
 
 const defaultItems: DockItem[] = [
-  { icon: Home, label: "Home" },
-  { icon: Search, label: "Search" },
-  { icon: MessageSquare, label: "Messages" },
-  { icon: User, label: "Profile" },
+  { icon: LayoutGrid, label: "Apps" },
+  { icon: Compass, label: "Explore" },
+  { icon: Sparkles, label: "Assistant" },
+  { icon: MessageCircle, label: "Chat" },
+  { icon: Folder, label: "Files" },
   { icon: Settings, label: "Settings" },
 ];
 
@@ -61,13 +63,13 @@ const MagneticDockItem = ({
   const sizeSync = useTransform(
     distanceTransform,
     [-distance, 0, distance],
-    [40, magnification, 40]
+    [40, magnification, 40],
   );
 
   const iconSizeSync = useTransform(
     distanceTransform,
     [-distance, 0, distance],
-    [18, magnification / 2.4, 18]
+    [18, magnification / 2.4, 18],
   );
 
   const size = useSpring(sizeSync, {
@@ -92,7 +94,7 @@ const MagneticDockItem = ({
       <motion.div style={{ width: iconSize, height: iconSize }}>
         <Icon className="w-full h-full text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors" />
       </motion.div>
-      
+
       {/* Tooltip */}
       <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-950 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-950 text-[9px] font-black uppercase tracking-widest rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 whitespace-nowrap pointer-events-none shadow-2xl">
         {item.label}
@@ -115,7 +117,7 @@ export const MagneticDock = ({
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
         "flex h-fit items-end gap-3 rounded-2xl bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 px-4 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)]",
-        className
+        className,
       )}
     >
       {items.map((item, i) => (
