@@ -62,16 +62,32 @@ export default function App() {
         <AccordionContent>Content goes here.</AccordionContent>
       </AccordionItem>
     </Accordion>
-  )
+  );
 }
 ```
 
 ## Properties
 
-<PropsTable 
-  data={[
-    { name: "type", type: '"single" | "multiple"', default: "—", description: "Determines if one or multiple items can be open." },
-    { name: "collapsible", type: "boolean", default: "false", description: "Whether an open item can be closed by clicking its trigger." },
-    { name: "className", type: "string", default: "—", description: "Additional CSS classes for the root container." },
+<PropsTable
+  items={[
+    {
+      name: "type",
+      type: '"single" | "multiple"',
+      default: "—",
+      description: "Determines if one or multiple items can be open.",
+    },
+    {
+      name: "collapsible",
+      type: "boolean",
+      default: "false",
+      description:
+        "Whether an open item can be closed by clicking its trigger.",
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional CSS classes for the root container.",
+    },
   ]}
 />

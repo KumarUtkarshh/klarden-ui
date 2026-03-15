@@ -3,8 +3,8 @@ import { registry } from "@/registry/components";
 import React from "react";
 import { CodeBlock } from "./code-block";
 import { ComponentPreview } from "./component-preview";
+import { PropsTable, type PropsTableProps } from "./props-table";
 import { InstallBlock } from "./install-block";
-import { PropsTable } from "./props-table";
 
 type ComponentProps = React.HTMLAttributes<HTMLElement>;
 
@@ -15,8 +15,22 @@ interface PreProps extends React.HTMLAttributes<HTMLPreElement> {
   }>;
 }
 
+interface ComponentPreviewWrapperProps {
+  name: string;
+  children?: React.ReactNode;
+}
+
 export const mdxComponents = {
-  // Pass all registry components globally to MDX
+  // Define documentation components with explicit prop passing
+  PropsTable: ({ items, className }: PropsTableProps) => (
+    <PropsTable items={items} className={className} />
+  ),
+  ComponentPreview: ({ name, children }: ComponentPreviewWrapperProps) => (
+    <ComponentPreview name={name} usageCode={children} />
+  ),
+  InstallBlock: (props: { command: string }) => <InstallBlock {...props} />,
+
+  // Spread registry components
   ...registry,
 
   h1: ({ className, ...props }: ComponentProps) => (
@@ -114,7 +128,6 @@ export const mdxComponents = {
   ),
   // Standard Markdown code blocks
   pre: ({ children, ...props }: PreProps) => {
-    // Extract code and language from nested code element
     const code = children?.props?.children || "";
     const language =
       children?.props?.className?.replace("language-", "") || "tsx";
@@ -134,17 +147,4 @@ export const mdxComponents = {
   Steps: ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={cn("mt-8 mb-12", className)} {...props} />
   ),
-  ComponentPreview: ({
-    name,
-    children,
-  }: {
-    name: string;
-    children?: React.ReactNode;
-  }) => {
-    // If children are provided, it's the usage code
-    // If not, we could fall back to implementation (but user wants usage)
-    return <ComponentPreview name={name} usageCode={children} />;
-  },
-  PropsTable: PropsTable,
-  InstallBlock: InstallBlock,
 };

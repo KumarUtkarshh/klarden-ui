@@ -16,26 +16,34 @@ export async function CodeBlock({
 }: CodeBlockProps) {
   const html = await codeToHtml(code, {
     lang: language,
-    theme: "github-dark", // Or any other premium theme
+    theme: "github-dark",
+    structure: "classic",
   });
+
+  // Shiki usually wraps the output in a <pre> with its own styles.
+  // We'll clean this up by ensuring the background is handled by our container.
+  const cleanHtml = html.replace(
+    /style="background-color:#[^"]+"/,
+    'style="background-color:transparent"',
+  );
 
   return (
     <div
       className={cn(
-        "relative group my-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800",
+        "relative group my-6 overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#24292e] dark:bg-zinc-950",
         className,
       )}
     >
       {filename && (
-        <div className="flex items-center px-4 py-2 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+        <div className="flex items-center px-4 py-2 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50">
+          <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
             {filename}
           </span>
         </div>
       )}
       <div
-        className="text-sm overflow-x-auto p-4 bg-[#24292e] dark:bg-zinc-950"
-        dangerouslySetInnerHTML={{ __html: html }}
+        className="text-[13px] leading-relaxed overflow-x-auto p-4 selection:bg-zinc-500/30"
+        dangerouslySetInnerHTML={{ __html: cleanHtml }}
       />
     </div>
   );

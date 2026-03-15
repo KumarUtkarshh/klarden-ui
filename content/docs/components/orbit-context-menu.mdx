@@ -40,16 +40,31 @@ export default function App() {
     <OrbitContextMenu>
       <div className="p-20">Right-click trigger zone</div>
     </OrbitContextMenu>
-  )
+  );
 }
 ```
 
 ## Properties
 
-<PropsTable 
-  data={[
-    { name: "children", type: "ReactNode", default: "—", description: "The content that will trigger the context menu." },
-    { name: "actions", type: "Action[]", default: "defaultActions", description: "Custom actions to display in the radial arc." },
-    { name: "className", type: "string", default: "—", description: "Additional CSS classes for the wrapper." },
+<PropsTable
+  items={[
+    {
+      name: "children",
+      type: "ReactNode",
+      default: "—",
+      description: "The content that will trigger the context menu.",
+    },
+    {
+      name: "actions",
+      type: "Action[]",
+      default: "defaultActions",
+      description: "Custom actions to display in the radial arc.",
+    },
+    {
+      name: "className",
+      type: "string",
+      default: "—",
+      description: "Additional CSS classes for the wrapper.",
+    },
   ]}
 />

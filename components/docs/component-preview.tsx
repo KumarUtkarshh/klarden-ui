@@ -11,10 +11,7 @@ interface ComponentPreviewProps {
   usageCode?: React.ReactNode;
 }
 
-export function ComponentPreview({
-  name,
-  usageCode,
-}: ComponentPreviewProps) {
+export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
 
@@ -95,7 +92,7 @@ export function ComponentPreview({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="w-full h-full"
+              className="w-full h-full bg-[#24292e] dark:bg-zinc-950"
             >
               <div className="p-0 [&>div]:my-0 [&>div]:rounded-none [&>div]:border-none">
                 {usageCode || (

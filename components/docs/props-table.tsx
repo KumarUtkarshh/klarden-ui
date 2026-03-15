@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { cn } from "@/lib/utils";
 
@@ -9,14 +11,11 @@ export interface PropRow {
 }
 
 export interface PropsTableProps {
-  data: PropRow[];
+  items: PropRow[];
   className?: string;
 }
 
-export function PropsTable({ data = [], className }: PropsTableProps) {
-  // Ensure data is always an array
-  const rows = Array.isArray(data) ? data : [];
-
+export function PropsTable({ items = [], className }: PropsTableProps) {
   return (
     <div className={cn("my-6 w-full overflow-y-auto rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950", className)}>
       <table className="w-full border-collapse text-sm text-left">
@@ -29,28 +28,25 @@ export function PropsTable({ data = [], className }: PropsTableProps) {
           </tr>
         </thead>
         <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
-          {rows.map((prop) => (
-            <tr
-              key={prop.name}
-              className="group transition-colors hover:bg-zinc-50/50 dark:hover:bg-zinc-900/20"
-            >
-              <td className="px-4 py-3 font-mono font-bold text-zinc-900 dark:text-zinc-200 tracking-tight">
+          {items.map((prop, index) => (
+            <tr key={`${prop.name}-${index}`} className="group transition-colors hover:bg-zinc-50/50 dark:hover:bg-zinc-900/20">
+              <td className="px-4 py-3 font-mono font-bold text-zinc-900 dark:text-zinc-200 tracking-tight text-[13px]">
                 {prop.name}
               </td>
-              <td className="px-4 py-3 font-mono text-xs text-blue-600 dark:text-blue-400">
+              <td className="px-4 py-3 font-mono text-[12px] text-blue-600 dark:text-blue-400">
                 {prop.type}
               </td>
-              <td className="px-4 py-3 font-mono text-xs text-zinc-500 dark:text-zinc-500">
+              <td className="px-4 py-3 font-mono text-[12px] text-zinc-500 dark:text-zinc-500">
                 {prop.default || "—"}
               </td>
-              <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <td className="px-4 py-3 text-zinc-600 dark:text-zinc-400 leading-relaxed text-[13px]">
                 {prop.description}
               </td>
             </tr>
           ))}
-          {rows.length === 0 && (
+          {items.length === 0 && (
             <tr>
-              <td colSpan={4} className="px-4 py-8 text-center text-zinc-500 font-medium">
+              <td colSpan={4} className="px-4 py-12 text-center text-zinc-500 font-medium italic">
                 No properties defined.
               </td>
             </tr>

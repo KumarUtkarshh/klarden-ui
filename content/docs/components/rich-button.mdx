@@ -36,21 +36,15 @@ export default function Example() {
 import { RichButton } from "@/registry/klarden-ui/rich-button";
 
 export default function App() {
-  return (
-    <RichButton color="emerald">
-      Confirm Action
-    </RichButton>
-  )
+  return <RichButton color="emerald">Confirm Action</RichButton>;
 }
 ```
 
 ## Properties
 
-<PropsTable 
-  data={[
-    { name: "color", type: "string", default: '"default"', description: "Defines the color variant of the button." },
-    { name: "size", type: '"sm" | "default" | "lg"', default: '"default"', description: "Controls the size of the button." },
-    { name: "asChild", type: "boolean", default: "false", description: "Allows rendering as a child component via Radix Slot." },
-    { name: "className", type: "string", default: "—", description: "Additional CSS classes." },
-  ]}
-/>
+<PropsTable items={[
+  { name: "color", type: "string", default: '"default"', description: "Defines the color variant of the button." },
+  { name: "size", type: '"sm" | "default" | "lg"', default: '"default"', description: "Controls the size of the button." },
+  { name: "asChild", type: "boolean", default: "false", description: "Allows rendering as a child component via Radix Slot." },
+  { name: "className", type: "string", default: "—", description: "Additional CSS classes." }
+]} />
