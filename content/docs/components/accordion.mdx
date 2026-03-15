@@ -4,28 +4,6 @@ description: A premium accordion component with smooth transitions and magnetic 
 category: Components
 ---
 
-export const accordionProps = [
-  {
-    name: "type",
-    type: '"single" | "multiple"',
-    default: "—",
-    description: "Determines if one or multiple items can be open.",
-  },
-  {
-    name: "collapsible",
-    type: "boolean",
-    default: "false",
-    description:
-      "Whether an open item can be closed by clicking its trigger.",
-  },
-  {
-    name: "className",
-    type: "string",
-    default: "—",
-    description: "Additional CSS classes for the root container.",
-  },
-];
-
 The Accordion component allows users to toggle the visibility of sections of content. It features a physics-based opening animation and subtle magnetic text effects on hover.
 
 ## Preview
@@ -90,4 +68,23 @@ export default function App() {
 
 ## Properties
 
-<PropsTable items={accordionProps} />
+<PropsTable>
+  <Prop
+    name="type"
+    type='"single" | "multiple"'
+    default="—"
+    description="Determines if one or multiple items can be open."
+  />
+  <Prop
+    name="collapsible"
+    type="boolean"
+    default="false"
+    description="Whether an open item can be closed by clicking its trigger."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the root container."
+  />
+</PropsTable>
