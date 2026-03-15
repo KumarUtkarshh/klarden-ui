@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/registry/klarden-ui/accordion";
-import OrbitContextMenu from "@/registry/klarden-ui/orbit-context-menu";
+import { OrbitContextMenu } from "@/registry/klarden-ui/orbit-context-menu";
 import { RichButton } from "@/registry/klarden-ui/rich-button";
 import { Cpu, Github, Shield, Terminal, Zap } from "lucide-react";
 import Link from "next/link";

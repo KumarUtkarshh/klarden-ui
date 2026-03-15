@@ -26,11 +26,11 @@ const defaultActions: Action[] = [
   { id: "delete", icon: Trash2, label: "Delete", color: "text-rose-500" },
 ];
 
-export const OrbitContextMenu: React.FC<OrbitContextMenuProps> = ({
+const OrbitContextMenu = ({
   children,
   actions = defaultActions,
   className,
-}) => {
+}: OrbitContextMenuProps) => {
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hoveredAction, setHoveredAction] = useState<string | null>(null);
@@ -168,4 +168,17 @@ export const OrbitContextMenu: React.FC<OrbitContextMenuProps> = ({
   );
 };
 
-export default OrbitContextMenu;
+const OrbitContextMenuDemo = () => {
+  return (
+    <div className="flex items-center justify-center w-full h-64 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
+      <OrbitContextMenu>
+        <div className="px-8 py-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-xl cursor-context-menu font-bold text-zinc-600 dark:text-zinc-400">
+          Right Click Me
+        </div>
+      </OrbitContextMenu>
+    </div>
+  );
+};
+
+export { OrbitContextMenu, OrbitContextMenuDemo };
+export default OrbitContextMenuDemo;

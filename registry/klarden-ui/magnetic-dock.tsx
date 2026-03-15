@@ -132,3 +132,13 @@ export const MagneticDock = ({
     </motion.div>
   );
 };
+
+const MagneticDockDemo = () => {
+  return (
+    <div className="flex items-center justify-center w-full h-48 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
+      <MagneticDock />
+    </div>
+  );
+};
+
+export default MagneticDockDemo;
