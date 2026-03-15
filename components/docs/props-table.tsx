@@ -75,7 +75,7 @@ export function PropsTable({ items = [] }: PropsTableProps) {
                 <td className="px-4 py-4 font-mono text-[11px] text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
                   {item.default}
                 </td>
-                <td className="px-4 py-4 text-zinc-600 dark:text-zinc-400 min-w-[200px]">
+                <td className="px-4 py-4 text-zinc-600 dark:text-zinc-400 min-w-50">
                   {item.description}
                 </td>
               </tr>

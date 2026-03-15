@@ -68,7 +68,7 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
       </div>
 
       {/* Content Area */}
-      <div className="mt-2 min-h-[400px] rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 flex items-center justify-center overflow-hidden shadow-sm shadow-zinc-200/20 dark:shadow-none">
+      <div className="mt-2 min-h-100 rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 flex items-center justify-center overflow-hidden shadow-sm shadow-zinc-200/20 dark:shadow-none">
         <AnimatePresence mode="wait">
           {tab === "preview" ? (
             <motion.div
