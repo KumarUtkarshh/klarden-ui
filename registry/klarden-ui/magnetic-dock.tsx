@@ -89,14 +89,14 @@ const MagneticDockItem = ({
       ref={ref}
       style={{ width: size, height: size }}
       onClick={item.onClick}
-      className="rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-[0_4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] flex items-center justify-center group relative cursor-pointer transition-colors duration-200 hover:border-zinc-300 dark:hover:border-zinc-700"
+      className="rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-[0_4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_30_rgba(0,0,0,0.4)] flex items-center justify-center group/dock relative cursor-pointer transition-colors duration-200 hover:border-zinc-300 dark:hover:border-zinc-700"
     >
       <motion.div style={{ width: iconSize, height: iconSize }}>
         <Icon className="w-full h-full text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors" />
       </motion.div>
 
       {/* Tooltip */}
-      <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-950 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-950 text-[9px] font-black uppercase tracking-widest rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 whitespace-nowrap pointer-events-none shadow-2xl">
+      <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-zinc-950 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-950 text-[9px] font-black uppercase tracking-widest rounded-md opacity-0 group-hover/dock:opacity-100 transition-all duration-300 translate-y-1 group-hover/dock:translate-y-0 whitespace-nowrap pointer-events-none shadow-2xl">
         {item.label}
       </div>
     </motion.div>
@@ -134,9 +134,7 @@ export const MagneticDock = ({
 };
 
 const MagneticDockDemo = () => {
-  return (
-    <MagneticDock />
-  );
+  return <MagneticDock />;
 };
 
 export default MagneticDockDemo;
