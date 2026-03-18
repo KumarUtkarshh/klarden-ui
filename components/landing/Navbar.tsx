@@ -1,15 +1,15 @@
+import { MobileNav } from "@/components/docs/mobile-nav";
 import { ModeToggle } from "@/components/mode-toggle";
+import { getAllDocs } from "@/lib/docs";
 import { Github, Layers, Search } from "lucide-react";
 import Link from "next/link";
-import { MobileNav } from "@/components/docs/mobile-nav";
-import { getAllDocs } from "@/lib/docs";
 
 export function Navbar() {
   const docs = getAllDocs();
 
   return (
-    <nav className="sticky top-0 z-[100] w-full border-b border-border bg-background/80 backdrop-blur-xl transition-colors">
-      <div className="max-w-[1400px] mx-auto flex h-16 items-center justify-between px-6 md:px-10 lg:px-12">
+    <nav className="sticky top-0 z-100 w-full border-b border-border bg-background/80 backdrop-blur-xl transition-colors">
+      <div className="max-w-350 mx-auto flex h-16 items-center justify-between px-6 md:px-10 lg:px-12">
         <div className="flex items-center gap-4 md:gap-8">
           <MobileNav items={docs} />
           <Link href="/" className="flex items-center gap-2 group">
@@ -17,7 +17,8 @@ export function Navbar() {
               <Layers size={18} />
             </div>
             <span className="text-sm md:text-lg font-black tracking-tighter uppercase text-foreground">
-              Klarden <span className="text-muted-foreground font-bold">UI</span>
+              Klarden{" "}
+              <span className="text-muted-foreground font-bold">UI</span>
             </span>
           </Link>
           <div className="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest text-muted-foreground">
