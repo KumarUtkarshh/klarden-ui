@@ -4,11 +4,11 @@ import { Showcase } from "@/components/landing/Showcase";
 import { OrbitContextMenu } from "@/registry/klarden-ui/orbit-context-menu";
 import { Layers } from "lucide-react";
 import Link from "next/link";
+import { SITE_CONFIG } from "@/lib/constants";
 
 export const metadata = {
-  title: "Klarden UI | Refined Components for Design Engineers",
-  description:
-    "A curated collection of high-quality React components designed with fluid motion and tactile precision. Built for modern design engineers.",
+  title: `${SITE_CONFIG.name} | Refined Components for Design Engineers`,
+  description: SITE_CONFIG.description,
 };
 
 export default function Home() {
@@ -30,13 +30,12 @@ export default function Home() {
                     <Layers size={18} />
                   </div>
                   <span className="text-lg font-black tracking-tighter uppercase">
-                    Klarden{" "}
-                    <span className="text-muted-foreground font-bold">UI</span>
+                    {SITE_CONFIG.name.split(" ")[0]}{" "}
+                    <span className="text-muted-foreground font-bold">{SITE_CONFIG.name.split(" ")[1]}</span>
                   </span>
                 </div>
                 <p className="text-muted-foreground text-sm max-w-xs font-medium leading-relaxed">
-                  Refined components for design engineers. Built with tactile
-                  precision and fluid motion.
+                  {SITE_CONFIG.description}
                 </p>
               </div>
 
@@ -79,7 +78,7 @@ export default function Home() {
                   <ul className="space-y-2 text-foreground/70">
                     <li>
                       <Link
-                        href="https://github.com/dev-o-los/klarden-ui"
+                        href={SITE_CONFIG.github}
                         className="hover:text-primary transition-colors"
                       >
                         GitHub
@@ -87,7 +86,7 @@ export default function Home() {
                     </li>
                     <li>
                       <Link
-                        href="#"
+                        href={SITE_CONFIG.twitter}
                         className="hover:text-primary transition-colors"
                       >
                         Twitter
@@ -108,7 +107,7 @@ export default function Home() {
 
             <div className="mt-20 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
               <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
-                © 2026 Klarden UI. Engineered for precision.
+                © {new Date().getFullYear()} {SITE_CONFIG.name}. Engineered for precision.
               </p>
               <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
                 <Link href="#" className="hover:text-primary transition-colors">

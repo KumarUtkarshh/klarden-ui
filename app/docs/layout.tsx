@@ -11,7 +11,7 @@ export default function DocsLayout({
   const docs = getAllDocs();
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-zinc-950 overflow-hidden">
+    <div className="flex flex-col min-h-screen overflow-hidden">
       <Navbar />
 
       <div className="w-full max-w-350 mx-auto px-4 md:px-8">
