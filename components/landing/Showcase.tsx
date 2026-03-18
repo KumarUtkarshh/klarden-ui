@@ -42,7 +42,7 @@ export function Showcase() {
           </div>
           <h3 className="text-xl font-black tracking-tight">Command Orbit</h3>
         </div>
-        <div className="flex items-center justify-center min-h-[400px] p-6">
+        <div className="flex items-center justify-center min-h-100 p-6">
           <CommandOrbit radius={90} className="scale-75 sm:scale-100" />
         </div>
       </motion.div>
@@ -58,7 +58,7 @@ export function Showcase() {
           </div>
           <h3 className="text-xl font-black tracking-tight">Uploader</h3>
         </div>
-        <div className="flex items-center justify-center min-h-[400px] p-6">
+        <div className="flex items-center justify-center min-h-100 p-6">
           <PortalUploader className="p-0 scale-90 sm:scale-100" />
         </div>
       </motion.div>
