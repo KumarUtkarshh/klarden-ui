@@ -7,12 +7,14 @@ Klarden UI is an ecosystem of high-end React primitives designed for modern inte
 ## 🚀 Quick Start
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/dev-o-los/klarden-ui.git
    cd klarden
    ```
 
 2. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
@@ -43,33 +45,41 @@ We welcome contributions from design-conscious engineers! Whether you're fixing 
 Klarden UI uses a registry system. To add a new component (e.g., `MyNewComponent`), follow these steps:
 
 #### 1. Create the Component
+
 Add your component source code to:  
 `registry/klarden-ui/my-new-component.tsx`
 
 Ensure your component follows our standards:
+
 - **TypeScript:** Use strict types, no `any`.
 - **Styling:** Use Tailwind CSS.
 - **Motion:** Use Framer Motion for all physics-based interactions.
 - **Theme-aware:** Must look great in both Light and Dark modes.
 
 #### 2. Register the Component
+
 Add your component to the registry configuration in two places:
+
 - **`registry/components.ts`**: Add a dynamic import to the `registry` object.
 - **`registry.json`**: Add the metadata (name, title, dependencies) to the `items` array.
 
 #### 3. Add Documentation
+
 Create a new MDX file at:  
 `content/docs/components/my-new-component.mdx`
 
 Use the pre-built MDX components like `<ComponentPreview />`, `<InstallBlock />`, and `<PropsTable />` to document your work.
 
 #### 4. Build the Registry
+
 Run the registry build script to generate the JSON files for the CLI:
+
 ```bash
 pnpm registry:build
 ```
 
 ### Pull Request Process
+
 1. Create a new branch from `main`.
 2. Implement your changes following the steps above.
 3. Ensure your code passes linting (`pnpm lint`).
