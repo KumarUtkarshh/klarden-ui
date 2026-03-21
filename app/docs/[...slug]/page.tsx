@@ -1,6 +1,8 @@
 import { mdxComponents } from "@/components/docs/mdx-components";
 import { getAdjacentDocs, getDocBySlug, getDocSlugs } from "@/lib/docs";
+import { SITE_CONFIG } from "@/lib/constants";
 import { ChevronLeft, ChevronRight, Copy } from "lucide-react";
+import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,6 +11,45 @@ interface PageProps {
   params: Promise<{
     slug: string[];
   }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const doc = getDocBySlug(slug);
+
+  if (!doc) {
+    return {};
+  }
+
+  const url = `${SITE_CONFIG.url}/docs/${doc.slug}`;
+
+  return {
+    title: doc.title,
+    description: doc.description,
+    openGraph: {
+      title: doc.title,
+      description: doc.description,
+      type: "article",
+      url,
+      images: [
+        {
+          url: SITE_CONFIG.defaultOgImage,
+          width: 1200,
+          height: 630,
+          alt: doc.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: doc.title,
+      description: doc.description,
+      images: [SITE_CONFIG.defaultOgImage],
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
 }
 
 export async function generateStaticParams() {
@@ -28,8 +69,31 @@ export default async function DocPage({ params }: PageProps) {
 
   const { prev, next } = getAdjacentDocs(doc.slug);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: doc.title,
+    description: doc.description,
+    author: {
+      "@type": "Person",
+      name: SITE_CONFIG.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/favicon.ico`,
+      },
+    },
+  };
+
   return (
     <div className="space-y-6 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Breadcrumbs - Smaller & More Subtle */}
       <nav className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
         <Link
