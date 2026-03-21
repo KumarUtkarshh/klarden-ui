@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "klarden-ui",
-  "homepage": "https://localhost:3000",
+  "homepage": "https://klarden.vercel.app",
   "author": "dev-o-los (https://localhost:3000)",
   "items": [
     {
@@ -95,19 +95,19 @@
       "category": "button"
     },
     {
-      "name": "orbit-button",
+      "name": "tactile-highlight",
       "type": "registry:component",
-      "title": "Orbit Button",
-      "description": "A circular button with a rotating orbital ring and premium animations.",
+      "title": "Tactile Highlight",
+      "description": "A fluid text highlight component that reacts to viewport visibility and user interaction.",
       "files": [
         {
-          "path": "registry/klarden-ui/orbit-button.tsx",
+          "path": "registry/klarden-ui/tactile-highlight.tsx",
           "type": "registry:component"
         }
       ],
-      "dependencies": ["framer-motion", "lucide-react"],
+      "dependencies": ["framer-motion"],
       "registryDependencies": [],
-      "category": "button"
+      "category": "typography"
     }
   ]
 }
