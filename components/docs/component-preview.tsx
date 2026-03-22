@@ -83,16 +83,21 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
         </div>
       </div>
 
-      {/* Content Area - Less Padding & More Compact Radius */}
-      <div className="mt-1 min-h-75 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 flex items-center justify-center overflow-hidden shadow-xl shadow-zinc-200/10 dark:shadow-none relative">
-        <AnimatePresence mode="wait">
+      {/* Content Area - Dynamic Height Animation */}
+      <motion.div
+        animate={{ height: "auto" }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="mt-1 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 overflow-hidden shadow-xl shadow-zinc-200/10 dark:shadow-none relative"
+      >
+        <AnimatePresence mode="wait" initial={false}>
           {tab === "preview" ? (
             <motion.div
               key={`preview-${key}`}
               initial={{ opacity: 0, scale: 0.99 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.99 }}
-              className="w-full flex items-center justify-center p-6 sm:p-8"
+              transition={{ duration: 0.2 }}
+              className="w-full flex items-center justify-center p-6 sm:p-12 min-h-75"
             >
               {Component ? (
                 <div className="scale-90 sm:scale-100 origin-center transition-transform">
@@ -110,9 +115,10 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 5 }}
-              className="w-full h-full bg-zinc-50 dark:bg-zinc-950"
+              transition={{ duration: 0.2 }}
+              className="w-full bg-background"
             >
-              <div className="p-0 [&>div]:my-0 [&>div]:rounded-none [&>div]:border-none [&>div]:text-[12px]">
+              <div className="p-0 [&>div]:my-0 [&>div]:rounded-none [&>div]:border-none [&>div]:text-[13px] [&>div]:bg-transparent">
                 {usageCode || (
                   <div className="p-8 text-center text-zinc-500 text-[10px] font-bold uppercase tracking-widest">
                     No usage snippet provided
@@ -122,7 +128,7 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
 }
