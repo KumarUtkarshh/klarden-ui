@@ -30,12 +30,15 @@ interface RichButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
   asChild?: boolean;
 }
 
-const colorConfig: Record<Color, { 
-  bg: string; 
-  text: string;
-  border: string;
-  glow: string;
-}> = {
+const colorConfig: Record<
+  Color,
+  {
+    bg: string;
+    text: string;
+    border: string;
+    glow: string;
+  }
+> = {
   default: {
     bg: "bg-zinc-900 dark:bg-zinc-100",
     text: "text-zinc-100 dark:text-zinc-900",
@@ -171,7 +174,7 @@ const RichButton = React.forwardRef<HTMLButtonElement, RichButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          "group relative cursor-pointer inline-flex items-center justify-center font-black uppercase tracking-widest transition-all duration-300",
+          "group relative cursor-pointer inline-flex items-center justify-center font-black tracking-widest transition-all duration-300",
           "rounded-2xl overflow-hidden active:scale-95 hover:scale-[1.02]",
           colors.bg,
           colors.text,
@@ -183,18 +186,35 @@ const RichButton = React.forwardRef<HTMLButtonElement, RichButtonProps>(
         )}
         {...props}
       >
-        {/* Glossy Overlay Gradient */}
-        <span className="absolute inset-0 bg-linear-to-b from-white/20 to-transparent opacity-40 pointer-events-none" />
-        
-        {/* Top Edge Highlight */}
-        <span className="absolute inset-x-0 top-0 h-px bg-white/30 pointer-events-none" />
-        
-        {/* Animated Shine Sweep */}
-        <span className="absolute inset-0 w-[200%] h-full bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
-
-        <span className="relative z-10 flex items-center justify-center">
-          {children}
-        </span>
+        {asChild && React.isValidElement(children) ? (
+          React.cloneElement(
+            children as React.ReactElement<{ children?: React.ReactNode }>,
+            {
+              children: (
+                <>
+                  <span className="relative z-10 flex items-center justify-center">
+                    {
+                      (children.props as { children?: React.ReactNode })
+                        .children
+                    }
+                  </span>
+                  <span className="absolute inset-0 bg-linear-to-b from-white/20 to-transparent opacity-40 pointer-events-none" />
+                  <span className="absolute inset-x-0 top-0 h-px bg-white/30 pointer-events-none" />
+                  <span className="absolute inset-0 w-[200%] h-full bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+                </>
+              ),
+            },
+          )
+        ) : (
+          <>
+            <span className="relative z-10 flex items-center justify-center">
+              {children}
+            </span>
+            <span className="absolute inset-0 bg-linear-to-b from-white/20 to-transparent opacity-40 pointer-events-none" />
+            <span className="absolute inset-x-0 top-0 h-px bg-white/30 pointer-events-none" />
+            <span className="absolute inset-0 w-[200%] h-full bg-linear-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+          </>
+        )}
       </Comp>
     );
   },

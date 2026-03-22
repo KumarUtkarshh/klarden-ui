@@ -97,7 +97,7 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.99 }}
               transition={{ duration: 0.2 }}
-              className="w-full flex items-center justify-center p-6 sm:p-12 min-h-[300px]"
+              className="w-full flex items-center justify-center p-6 sm:p-12 min-h-75"
             >
               {Component ? (
                 <div className="scale-90 sm:scale-100 origin-center transition-transform">
