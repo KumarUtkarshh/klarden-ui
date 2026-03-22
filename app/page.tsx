@@ -1,9 +1,9 @@
 import { Hero } from "@/components/landing/Hero";
+import { LogoIcon } from "@/components/landing/logo-icon";
 import { Navbar } from "@/components/landing/Navbar";
 import { Showcase } from "@/components/landing/Showcase";
 import { SITE_CONFIG } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
-import { LogoIcon } from "@/components/landing/logo-icon";
 import Link from "next/link";
 
 export const metadata = {
