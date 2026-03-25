@@ -3,7 +3,9 @@
   "name": "tactile-highlight",
   "title": "Tactile Highlight",
   "description": "A fluid text highlight component that reacts to viewport visibility and user interaction.",
-  "dependencies": ["framer-motion"],
+  "dependencies": [
+    "framer-motion"
+  ],
   "registryDependencies": [],
   "files": [
     {

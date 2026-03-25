@@ -108,6 +108,21 @@
       "dependencies": ["framer-motion"],
       "registryDependencies": [],
       "category": "typography"
+    },
+    {
+      "name": "music-card",
+      "type": "registry:component",
+      "title": "Music Card",
+      "description": "A premium Spotify-style music card with real-time metadata and morphing animations.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/music-card.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react", "cheerio"],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }

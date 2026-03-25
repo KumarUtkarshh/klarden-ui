@@ -3,7 +3,10 @@
   "name": "portal-uploader",
   "title": "Portal Uploader",
   "description": "A central circular drop zone with orbital animations and progress tracking.",
-  "dependencies": ["framer-motion", "lucide-react"],
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
