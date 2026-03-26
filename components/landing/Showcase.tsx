@@ -8,8 +8,9 @@ import {
 } from "@/registry/klarden-ui/accordion";
 import { CommandOrbit } from "@/registry/klarden-ui/command-orbit";
 import { MagneticDock } from "@/registry/klarden-ui/magnetic-dock";
-import { PortalUploader } from "@/registry/klarden-ui/portal-uploader";
+import { OrbitContextMenu } from "@/registry/klarden-ui/orbit-context-menu";
 import { RichButton } from "@/registry/klarden-ui/rich-button";
+import { SpotifyCard } from "@/registry/klarden-ui/spotify/spotify-card";
 import { TactileHighlight } from "@/registry/klarden-ui/tactile-highlight";
 import { motion, type Variants } from "framer-motion";
 import { Layout, MousePointer2, Type, Zap } from "lucide-react";
@@ -43,31 +44,15 @@ export function Showcase() {
           </div>
           <h3 className="text-xl font-black tracking-tight">Command Orbit</h3>
         </div>
-        <div className="flex items-center justify-center min-h-100 p-6">
+        <div className="flex items-center justify-center min-h-80 p-6">
           <CommandOrbit radius={90} className="scale-75 sm:scale-100" />
-        </div>
-      </motion.div>
-
-      {/* Portal Uploader */}
-      <motion.div
-        variants={itemVariants}
-        className="md:col-span-4 group relative overflow-hidden rounded-3xl border border-border bg-card/50 shadow-sm backdrop-blur-sm transition-colors duration-500"
-      >
-        <div className="absolute top-6 left-6 z-10">
-          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
-            <Zap size={10} /> Portal
-          </div>
-          <h3 className="text-xl font-black tracking-tight">Uploader</h3>
-        </div>
-        <div className="flex items-center justify-center min-h-100 p-6">
-          <PortalUploader className="p-0 scale-90 sm:scale-100" />
         </div>
       </motion.div>
 
       {/* Accordion */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500"
+        className="md:col-span-4 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col justify-center"
       >
         <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-4 w-fit shadow-xs">
           <Layout size={10} /> Structure
@@ -81,18 +66,34 @@ export function Showcase() {
               Design Philosophy
             </AccordionTrigger>
             <AccordionContent className="text-xs text-muted-foreground font-medium">
-              Focus on low-level primitives for maximum control and performance.
+              Focus on low-level primitives.
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="i2" className="border-border">
             <AccordionTrigger className="text-sm font-bold">
-              Motion Engineering
+              Motion
             </AccordionTrigger>
             <AccordionContent className="text-xs text-muted-foreground font-medium">
-              Optimized spring physics for a high-end interaction feel.
+              Optimized spring physics.
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+      </motion.div>
+
+      {/* Spotify Card showcase */}
+      <motion.div
+        variants={itemVariants}
+        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-80"
+      >
+        <div className="absolute top-6 left-6">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+            <Zap size={10} /> Media
+          </div>
+          <h3 className="text-xl font-black tracking-tight">Spotify Card</h3>
+        </div>
+        <div className="mt-12 scale-90 xl:scale-100 transition-transform">
+          <SpotifyCard trackUrl="https://open.spotify.com/track/3sK8wGT43QFpWrvNQsrQya?si=17d74867a0a344e5" />
+        </div>
       </motion.div>
 
       {/* Magnetic Dock */}
@@ -111,15 +112,47 @@ export function Showcase() {
         </div>
       </motion.div>
 
+      {/* Orbit Context Menu showcase */}
+      <motion.div
+        variants={itemVariants}
+        className="md:col-span-7 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-80"
+      >
+        <div className="absolute top-6 left-6">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+            <MousePointer2 size={10} /> Menu
+          </div>
+          <h3 className="text-xl font-black tracking-tight">Context Menu</h3>
+        </div>
+        <div className="w-full max-w-sm mt-8">
+          <OrbitContextMenu>
+            <div className="p-12 border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 flex flex-col items-center justify-center text-center space-y-4 rounded-[2rem] transition-colors group-hover:bg-white/80 dark:group-hover:bg-zinc-900/80">
+              <div className="h-16 w-16 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <MousePointer2 className="text-zinc-400" size={32} />
+              </div>
+              <div className="space-y-2">
+                <p className="text-zinc-900 dark:text-zinc-50 font-bold text-lg">
+                  Right-click here
+                </p>
+                <p className="text-zinc-500 dark:text-zinc-400 text-xs px-4 font-medium">
+                  Experience radial motion.
+                </p>
+              </div>
+            </div>
+          </OrbitContextMenu>
+        </div>
+      </motion.div>
+
       {/* Tactile Text showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-6 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col min-h-70"
+        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-80"
       >
-        <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
-          <Type size={10} /> Typography
+        <div className="absolute top-6 left-6">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+            <Type size={10} /> Typography
+          </div>
+          <h3 className="text-xl font-black tracking-tight">Tactile Text</h3>
         </div>
-        <h3 className="text-xl font-black tracking-tight mb-4">Tactile Text</h3>
         <div className="flex-1 flex items-center justify-center py-6 px-4">
           <div className="text-2xl md:text-3xl font-black tracking-tighter text-zinc-900 dark:text-zinc-50 text-center leading-tight">
             Build{" "}
@@ -133,16 +166,16 @@ export function Showcase() {
       {/* Glossy Buttons showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-6 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col min-h-70"
+        className="md:col-span-12 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-40"
       >
-        <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
-          <Zap size={10} /> Varieties
+        <div className="absolute top-6 left-6">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+            <Zap size={10} /> Varieties
+          </div>
+          <h3 className="text-xl font-black tracking-tight">Glossy Buttons</h3>
         </div>
-        <h3 className="text-xl font-black tracking-tight mb-2">
-          Glossy Buttons
-        </h3>
 
-        <div className="flex-1 flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           <RichButton color="blue" size="sm" className="rounded-xl px-4">
             Primary
           </RichButton>
