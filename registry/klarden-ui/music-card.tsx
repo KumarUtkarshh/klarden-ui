@@ -91,7 +91,6 @@ const SpotifyLogo = ({
 export function MusicCard({ trackUrl, className }: MusicCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [metadata, setMetadata] = useState<{
     title: string;
     artist: string;
@@ -152,15 +151,6 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
           audio.crossOrigin = "anonymous";
           audio.onended = () => {
             setIsPlaying(false);
-            setProgress(0);
-          };
-          audio.ontimeupdate = () => {
-            if (audioRef.current) {
-              setProgress(
-                (audioRef.current.currentTime / audioRef.current.duration) *
-                  100,
-              );
-            }
           };
           audioRef.current = audio;
         } else {
@@ -197,12 +187,22 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
   }, [isPlaying, discControls]);
 
   const togglePlayback = () => {
+    if (!audioRef.current) return;
+
     if (isPlaying) {
-      audioRef.current?.pause();
+      audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current?.play().catch(() => {});
-      setIsPlaying(true);
+      // Use a then/catch to handle potential play request interruptions
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => {
+          console.warn("Playback interrupted:", err);
+          setIsPlaying(false);
+        });
     }
   };
 
@@ -225,11 +225,6 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
     albumArt = "",
   } = metadata || {};
 
-  // SVG Progress Ring calculations
-  const radius = 46;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
-
   return (
     <div
       className={cn(
@@ -237,57 +232,77 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
         className,
       )}
     >
-      {/* Dynamic Animated Background */}
+      {/* Background Image Layer */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{
-            background: [
-              `radial-gradient(circle at 20% 20%, ${colors[0]} 0%, transparent 60%)`,
-              `radial-gradient(circle at 80% 80%, ${colors[1] || colors[0]} 0%, transparent 60%)`,
-              `radial-gradient(circle at 20% 80%, ${colors[2] || colors[0]} 0%, transparent 60%)`,
-              `radial-gradient(circle at 80% 20%, ${colors[0]} 0%, transparent 60%)`,
-            ],
-            scale: [1, 1.2, 1],
-            rotate: [0, 5, -5, 0],
+            scale: [1, 1.05, 1],
+            rotate: [0, 1, -1, 0],
           }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 opacity-40 dark:opacity-60 blur-3xl scale-110"
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute inset-0"
+        >
+          <img
+            src={albumArt}
+            alt=""
+            className="w-full h-full object-cover blur-xl scale-125 opacity-50 dark:opacity-50"
+          />
+        </motion.div>
+
+        {/* Subtle Overlay Wash */}
+        <div className="absolute inset-0 bg-white/10 dark:bg-transparent" />
+
+        {/* Animated Blobs for depth */}
+        <motion.div
+          animate={{
+            x: [-20, 20, -20],
+            y: [-10, 10, -10],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-20 dark:opacity-30 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle, ${colors[0]} 0%, transparent 70%)`,
+          }}
         />
+        <motion.div
+          animate={{
+            x: [20, -20, 20],
+            y: [10, -10, 10],
+            scale: [1.2, 1, 1.2],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute bottom-0 right-0 w-64 h-64 rounded-full blur-3xl opacity-20 dark:opacity-30 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle, ${colors[1] || colors[0]} 0%, transparent 70%)`,
+          }}
+        />
+
+        {/* Noise Texture Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 flex items-center h-full px-5 gap-6">
-        {/* Album Cover / Disc with Progress Ring */}
+        {/* Album Cover / Disc */}
         <div className="relative flex items-center justify-center w-24 h-24 shrink-0">
-          {/* Progress Ring */}
-          <svg className="absolute w-[104%] h-[104%] -rotate-90 pointer-events-none z-20">
-            <circle
-              cx="50%"
-              cy="50%"
-              r={radius}
-              fill="transparent"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="text-black/5 dark:text-white/5"
-            />
-            <motion.circle
-              cx="50%"
-              cy="50%"
-              r={radius}
-              fill="transparent"
-              stroke={colors[0]}
-              strokeWidth="2"
-              strokeDasharray={circumference}
-              animate={{ strokeDashoffset }}
-              transition={{ duration: 0.5, ease: "linear" }}
-              strokeLinecap="round"
-              className="opacity-80"
-            />
-          </svg>
-
           <motion.div
             layout
-            animate={{ borderRadius: isPlaying ? "100%" : "16px" }}
+            animate={{
+              borderRadius: isPlaying ? "100%" : "16px",
+            }}
             transition={{ duration: 0.6, ease: "circOut" }}
             className="relative w-24 h-24 overflow-hidden shadow-2xl cursor-pointer ring-1 ring-black/5 dark:ring-white/10 z-10"
             onClick={togglePlayback}
