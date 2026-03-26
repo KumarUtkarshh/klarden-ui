@@ -18,5 +18,7 @@ export const registry: Record<
   "tactile-highlight": dynamic(
     () => import("@/registry/klarden-ui/tactile-highlight"),
   ),
-  "music-card": dynamic(() => import("@/registry/klarden-ui/music-card")),
+  "spotify-card": dynamic(
+    () => import("@/registry/klarden-ui/spotify/spotify-card"),
+  ),
 };

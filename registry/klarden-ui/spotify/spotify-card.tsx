@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -5,59 +6,10 @@ import { motion, useAnimation } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-interface MusicCardProps {
+interface SpotifyCardProps {
   trackUrl: string;
   className?: string;
 }
-
-const Marquee = ({ text, className }: { text: string; className?: string }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [shouldScroll, setShouldScroll] = useState(false);
-  const [textWidth, setTextWidth] = useState(0);
-
-  useEffect(() => {
-    if (containerRef.current && textRef.current) {
-      const isOverflowing =
-        textRef.current.offsetWidth > containerRef.current.offsetWidth;
-      setShouldScroll(isOverflowing);
-      setTextWidth(textRef.current.offsetWidth);
-    }
-  }, [text]);
-
-  if (!shouldScroll) {
-    return (
-      <div ref={containerRef} className="overflow-hidden whitespace-nowrap">
-        <span ref={textRef} className={cn("block", className)}>
-          {text}
-        </span>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative flex overflow-hidden whitespace-nowrap [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-    >
-      <motion.div
-        animate={{ x: [0, -(textWidth + 32)] }}
-        transition={{
-          duration: Math.max(text.length * 0.4, 12),
-          repeat: Infinity,
-          ease: "linear",
-          repeatDelay: 1,
-        }}
-        className="flex shrink-0 gap-8"
-      >
-        <span ref={textRef} className={className}>
-          {text}
-        </span>
-        <span className={className}>{text}</span>
-      </motion.div>
-    </div>
-  );
-};
 
 const SpotifyLogo = ({
   className,
@@ -88,7 +40,7 @@ const SpotifyLogo = ({
   </motion.svg>
 );
 
-export function MusicCard({ trackUrl, className }: MusicCardProps) {
+export function SpotifyCard({ trackUrl, className }: SpotifyCardProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [metadata, setMetadata] = useState<{
@@ -210,7 +162,7 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
     return (
       <div
         className={cn(
-          "w-[380px] h-[130px] rounded-3xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 backdrop-blur-xl",
+          "w-95 h-32.5 rounded-3xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 backdrop-blur-xl",
           className,
         )}
       >
@@ -228,7 +180,7 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-[380px] h-[130px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 border border-black/5 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-2xl",
+        "group relative w-95 h-32.5 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 border border-black/5 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-2xl",
         className,
       )}
     >
@@ -340,10 +292,9 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
         {/* Info Section */}
         <div className="flex-1 min-w-0 flex flex-col justify-center gap-1 overflow-hidden pr-8">
           <div className="flex flex-col min-w-0">
-            <Marquee
-              text={title}
-              className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight leading-tight"
-            />
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight leading-tight truncate">
+              {title}
+            </h3>
             <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-400 truncate opacity-80">
               {artist}
             </span>
@@ -362,10 +313,10 @@ export function MusicCard({ trackUrl, className }: MusicCardProps) {
   );
 }
 
-export default function MusicCardDemo() {
+export default function SpotifyCardDemo() {
   return (
     <div className="flex items-center justify-center p-4">
-      <MusicCard trackUrl="https://open.spotify.com/track/3sK8wGT43QFpWrvNQsrQya?si=17d74867a0a344e5" />
+      <SpotifyCard trackUrl="https://open.spotify.com/track/3sK8wGT43QFpWrvNQsrQya?si=17d74867a0a344e5" />
     </div>
   );
 }

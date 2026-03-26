@@ -110,17 +110,22 @@
       "category": "typography"
     },
     {
-      "name": "music-card",
+      "name": "spotify-card",
       "type": "registry:component",
-      "title": "Music Card",
-      "description": "A premium Spotify-style music card with real-time metadata and morphing animations.",
+      "title": "Spotify Card",
+      "description": "A premium Spotify card with real-time metadata and morphing animations.",
       "files": [
         {
-          "path": "registry/klarden-ui/music-card.tsx",
+          "path": "registry/klarden-ui/spotify/spotify-card.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "registry/klarden-ui/spotify/metadata-route.ts",
+          "type": "registry:component",
+          "target": "app/api/spotify/metadata/route.ts"
         }
       ],
-      "dependencies": ["framer-motion", "lucide-react", "cheerio"],
+      "dependencies": ["framer-motion", "lucide-react", "cheerio", "got"],
       "registryDependencies": [],
       "category": "media"
     }

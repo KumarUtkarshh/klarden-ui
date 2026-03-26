@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { codeToHtml } from "shiki";
+import { CopyButton } from "./copy-button";
 
 interface CodeBlockProps {
   code: string;
@@ -31,6 +32,9 @@ export async function CodeBlock({
         className,
       )}
     >
+      <div className="absolute right-3 top-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+        <CopyButton code={code} />
+      </div>
       {filename && (
         <div className="flex items-center px-4 py-2 border-b border-zinc-200 dark:border-zinc-800 bg-background">
           <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">

@@ -108,6 +108,26 @@
       "dependencies": ["framer-motion"],
       "registryDependencies": [],
       "category": "typography"
+    },
+    {
+      "name": "spotify-card",
+      "type": "registry:component",
+      "title": "Spotify Card",
+      "description": "A premium Spotify card with real-time metadata and morphing animations.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/spotify/spotify-card.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/klarden-ui/spotify/metadata-route.ts",
+          "type": "registry:component",
+          "target": "app/api/spotify/metadata/route.ts"
+        }
+      ],
+      "dependencies": ["framer-motion", "lucide-react", "cheerio", "got"],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }
