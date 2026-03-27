@@ -1,20 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import { SITE_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Check, Copy } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
+import { useState } from "react";
 
 interface InstallBlockProps {
   command: string; // The component name or full command
 }
 
 export function InstallBlock({ command }: InstallBlockProps) {
-  const [activeTab, setActiveTab] = useState<"pnpm" | "npm" | "yarn" | "bun">("pnpm");
+  const [activeTab, setActiveTab] = useState<"pnpm" | "npm" | "yarn" | "bun">(
+    "pnpm",
+  );
   const [copied, setCopied] = useState(false);
 
   // If command is just a component name (e.g. "accordion"), construct the full shadcn command
-  const fullCommand = command.startsWith("shadcn") 
+  const fullCommand = command.startsWith("shadcn")
     ? command.replace("https://klarden-ui.com", SITE_CONFIG.url)
     : `shadcn add ${SITE_CONFIG.url}/r/${command}.json`;
 
@@ -41,9 +43,9 @@ export function InstallBlock({ command }: InstallBlockProps) {
               onClick={() => setActiveTab(m)}
               className={cn(
                 "text-[10px] font-black uppercase tracking-widest transition-colors",
-                activeTab === m 
-                  ? "text-zinc-900 dark:text-zinc-50" 
-                  : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                activeTab === m
+                  ? "text-zinc-900 dark:text-zinc-50"
+                  : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300",
               )}
             >
               {m}
@@ -54,7 +56,11 @@ export function InstallBlock({ command }: InstallBlockProps) {
           onClick={copyToClipboard}
           className="p-1.5 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
         >
-          {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
+          {copied ? (
+            <Check size={14} className="text-emerald-500" />
+          ) : (
+            <Copy size={14} />
+          )}
         </button>
       </div>
       <div className="p-4 font-mono text-sm text-zinc-700 dark:text-zinc-300 overflow-x-auto whitespace-nowrap">
