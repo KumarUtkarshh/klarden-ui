@@ -30,7 +30,7 @@ export default function Example() {
 
 ### API Setup
 
-The Spotify Card requires a server-side route to fetch metadata. The registry should automatically create this at `app/api/spotify/metadata/route.ts`. 
+The Spotify Card requires a server-side route to fetch metadata. The registry should automatically create this at `app/api/spotify/metadata/route.ts`.
 
 > **Note:** If the registry fails to install the API route automatically, please manually create the file at `app/api/spotify/metadata/route.ts` and paste the code below.
 
@@ -57,15 +57,17 @@ export async function GET(req: NextRequest) {
 
     const $ = cheerio.load(html);
 
-    const title = $('meta[property="og:title"]').attr("content") || "Unknown Track";
+    const title =
+      $('meta[property="og:title"]').attr("content") || "Unknown Track";
     const image = $('meta[property="og:image"]').attr("content") || "";
     const previewUrl =
       $('meta[property="og:audio"]').attr("content") ||
       $('meta[name="twitter:audio:src"]').attr("content") ||
       "";
-    
+
     // Spotify's og:description is often: "Artist · Album · Song · Year"
-    const description = $('meta[property="og:description"]').attr("content") || "";
+    const description =
+      $('meta[property="og:description"]').attr("content") || "";
     // Usually the first part is the Artist
     const artist = description.split("·")[0]?.trim() || "Unknown Artist";
 
@@ -79,7 +81,7 @@ export async function GET(req: NextRequest) {
     console.error("Spotify Metadata Fetch Error:", error);
     return NextResponse.json(
       { error: "Failed to fetch metadata" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -88,14 +90,12 @@ export async function GET(req: NextRequest) {
 ### Basic Example
 
 ```tsx
-import { SpotifyCard } from "@/components/klarden-ui/spotify-card";
+import { SpotifyCard } from "@/components/spotify-card";
 
 export default function App() {
   return (
     <div className="flex items-center justify-center p-8">
-      <SpotifyCard 
-        trackUrl="https://open.spotify.com/track/3sK8wGT43QFpWrvNQsrQya" 
-      />
+      <SpotifyCard trackUrl="https://open.spotify.com/track/3sK8wGT43QFpWrvNQsrQya" />
     </div>
   );
 }
