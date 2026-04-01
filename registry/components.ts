@@ -25,4 +25,6 @@ export const registry: Record<
     () => import("@/registry/demos/shimmer-text-variants-demo"),
   ),
   "label-input": dynamic(() => import("@/registry/demos/label-input-demo")),
+  "label-input-colors": dynamic(() => import("@/registry/demos/label-input-colors-demo")),
+  "label-input-forms": dynamic(() => import("@/registry/demos/label-input-forms-demo")),
 };

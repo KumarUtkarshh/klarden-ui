@@ -31,48 +31,55 @@ export default function Example() {
 
 <InstallBlock command="label-input" />
 
-### Basic Example
+## Examples
 
+### Color Variants
+
+<ComponentPreview name="label-input-colors">
 ```tsx
 import { LabelInput } from "@/registry/klarden-ui/label-input";
 
-export default function App() {
-  return <LabelInput label="Username" placeholder="Enter your username" />;
-}
-```
-
-### Password Input
-
-```tsx
-import { LabelInput } from "@/registry/klarden-ui/label-input";
-
-export default function App() {
+export default function Example() {
   return (
-    <LabelInput
-      label="Password"
-      type="password"
-      placeholder="Enter your password"
-    />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
+      <LabelInput label="Blue" ringColor="blue" />
+      <LabelInput label="Purple" ringColor="purple" />
+      <LabelInput label="Pink" ringColor="pink" />
+      <LabelInput label="Green" ringColor="green" />
+      <LabelInput label="Orange" ringColor="orange" />
+      <LabelInput label="Rose" ringColor="rose" />
+    </div>
   );
 }
 ```
+</ComponentPreview>
 
-### With Ring Color
+### Login Form
 
+<ComponentPreview name="label-input-forms">
 ```tsx
 import { LabelInput } from "@/registry/klarden-ui/label-input";
 
-export default function App() {
+export default function LoginForm() {
   return (
-    <LabelInput
-      label="Email"
-      type="email"
-      placeholder="Enter your email"
-      ringColor="blue"
-    />
+    <div className="space-y-4 w-full max-w-sm">
+      <LabelInput
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        ringColor="blue"
+      />
+      <LabelInput
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+        ringColor="blue"
+      />
+    </div>
   );
 }
 ```
+</ComponentPreview>
 
 ## Properties
 
@@ -114,123 +121,3 @@ export default function App() {
     description="Additional CSS classes for the input element."
   />
 </PropsTable>
-
-## Ring Color Variants
-
-### Semantic Colors
-
-```tsx
-<LabelInput label="Muted" ringColor="muted" />
-<LabelInput label="Primary" ringColor="primary" />
-<LabelInput label="Secondary" ringColor="secondary" />
-<LabelInput label="Destructive" ringColor="destructive" />
-```
-
-### Color Palette
-
-```tsx
-<LabelInput label="Red" ringColor="red" />
-<LabelInput label="Blue" ringColor="blue" />
-<LabelInput label="Green" ringColor="green" />
-<LabelInput label="Yellow" ringColor="yellow" />
-<LabelInput label="Purple" ringColor="purple" />
-<LabelInput label="Pink" ringColor="pink" />
-<LabelInput label="Orange" ringColor="orange" />
-<LabelInput label="Cyan" ringColor="cyan" />
-<LabelInput label="Indigo" ringColor="indigo" />
-<LabelInput label="Violet" ringColor="violet" />
-<LabelInput label="Rose" ringColor="rose" />
-<LabelInput label="Amber" ringColor="amber" />
-<LabelInput label="Lime" ringColor="lime" />
-<LabelInput label="Emerald" ringColor="emerald" />
-<LabelInput label="Sky" ringColor="sky" />
-<LabelInput label="Slate" ringColor="slate" />
-<LabelInput label="Fuchsia" ringColor="fuchsia" />
-```
-
-## Examples
-
-### Login Form
-
-```tsx
-import { LabelInput } from "@/registry/klarden-ui/label-input";
-
-export default function LoginForm() {
-  return (
-    <div className="space-y-4">
-      <LabelInput
-        label="Email"
-        type="email"
-        placeholder="Enter your email"
-        ringColor="blue"
-      />
-      <LabelInput
-        label="Password"
-        type="password"
-        placeholder="Enter your password"
-        ringColor="blue"
-      />
-    </div>
-  );
-}
-```
-
-### Registration Form
-
-```tsx
-import { LabelInput } from "@/registry/klarden-ui/label-input";
-
-export default function RegistrationForm() {
-  return (
-    <div className="space-y-4">
-      <LabelInput
-        label="Username"
-        placeholder="Choose a username"
-        ringColor="emerald"
-      />
-      <LabelInput
-        label="Email"
-        type="email"
-        placeholder="Enter your email"
-        ringColor="emerald"
-      />
-      <LabelInput
-        label="Password"
-        type="password"
-        placeholder="Create a password"
-        ringColor="emerald"
-      />
-      <LabelInput
-        label="Confirm Password"
-        type="password"
-        placeholder="Confirm your password"
-        ringColor="emerald"
-      />
-    </div>
-  );
-}
-```
-
-### Search Input
-
-```tsx
-import { LabelInput } from "@/registry/klarden-ui/label-input";
-
-export default function SearchInput() {
-  return (
-    <LabelInput
-      label="Search"
-      placeholder="Search..."
-      ringColor="sky"
-    />
-  );
-}
-```
-
-## Features
-
-- **Floating Label**: Label smoothly animates above the input when focused or filled
-- **Password Toggle**: Automatic eye icon for password fields to show/hide value
-- **Focus Ring**: Colored ring appears on focus based on `ringColor` prop
-- **Smooth Animations**: Built with Framer Motion for buttery-smooth transitions
-- **Accessible**: Proper label association and keyboard navigation
