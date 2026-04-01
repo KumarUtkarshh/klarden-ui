@@ -1,0 +1,136 @@
+---
+title: Shimmer Text
+description: A premium text component with a continuous shimmer effect flowing within the text itself.
+category: Components
+---
+
+The ShimmerText component creates a smooth, continuous shimmer effect that flows within the text characters. The shimmer loops infinitely, creating an elegant effect perfect for headings and taglines.
+
+## Preview
+
+<ComponentPreview name="shimmer-text">
+```tsx
+import React from "react";
+import { ShimmerText } from "@/components/shimmer-text";
+
+export default function Example() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      <ShimmerText variant="default" className="text-xl">Default</ShimmerText>
+      <ShimmerText variant="blue" className="text-xl">Blue</ShimmerText>
+      <ShimmerText variant="purple" className="text-xl">Purple</ShimmerText>
+      <ShimmerText variant="green" className="text-xl">Green</ShimmerText>
+      <ShimmerText variant="red" className="text-xl">Red</ShimmerText>
+      <ShimmerText variant="amber" className="text-xl">Amber</ShimmerText>
+      <ShimmerText variant="gold" className="text-xl">Gold</ShimmerText>
+      <ShimmerText variant="silver" className="text-xl">Silver</ShimmerText>
+      <ShimmerText variant="rose" className="text-xl">Rose</ShimmerText>
+      <ShimmerText variant="cyan" className="text-xl">Cyan</ShimmerText>
+      <ShimmerText variant="indigo" className="text-xl">Indigo</ShimmerText>
+      <ShimmerText variant="lime" className="text-xl">Lime</ShimmerText>
+      <ShimmerText variant="orange" className="text-xl">Orange</ShimmerText>
+      <ShimmerText variant="pink" className="text-xl">Pink</ShimmerText>
+      <ShimmerText variant="teal" className="text-xl">Teal</ShimmerText>
+      <ShimmerText variant="violet" className="text-xl">Violet</ShimmerText>
+    </div>
+  );
+}
+```
+</ComponentPreview>
+
+## Usage
+
+### Installation
+
+<InstallBlock command="shimmer-text" />
+
+### Basic Example
+
+```tsx
+import { ShimmerText } from "@/components/shimmer-text";
+
+export default function App() {
+  return <ShimmerText>Shimmer Effect</ShimmerText>;
+}
+```
+
+## Variants Preview
+
+<ComponentPreview name="shimmer-text-variants">
+```tsx
+import React from "react";
+import { ShimmerText } from "@/components/shimmer-text";
+
+export default function Example() {
+  return (
+    <div className="flex flex-col gap-6">
+      <ShimmerText variant="default" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+      <ShimmerText variant="green" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+      <ShimmerText variant="purple" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+      <ShimmerText variant="red" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+    </div>
+  );
+}
+```
+</ComponentPreview>
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="children"
+    type="React.ReactNode"
+    default="—"
+    description="The text content to display with shimmer effect."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for styling (text size, weight, etc.)."
+  />
+  <Prop
+    name="shimmerColor"
+    type="string"
+    default="—"
+    description="Primary shimmer color (overrides variant). Hex format."
+  />
+  <Prop
+    name="shimmerColor2"
+    type="string"
+    default="—"
+    description="Secondary shimmer color for gradient effect. Hex format."
+  />
+  <Prop
+    name="direction"
+    type='"ltr" | "rtl"'
+    default='"ltr"'
+    description="Direction of shimmer animation (left-to-right or right-to-left)."
+  />
+  <Prop
+    name="duration"
+    type="number"
+    default="2"
+    description="Duration of one complete shimmer cycle in seconds."
+  />
+  <Prop
+    name="delay"
+    type="number"
+    default="0"
+    description="Delay before the animation starts in seconds."
+  />
+  <Prop
+    name="shimmerWidth"
+    type="number"
+    default="0.5"
+    description="Width of the shimmer band (0.1 - 1). Higher values create wider shimmer."
+  />
+</PropsTable>

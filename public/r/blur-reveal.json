@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blur-reveal",
+  "title": "Blur Reveal",
+  "description": "A smooth reveal component with blur and motion effects for elegant content transitions.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/klarden-ui/blur-reveal.tsx",
+      "content": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\nimport { motion, useInView } from \"framer-motion\";\nimport * as React from \"react\";\n\ninterface BlurRevealTextProps {\n  children: string;\n  delay?: number;\n  duration?: number;\n  className?: string;\n  blurStrength?: number;\n}\n\nexport function BlurRevealText({\n  children,\n  delay = 0,\n  duration = 0.8,\n  className,\n  blurStrength = 10,\n}: BlurRevealTextProps) {\n  const ref = React.useRef(null);\n  const isInView = useInView(ref, { once: true, margin: \"-50px\" });\n\n  const words = children.split(\" \");\n\n  return (\n    <motion.span\n      ref={ref}\n      className={cn(\"inline-block text-3xl sm:text-4xl font-medium\", className)}\n      initial={{ opacity: 0 }}\n      animate={isInView ? { opacity: 1 } : {}}\n      transition={{ duration: 0.1 }}\n    >\n      {words.map((word, wordIndex) => (\n        <span key={wordIndex} className=\"inline-block whitespace-nowrap\">\n          <span className=\"inline-block\">\n            {word.split(\"\").map((char, charIndex) => (\n              <motion.span\n                key={charIndex}\n                className=\"inline-block\"\n                initial={{\n                  filter: `blur(${blurStrength}px)`,\n                  opacity: 0,\n                }}\n                animate={\n                  isInView\n                    ? {\n                        filter: \"blur(0px)\",\n                        opacity: 1,\n                      }\n                    : {}\n                }\n                transition={{\n                  duration,\n                  delay: delay + (wordIndex * 0.05 + charIndex * 0.02),\n                  ease: [0.22, 1, 0.36, 1],\n                }}\n              >\n                {char}\n              </motion.span>\n            ))}\n          </span>\n          {wordIndex < words.length - 1 && (\n            <span className=\"inline-block\">&nbsp;</span>\n          )}\n        </span>\n      ))}\n    </motion.span>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}
