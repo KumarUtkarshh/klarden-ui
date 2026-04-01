@@ -4,19 +4,35 @@ description: A premium text component with a continuous shimmer effect flowing w
 category: Components
 ---
 
-The ShimmerText component creates a smooth, continuous shimmer effect that flows within the text characters themselves. The shimmer loops infinitely, creating an elegant effect perfect for headings and taglines.
+The ShimmerText component creates a smooth, continuous shimmer effect that flows within the text characters. The shimmer loops infinitely, creating an elegant effect perfect for headings and taglines.
 
 ## Preview
 
 <ComponentPreview name="shimmer-text">
 ```tsx
+import React from "react";
 import { ShimmerText } from "@/components/shimmer-text";
 
 export default function Example() {
   return (
-    <ShimmerText variant="default" className="text-4xl font-bold">
-      Build beautiful interfaces
-    </ShimmerText>
+    <div className="flex flex-wrap gap-4">
+      <ShimmerText variant="default" className="text-xl">Default</ShimmerText>
+      <ShimmerText variant="blue" className="text-xl">Blue</ShimmerText>
+      <ShimmerText variant="purple" className="text-xl">Purple</ShimmerText>
+      <ShimmerText variant="green" className="text-xl">Green</ShimmerText>
+      <ShimmerText variant="red" className="text-xl">Red</ShimmerText>
+      <ShimmerText variant="amber" className="text-xl">Amber</ShimmerText>
+      <ShimmerText variant="gold" className="text-xl">Gold</ShimmerText>
+      <ShimmerText variant="silver" className="text-xl">Silver</ShimmerText>
+      <ShimmerText variant="rose" className="text-xl">Rose</ShimmerText>
+      <ShimmerText variant="cyan" className="text-xl">Cyan</ShimmerText>
+      <ShimmerText variant="indigo" className="text-xl">Indigo</ShimmerText>
+      <ShimmerText variant="lime" className="text-xl">Lime</ShimmerText>
+      <ShimmerText variant="orange" className="text-xl">Orange</ShimmerText>
+      <ShimmerText variant="pink" className="text-xl">Pink</ShimmerText>
+      <ShimmerText variant="teal" className="text-xl">Teal</ShimmerText>
+      <ShimmerText variant="violet" className="text-xl">Violet</ShimmerText>
+    </div>
   );
 }
 ```
@@ -38,79 +54,33 @@ export default function App() {
 }
 ```
 
-### Color Variants
+## Variants Preview
 
+<ComponentPreview name="shimmer-text-variants">
 ```tsx
+import React from "react";
 import { ShimmerText } from "@/components/shimmer-text";
 
-export default function App() {
+export default function Example() {
   return (
-    <>
-      <ShimmerText variant="blue">Blue Shimmer</ShimmerText>
-      <ShimmerText variant="purple">Purple Shimmer</ShimmerText>
-      <ShimmerText variant="green">Green Shimmer</ShimmerText>
-      <ShimmerText variant="gold">Gold Shimmer</ShimmerText>
-      <ShimmerText variant="rose">Rose Shimmer</ShimmerText>
-    </>
+    <div className="flex flex-col gap-6">
+      <ShimmerText variant="default" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+      <ShimmerText variant="green" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+      <ShimmerText variant="purple" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+      <ShimmerText variant="red" className="text-xl">
+        Build beautiful interfaces
+      </ShimmerText>
+    </div>
   );
 }
 ```
-
-### Custom Colors
-
-```tsx
-import { ShimmerText } from "@/components/shimmer-text";
-
-export default function App() {
-  return (
-    <ShimmerText shimmerColor="#60a5fa" shimmerColor2="#a855f7">
-      Custom Gradient
-    </ShimmerText>
-  );
-}
-```
-
-### Right to Left Direction
-
-```tsx
-import { ShimmerText } from "@/components/shimmer-text";
-
-export default function App() {
-  return (
-    <ShimmerText direction="rtl" variant="cyan">
-      Reverse Direction
-    </ShimmerText>
-  );
-}
-```
-
-### Slower Animation
-
-```tsx
-import { ShimmerText } from "@/components/shimmer-text";
-
-export default function App() {
-  return (
-    <ShimmerText duration={4} variant="amber">
-      Slow Shimmer
-    </ShimmerText>
-  );
-}
-```
-
-### Large Heading
-
-```tsx
-import { ShimmerText } from "@/components/shimmer-text";
-
-export default function App() {
-  return (
-    <ShimmerText variant="gold" className="text-6xl font-bold">
-      Big Shimmer
-    </ShimmerText>
-  );
-}
-```
+</ComponentPreview>
 
 ## Properties
 
@@ -162,5 +132,11 @@ export default function App() {
     type="number"
     default="0.5"
     description="Width of the shimmer band (0.1 - 1). Higher values create wider shimmer."
+  />
+  <Prop
+    name="variant"
+    type='"default" | "blue" | "purple" | "green" | "red" | "amber" | "gold" | "silver" | "rose" | "cyan" | "indigo" | "lime" | "orange" | "pink" | "teal" | "violet"'
+    default='"default"'
+    description="Preset color variant for quick styling."
   />
 </PropsTable>

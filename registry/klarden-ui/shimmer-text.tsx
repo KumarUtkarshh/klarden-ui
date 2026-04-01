@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, useInView } from "framer-motion";
+import React, { useRef } from "react";
 
 type ShimmerDirection = "ltr" | "rtl";
-type ShimmerVariant = 
+type ShimmerVariant =
   | "default"
   | "blue"
   | "purple"
@@ -36,8 +36,6 @@ interface ShimmerTextProps {
   direction?: ShimmerDirection;
   /** Duration of one shimmer cycle in seconds */
   duration?: number;
-  /** Delay before animation starts */
-  delay?: number;
   /** Width of the shimmer band (0.1 - 1) */
   shimmerWidth?: number;
   /** Preset color variant */
@@ -66,30 +64,35 @@ const variantColors: Record<ShimmerVariant, [string, string]> = {
 /**
  * ShimmerText - A premium text component with shimmer effect flowing within the text itself.
  * Uses background-clip: text to ensure the shimmer stays inside the text characters.
- * Features beautiful preset color variants and custom color support.
+ * Animation starts when the component comes into view and loops infinitely.
  */
 export const ShimmerText = ({
   children,
   className,
   shimmerColor,
   shimmerColor2,
-  direction = "ltr",
+  direction = "rtl",
   duration = 2,
-  delay = 0,
   shimmerWidth = 0.5,
   variant = "default",
 }: ShimmerTextProps) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
+
   // Get colors from variant or custom props
   const [primary, secondary] = variantColors[variant];
   const color1 = shimmerColor || primary;
   const color2 = shimmerColor2 || secondary;
 
   const backgroundSize = shimmerWidth * 300;
-  const startPos = direction === "ltr" ? `-${backgroundSize}%` : `${backgroundSize}%`;
-  const endPos = direction === "ltr" ? `${backgroundSize}%` : `-${backgroundSize}%`;
+  const startPos =
+    direction === "ltr" ? `-${backgroundSize}%` : `${backgroundSize}%`;
+  const endPos =
+    direction === "ltr" ? `${backgroundSize}%` : `-${backgroundSize}%`;
 
   return (
     <motion.span
+      ref={ref}
       className={cn(
         "inline-block bg-clip-text text-transparent font-bold",
         className,
@@ -97,17 +100,13 @@ export const ShimmerText = ({
       style={{
         backgroundImage: `linear-gradient(90deg, #52525b 0%, ${color1} 40%, ${color2} 50%, ${color1} 60%, #52525b 100%)`,
         backgroundSize: `${backgroundSize}% 100%`,
-        backgroundPosition: startPos,
       }}
-      animate={{
-        backgroundPosition: [startPos, endPos],
-      }}
+      animate={isInView ? { backgroundPosition: [startPos, endPos] } : {}}
       transition={{
         duration,
-        delay,
         repeat: Infinity,
         repeatType: "loop",
-        ease: "easeInOut",
+        ease: "linear",
       }}
     >
       {children}
