@@ -16,9 +16,12 @@ export function InstallBlock({ command }: InstallBlockProps) {
   const [copied, setCopied] = useState(false);
 
   // If command is just a component name (e.g. "accordion"), construct the full shadcn command
+  // Support both namespace format (@klarden/component) and legacy format (component)
   const fullCommand = command.startsWith("shadcn")
     ? command.replace("https://klarden-ui.com", SITE_CONFIG.url)
-    : `shadcn add ${SITE_CONFIG.url}/r/${command}.json`;
+    : command.startsWith("@klarden/")
+      ? `shadcn add ${command}`
+      : `shadcn add ${SITE_CONFIG.url}/r/${command}.json`;
 
   const managers = {
     pnpm: `pnpm dlx ${fullCommand}`,
