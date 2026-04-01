@@ -128,6 +128,36 @@
       "dependencies": ["framer-motion", "lucide-react", "cheerio", "got"],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "blur-reveal",
+      "type": "registry:component",
+      "title": "Blur Reveal",
+      "description": "A smooth reveal component with blur and motion effects for elegant content transitions.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/blur-reveal.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion"],
+      "registryDependencies": [],
+      "category": "typography"
+    },
+    {
+      "name": "shimmer-text",
+      "type": "registry:component",
+      "title": "Shimmer Text",
+      "description": "A premium text component with an elegant shimmer animation effect.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/shimmer-text.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion"],
+      "registryDependencies": [],
+      "category": "typography"
     }
   ]
 }
