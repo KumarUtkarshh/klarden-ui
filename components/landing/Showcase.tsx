@@ -115,7 +115,7 @@ export function Showcase() {
       {/* Orbit Context Menu showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-7 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-80"
+        className="md:col-span-7 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-[20rem] md:min-h-80"
       >
         <div className="absolute top-6 left-6">
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
@@ -123,17 +123,17 @@ export function Showcase() {
           </div>
           <h3 className="text-xl font-black tracking-tight">Context Menu</h3>
         </div>
-        <div className="w-full max-w-sm mt-8">
+        <div className="w-full max-w-sm mt-16 md:mt-12">
           <OrbitContextMenu>
-            <div className="p-12 border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 flex flex-col items-center justify-center text-center space-y-4 rounded-[2rem] transition-colors group-hover:bg-white/80 dark:group-hover:bg-zinc-900/80">
-              <div className="h-16 w-16 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
-                <MousePointer2 className="text-zinc-400" size={32} />
+            <div className="p-8 md:p-12 border-2 border-dashed border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 flex flex-col items-center justify-center text-center space-y-3 md:space-y-4 rounded-[2rem] transition-colors group-hover:bg-white/80 dark:group-hover:bg-zinc-900/80">
+              <div className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform">
+                <MousePointer2 className="text-zinc-400" size={28} />
               </div>
               <div className="space-y-2">
-                <p className="text-zinc-900 dark:text-zinc-50 font-bold text-lg">
+                <p className="text-zinc-900 dark:text-zinc-50 font-bold text-base md:text-lg">
                   Right-click here
                 </p>
-                <p className="text-zinc-500 dark:text-zinc-400 text-xs px-4 font-medium">
+                <p className="text-zinc-500 dark:text-zinc-400 text-xs px-2 md:px-4 font-medium">
                   Experience radial motion.
                 </p>
               </div>
@@ -166,7 +166,7 @@ export function Showcase() {
       {/* Glossy Buttons showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-12 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-40"
+        className="md:col-span-12 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-8 md:p-10 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-[16rem] md:min-h-40"
       >
         <div className="absolute top-6 left-6">
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
@@ -175,14 +175,14 @@ export function Showcase() {
           <h3 className="text-xl font-black tracking-tight">Glossy Buttons</h3>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-          <RichButton color="blue" size="sm" className="rounded-xl px-4">
+        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-10 md:mt-8">
+          <RichButton color="blue" size="sm" className="rounded-xl">
             Primary
           </RichButton>
-          <RichButton color="emerald" size="sm" className="rounded-xl px-4">
+          <RichButton color="emerald" size="sm" className="rounded-xl">
             <Zap size={14} className="mr-2" /> Success
           </RichButton>
-          <RichButton color="purple" size="sm" className="rounded-xl px-4">
+          <RichButton color="purple" size="sm" className="rounded-xl">
             Purple
           </RichButton>
           <RichButton color="default" size="sm" className="rounded-xl">
