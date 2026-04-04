@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 import { registry } from "@/registry/components";
+import fs from "fs";
+import path from "path";
 import React from "react";
 import { CodeBlock } from "./code-block";
 import { ComponentPreview } from "./component-preview";
@@ -21,11 +23,26 @@ interface ComponentPreviewWrapperProps {
   children?: React.ReactNode;
 }
 
+function getDemoSourceCode(name: string): string | null {
+  try {
+    const demoPath = path.join(process.cwd(), "registry", "demos", `${name}-demo.tsx`);
+    return fs.readFileSync(demoPath, "utf-8");
+  } catch {
+    return null;
+  }
+}
+
+async function DemoCodeBlock({ sourceCode }: { sourceCode: string }) {
+  return <CodeBlock code={sourceCode} language="tsx" />;
+}
+
 export const mdxComponents = {
   // Define documentation components with explicit prop passing
-  ComponentPreview: ({ name, children }: ComponentPreviewWrapperProps) => (
-    <ComponentPreview name={name} usageCode={children} />
-  ),
+  ComponentPreview: async ({ name, children }: ComponentPreviewWrapperProps) => {
+    const sourceCode = getDemoSourceCode(name);
+    const demoCode = sourceCode ? <DemoCodeBlock sourceCode={sourceCode} /> : null;
+    return <ComponentPreview name={name} usageCode={children || demoCode} />;
+  },
   InstallBlock: (props: { command: string }) => <InstallBlock {...props} />,
   PropsTable,
   Prop,
