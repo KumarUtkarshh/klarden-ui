@@ -174,7 +174,7 @@ const RichButton = React.forwardRef<HTMLButtonElement, RichButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          "group relative cursor-pointer inline-flex items-center justify-center font-black tracking-widest transition-all duration-300",
+          "group relative cursor-pointer inline-flex items-center justify-center transition-all duration-300",
           "rounded-2xl overflow-hidden active:scale-95 hover:scale-[1.02]",
           colors.bg,
           colors.text,
