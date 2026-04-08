@@ -68,18 +68,16 @@ export default function Home() {
 
           <div className="mt-24 pt-8 border-t border-border/50 flex flex-col sm:flex-row justify-between items-center gap-6">
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
-              <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+              <p className="text-muted-foreground text-[10px] uppercase tracking-widest">
                 © {new Date().getFullYear()} {SITE_CONFIG.name}
               </p>
-              <div className="flex items-center gap-3 text-[10px] font-black tracking-widest">
-                <span className="text-muted-foreground font-bold">
-                  Built by
-                </span>
+              <div className="flex items-center gap-3 text-[10px] tracking-widest">
+                <span className="text-muted-foreground">Built by</span>
                 <RichButton
                   size="sm"
                   color="default"
                   asChild
-                  className="rounded-xl h-8 px-4"
+                  className="font-semibold"
                 >
                   <Link href="https://twitter.com/utkarshdev_" target="_blank">
                     @utkarshdev_
@@ -87,7 +85,7 @@ export default function Home() {
                 </RichButton>
               </div>
             </div>
-            <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+            <div className="flex items-center gap-6 text-[10px] uppercase tracking-widest text-muted-foreground">
               <Link href="#" className="hover:text-primary transition-colors">
                 Privacy
               </Link>
