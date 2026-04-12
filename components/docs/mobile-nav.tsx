@@ -1,6 +1,5 @@
 "use client";
 
-import { GitHubStarButton } from "@/components/github-star-button";
 import { LogoIcon } from "@/components/landing/logo-icon";
 import { DocMetadata } from "@/lib/docs";
 import { cn } from "@/lib/utils";
@@ -115,10 +114,6 @@ export function MobileNav({ items }: MobileNavProps) {
                   >
                     <X size={20} />
                   </button>
-                </div>
-
-                <div className="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800">
-                  <GitHubStarButton size="sm" className="w-full justify-center" />
                 </div>
 
                 <div className="flex-1 overflow-y-auto p-6 bg-zinc-50/50 dark:bg-zinc-950/50">
