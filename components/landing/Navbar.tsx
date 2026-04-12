@@ -1,8 +1,9 @@
 import { MobileNav } from "@/components/docs/mobile-nav";
+import { GitHubStarButton } from "@/components/github-star-button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { SITE_CONFIG } from "@/lib/constants";
 import { getAllDocs } from "@/lib/docs";
-import { Github, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
 import { LogoIcon } from "./logo-icon";
 
@@ -38,19 +39,15 @@ export function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-secondary border border-border text-muted-foreground text-[10px] font-bold uppercase tracking-wider">
-            <Search size={12} />
-            <span>Search</span>
-            <span className="ml-4 opacity-30">⌘K</span>
-          </div>
-          <Link
-            href={SITE_CONFIG.github}
-            target="_blank"
-            className="p-2 rounded-xl bg-secondary border border-border hover:border-primary/20 transition-colors text-muted-foreground hover:text-primary"
-          >
-            <Github size={18} />
-          </Link>
+        <div className="flex items-center gap-2">
+          <button className="hidden sm:inline-flex items-center gap-2 h-9 px-4 rounded-md border border-input bg-background text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors">
+            <Search size={14} />
+            <span className="flex-1 text-left">Search...</span>
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </button>
+          <GitHubStarButton />
           <ModeToggle />
         </div>
       </div>
