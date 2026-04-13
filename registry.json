@@ -223,6 +223,25 @@
       "dependencies": ["qrcode"],
       "registryDependencies": [],
       "category": "media"
+    },
+    {
+      "name": "slider",
+      "type": "registry:component",
+      "title": "Slider",
+      "description": "A sleek media progress slider with chapter toggle, draggable thumb, and time display.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/slider.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/demos/slider-demo.tsx",
+          "type": "registry:demo"
+        }
+      ],
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }

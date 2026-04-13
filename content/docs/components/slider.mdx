@@ -1,0 +1,87 @@
+---
+title: Slider
+description: A sleek media progress slider with chapter toggle, draggable thumb, and time display.
+category: Components
+---
+
+The Slider component is a media progress control inspired by video player timelines. It features a draggable thumb, real-time time display, and an optional chapter toggle.
+
+## Preview
+
+<ComponentPreview name="slider" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="slider" />
+
+### Basic Example
+
+```tsx
+"use client";
+
+import { Slider } from "@/registry/klarden-ui/slider";
+import { useState } from "react";
+
+export default function Example() {
+  const [value, setValue] = useState(122);
+  const max = 5363;
+
+  return (
+    <Slider
+      value={value}
+      max={max}
+      onValueChange={setValue}
+      onValueCommit={setValue}
+    />
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="value"
+    type="number"
+    default="—"
+    description="Current progress value in seconds. Required."
+  />
+  <Prop
+    name="max"
+    type="number"
+    default="—"
+    description="Maximum value (total duration) in seconds. Required."
+  />
+  <Prop
+    name="onValueChange"
+    type="(value: number) => void"
+    default="—"
+    description="Callback when value changes during drag."
+  />
+  <Prop
+    name="onValueCommit"
+    type="(value: number) => void"
+    default="—"
+    description="Callback when dragging ends (mouseup)."
+  />
+  <Prop
+    name="showRemaining"
+    type="boolean"
+    default="true"
+    description='Show remaining time as negative (true) or total duration as positive (false).'
+  />
+  <Prop
+    name="disabled"
+    type="boolean"
+    default="false"
+    description="Disables all interactions."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the container."
+  />
+</PropsTable>

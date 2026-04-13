@@ -40,4 +40,5 @@ export const registry: Record<
   "pagination-variants": dynamic(
     () => import("@/registry/demos/pagination-variants-demo"),
   ),
+  slider: dynamic(() => import("@/registry/demos/slider-demo")),
 };
