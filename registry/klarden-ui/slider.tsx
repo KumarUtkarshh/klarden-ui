@@ -16,6 +16,25 @@ interface SliderProps {
   showRemaining?: boolean;
   /** Vertical gap between track and time display (Tailwind spacing token, e.g. "2", "4") */
   gap?: string;
+  /** Color variant for the track fill and thumb */
+  color?:
+    | "default"
+    | "blue"
+    | "purple"
+    | "pink"
+    | "red"
+    | "orange"
+    | "green"
+    | "teal"
+    | "cyan"
+    | "indigo"
+    | "violet"
+    | "rose"
+    | "amber"
+    | "lime"
+    | "sky"
+    | "emerald"
+    | "fuchsia";
   /** Whether the slider is disabled */
   disabled?: boolean;
   className?: string;
@@ -34,6 +53,111 @@ function formatTime(seconds: number): string {
   return hours > 0 ? `${hours}:${timeStr}` : timeStr;
 }
 
+const colorStyles: Record<string, { fill: string; thumb: string; glow: string; preview: string }> = {
+  default: {
+    fill: "bg-foreground",
+    thumb: "bg-foreground",
+    glow: "currentColor",
+    preview: "bg-foreground/20",
+  },
+  blue: {
+    fill: "bg-blue-500",
+    thumb: "bg-blue-500",
+    glow: "#3b82f6",
+    preview: "bg-blue-500/20",
+  },
+  purple: {
+    fill: "bg-purple-500",
+    thumb: "bg-purple-500",
+    glow: "#a855f7",
+    preview: "bg-purple-500/20",
+  },
+  pink: {
+    fill: "bg-pink-500",
+    thumb: "bg-pink-500",
+    glow: "#ec4899",
+    preview: "bg-pink-500/20",
+  },
+  red: {
+    fill: "bg-red-500",
+    thumb: "bg-red-500",
+    glow: "#ef4444",
+    preview: "bg-red-500/20",
+  },
+  orange: {
+    fill: "bg-orange-500",
+    thumb: "bg-orange-500",
+    glow: "#f97316",
+    preview: "bg-orange-500/20",
+  },
+  green: {
+    fill: "bg-green-500",
+    thumb: "bg-green-500",
+    glow: "#22c55e",
+    preview: "bg-green-500/20",
+  },
+  teal: {
+    fill: "bg-teal-500",
+    thumb: "bg-teal-500",
+    glow: "#14b8a6",
+    preview: "bg-teal-500/20",
+  },
+  cyan: {
+    fill: "bg-cyan-500",
+    thumb: "bg-cyan-500",
+    glow: "#06b6d4",
+    preview: "bg-cyan-500/20",
+  },
+  indigo: {
+    fill: "bg-indigo-500",
+    thumb: "bg-indigo-500",
+    glow: "#6366f1",
+    preview: "bg-indigo-500/20",
+  },
+  violet: {
+    fill: "bg-violet-500",
+    thumb: "bg-violet-500",
+    glow: "#8b5cf6",
+    preview: "bg-violet-500/20",
+  },
+  rose: {
+    fill: "bg-rose-500",
+    thumb: "bg-rose-500",
+    glow: "#f43f5e",
+    preview: "bg-rose-500/20",
+  },
+  amber: {
+    fill: "bg-amber-500",
+    thumb: "bg-amber-500",
+    glow: "#f59e0b",
+    preview: "bg-amber-500/20",
+  },
+  lime: {
+    fill: "bg-lime-500",
+    thumb: "bg-lime-500",
+    glow: "#84cc16",
+    preview: "bg-lime-500/20",
+  },
+  sky: {
+    fill: "bg-sky-500",
+    thumb: "bg-sky-500",
+    glow: "#0ea5e9",
+    preview: "bg-sky-500/20",
+  },
+  emerald: {
+    fill: "bg-emerald-500",
+    thumb: "bg-emerald-500",
+    glow: "#10b981",
+    preview: "bg-emerald-500/20",
+  },
+  fuchsia: {
+    fill: "bg-fuchsia-500",
+    thumb: "bg-fuchsia-500",
+    glow: "#d946ef",
+    preview: "bg-fuchsia-500/20",
+  },
+};
+
 export function Slider({
   value,
   max,
@@ -41,6 +165,7 @@ export function Slider({
   onValueCommit,
   showRemaining = true,
   gap = "1",
+  color = "default",
   disabled = false,
   className,
 }: SliderProps) {
@@ -162,6 +287,7 @@ export function Slider({
     "8": 32,
   };
   const gapValue = gapPx[gap] ?? 8;
+  const colors = colorStyles[color] ?? colorStyles.default;
 
   return (
     <div className={cn("w-full", className)} style={{ display: "flex", flexDirection: "column", gap: gapValue }}>
@@ -185,7 +311,7 @@ export function Slider({
           className="absolute inset-y-0 left-0 -inset-x-1 rounded-full blur-xl opacity-0 group-hover:opacity-10 transition-opacity duration-500"
           style={{
             width: `${percentage}%`,
-            background: "linear-gradient(90deg, currentColor, transparent)",
+            background: `linear-gradient(90deg, ${colors.glow}, transparent)`,
           }}
         />
 
@@ -193,14 +319,14 @@ export function Slider({
         <div className="relative h-1 rounded-full bg-muted/50 backdrop-blur-sm">
           {/* Filled portion */}
           <div
-            className="absolute inset-y-0 left-0 rounded-full bg-foreground transition-[width] duration-75 ease-out"
+            className={cn("absolute inset-y-0 left-0 rounded-full transition-[width] duration-75 ease-out", colors.fill)}
             style={{ width: `${percentage}%` }}
           />
 
           {/* Hover preview fill */}
           {isHovering && hoverValue !== null && !isDragging && (
             <div
-              className="absolute inset-y-0 left-0 rounded-full bg-foreground/20 transition-none"
+              className={cn("absolute inset-y-0 left-0 rounded-full transition-none", colors.preview)}
               style={{
                 width: `${(Math.max(0, Math.min(hoverValue, max)) / max) * 100}%`,
               }}
@@ -211,8 +337,8 @@ export function Slider({
           <div
             className={cn(
               "absolute top-1/2 -translate-y-1/2 -translate-x-1/2",
-              "h-4 w-4 rounded-full bg-foreground",
-              "transition-all duration-150 ease-out",
+              "h-4 w-4 rounded-full transition-all duration-150 ease-out",
+              colors.thumb,
               isDragging && "scale-125",
               !isDragging && isHovering && "scale-110",
               !isHovering && "scale-0",
