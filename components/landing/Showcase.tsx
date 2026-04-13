@@ -92,7 +92,7 @@ export function Showcase() {
           <h3 className="text-xl font-black tracking-tight">Spotify Card</h3>
         </div>
         <div className="mt-12 scale-90 xl:scale-100 transition-transform">
-          <SpotifyCard trackUrl="https://open.spotify.com/track/3sK8wGT43QFpWrvNQsrQya?si=17d74867a0a344e5" />
+          <SpotifyCard trackUrl="https://open.spotify.com/track/7EW7Yivb93qKAtp5qEm5of?si=301fefb2256f44cd" />
         </div>
       </motion.div>
 
