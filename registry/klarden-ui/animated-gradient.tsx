@@ -173,15 +173,17 @@ const LAVA_SHADER = `
     // Soft low-frequency noise (completely smoothed out)
     float f = fbm(uv * 1.05 + 1.65 * r);
     
-    // Vertical flame base offset with swaying peaks
-    float fire = (1.0 - (uv.y + sway)) * 1.35; 
+    // Vertical flame base offset with swaying peaks (lowered base multiplier from 1.35 to 1.15)
+    float fire = (1.0 - (uv.y + sway)) * 1.15; 
     
     // Volumetric flame thresholds with extremely wide smoothstep windows for a blurry look
-    float flameIntensity = fire + f * 1.5 - 0.72;
+    // Scale noise by (1.1 - uv.y) to suppress height and create gorgeous dark spots/channels at the top
+    float noiseGlow = f * 1.65 * (1.1 - uv.y);
+    float flameIntensity = fire + noiseGlow - 0.78;
     
     float flame = smoothstep(-0.25, 0.95, flameIntensity);
     float orangeGlow = smoothstep(0.12, 0.98, flameIntensity);
-    float goldCore = smoothstep(0.38, 1.0, fire + f * 0.72 - 0.42);
+    float goldCore = smoothstep(0.38, 1.0, fire + f * 0.75 * (1.1 - uv.y) - 0.42);
     
     // Soft glowing volumetric smoke tips
     float smoke = smoothstep(-0.3, 0.45, flameIntensity) * (1.0 - smoothstep(0.45, 0.95, flameIntensity));
