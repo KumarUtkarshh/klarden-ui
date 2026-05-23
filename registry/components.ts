@@ -44,4 +44,7 @@ export const registry: Record<
   "animated-gradient": dynamic(
     () => import("@/registry/demos/animated-gradient-demo"),
   ),
+  "animated-gradient-presets": dynamic(
+    () => import("@/registry/demos/animated-gradient-presets-demo"),
+  ),
 };

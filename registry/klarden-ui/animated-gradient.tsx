@@ -3,12 +3,38 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
+interface CustomConfig {
+  color1?: string;
+  color2?: string;
+  color3?: string;
+  direction?: number;
+  speed1?: number;
+  speed2?: number;
+  frequency1?: number;
+  frequency2?: number;
+  noiseStrength?: number;
+  amplitude1?: number;
+  amplitude2?: number;
+  octaves?: number;
+}
+
 interface AnimatedGradientProps {
   className?: string;
-  variant?: "mist" | "lava" | "prism" | "plasma" | "pulse" | "vortex";
+  variant?: "mist" | "lava" | "prism" | "plasma" | "pulse" | "vortex" | "custom";
   speed?: number;
   opacity?: number;
+  config?: CustomConfig;
+  children?: React.ReactNode;
 }
+
+const hexToRgb = (hex: string): [number, number, number] => {
+  const cleanHex = hex.replace("#", "");
+  const num = parseInt(cleanHex, 16);
+  const r = ((num >> 16) & 255) / 255;
+  const g = ((num >> 8) & 255) / 255;
+  const b = (num & 255) / 255;
+  return [isNaN(r) ? 0 : r, isNaN(g) ? 0 : g, isNaN(b) ? 0 : b];
+};
 
 const VERTEX_SHADER = `
   attribute vec2 a_position;
@@ -110,12 +136,13 @@ const LAVA_SHADER = `
                mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
   }
 
+  // Limited to 2 octaves to eliminate jagged details and ensure broad, glassy waves
   float fbm(vec2 p) {
     float v = 0.0;
     float a = 0.5;
     vec2 shift = vec2(100.0);
     mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 2; ++i) {
       v += a * noise(p);
       p = rot * p * 2.0 + shift;
       a *= 0.5;
@@ -128,33 +155,57 @@ const LAVA_SHADER = `
     float aspect = u_resolution.x / u_resolution.y;
     uv.x *= aspect;
     
-    float t = u_time * 0.15;
+    // Smooth upward animation speed
+    float t = u_time * 0.22;
     
+    // Slow gentle sideways sway of the flame body
+    float sway = sin(uv.x * 2.5 + u_time * 0.45) * 0.07;
+    
+    // Domain warping noise layers (wider waves for blurry glass look)
     vec2 q = vec2(0.0);
-    q.x = fbm(uv * 3.0 + vec2(t, 0.0));
-    q.y = fbm(uv * 3.0 + vec2(0.0, t));
+    q.x = fbm(uv * 2.0 + vec2(0.0, -t));
+    q.y = fbm(uv * 2.0 + vec2(t * 0.35, -t * 0.85));
     
     vec2 r = vec2(0.0);
-    r.x = fbm(uv * 3.0 + 4.0 * q + vec2(1.7, 9.2) + 0.15 * t);
-    r.y = fbm(uv * 3.0 + 4.0 * q + vec2(8.3, 2.8) + 0.126 * t);
+    r.x = fbm(uv * 2.2 + 2.8 * q + vec2(1.7, -t * 1.5));
+    r.y = fbm(uv * 2.2 + 2.8 * q + vec2(8.3, -t * 1.25));
     
-    float f = fbm(uv * 2.5 + 4.0 * r);
+    // Soft low-frequency noise (completely smoothed out)
+    float f = fbm(uv * 1.05 + 1.65 * r);
     
-    vec3 obsidian = vec3(0.05, 0.02, 0.08);
-    vec3 deepRed = vec3(0.7, 0.02, 0.0);
-    vec3 orange = vec3(0.95, 0.35, 0.02);
-    vec3 gold = vec3(1.0, 0.75, 0.1);
+    // Vertical flame base offset with swaying peaks
+    float fire = (1.0 - (uv.y + sway)) * 1.35; 
     
-    vec3 col = mix(obsidian, deepRed, f);
-    col = mix(col, orange, clamp(length(q), 0.0, 1.0) * 0.7);
-    col = mix(col, gold, pow(f, 3.0) * 1.2);
+    // Volumetric flame thresholds with extremely wide smoothstep windows for a blurry look
+    float flameIntensity = fire + f * 1.5 - 0.72;
     
-    float edge = smoothstep(0.4, 0.55, f);
-    col += edge * orange * 0.3;
+    float flame = smoothstep(-0.25, 0.95, flameIntensity);
+    float orangeGlow = smoothstep(0.12, 0.98, flameIntensity);
+    float goldCore = smoothstep(0.38, 1.0, fire + f * 0.72 - 0.42);
     
-    vec2 center = vec2(0.5 * aspect, 0.5);
-    float d = length(uv - center);
-    col *= (1.0 - d * 0.4);
+    // Soft glowing volumetric smoke tips
+    float smoke = smoothstep(-0.3, 0.45, flameIntensity) * (1.0 - smoothstep(0.45, 0.95, flameIntensity));
+    
+    // Warm fire color definitions (no harsh bright yellows or whites!)
+    vec3 black = vec3(0.0, 0.0, 0.0);
+    vec3 deepRed = vec3(0.55, 0.015, 0.0);
+    vec3 brightOrange = vec3(0.92, 0.25, 0.0);
+    vec3 goldenOrange = vec3(0.96, 0.42, 0.02);
+    
+    // Blending volumetric color layers for a blurry glass bonfire effect
+    vec3 col = mix(black, deepRed, flame);
+    col = mix(col, brightOrange, orangeGlow);
+    col = mix(col, goldenOrange, goldCore);
+    
+    // Volumetric smoke tip glow for glowing depth
+    col += deepRed * smoke * 0.35;
+    
+    // Edge hot glow edge highlighting (wider transition for blurry glow)
+    float edge = smoothstep(0.25, 0.55, f) * (1.0 - smoothstep(0.55, 0.85, f));
+    col += edge * brightOrange * 0.18 * (1.0 - uv.y);
+    
+    // Contrast boost
+    col = pow(col, vec3(0.85));
     
     gl_FragColor = vec4(col, 1.0);
   }
@@ -364,6 +415,93 @@ const VORTEX_SHADER = `
   }
 `;
 
+const CUSTOM_SHADER = `
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
+  precision highp float;
+  #else
+  precision mediump float;
+  #endif
+
+  varying vec2 v_uv;
+  uniform float u_time;
+  uniform vec2 u_resolution;
+
+  // Custom configuration uniforms
+  uniform vec3 u_color1;
+  uniform vec3 u_color2;
+  uniform vec3 u_color3;
+  uniform float u_direction;
+  uniform float u_speed1;
+  uniform float u_speed2;
+  uniform float u_frequency1;
+  uniform float u_frequency2;
+  uniform float u_noiseStrength;
+  uniform float u_amplitude1;
+  uniform float u_amplitude2;
+  uniform float u_octaves;
+
+  #define PI 3.14159265359
+
+  float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+  }
+
+  float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x), u.y);
+  }
+
+  float fbm(vec2 p, int oct) {
+    float v = 0.0;
+    float a = 0.5;
+    vec2 shift = vec2(100.0);
+    mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+    for (int i = 0; i < 4; ++i) {
+      if (i >= oct) break;
+      v += a * noise(p);
+      p = rot * p * 2.0 + shift;
+      a *= 0.5;
+    }
+    return v;
+  }
+
+  void main() {
+    vec2 uv = v_uv;
+    float aspect = u_resolution.x / u_resolution.y;
+    uv.x *= aspect;
+
+    float rad = u_direction * PI / 180.0;
+    vec2 dir = vec2(cos(rad), sin(rad));
+
+    float t1 = u_time * u_speed1 * 0.01;
+    float t2 = u_time * u_speed2 * 0.01;
+
+    int oct = int(clamp(u_octaves, 1.0, 4.0));
+    
+    vec2 q = vec2(0.0);
+    q.x = fbm(uv * (u_frequency1 * 0.25) + dir * t1, oct);
+    q.y = fbm(uv * (u_frequency1 * 0.25) - dir * t1, oct);
+
+    vec2 r = vec2(0.0);
+    r.x = fbm(uv * (u_frequency2 * 0.25) + (u_noiseStrength * 0.25) * q + dir * t2 + vec2(1.7, 9.2), oct);
+    r.y = fbm(uv * (u_frequency2 * 0.25) + (u_noiseStrength * 0.25) * q - dir * t2 + vec2(8.3, 2.8), oct);
+
+    float f = fbm(uv * 2.5 + (u_amplitude1 * 0.2) * r, oct);
+
+    vec3 col = mix(u_color1, u_color2, f);
+    col = mix(col, u_color3, clamp(length(q) * (u_amplitude2 * 0.2) * 0.1, 0.0, 1.0));
+
+    vec2 center = vec2(0.5 * aspect, 0.5);
+    float d = length(uv - center);
+    col *= (1.0 - d * 0.3);
+
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
 const FRAGMENT_SHADERS = {
   mist: MIST_SHADER,
   lava: LAVA_SHADER,
@@ -371,6 +509,7 @@ const FRAGMENT_SHADERS = {
   plasma: PLASMA_SHADER,
   pulse: PULSE_SHADER,
   vortex: VORTEX_SHADER,
+  custom: CUSTOM_SHADER,
 } as const;
 
 export function AnimatedGradient({
@@ -378,6 +517,8 @@ export function AnimatedGradient({
   variant = "mist",
   speed = 1,
   opacity = 1,
+  config,
+  children,
 }: AnimatedGradientProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
@@ -417,8 +558,12 @@ export function AnimatedGradient({
     };
 
     const vertexShader = createShader(gl.VERTEX_SHADER, VERTEX_SHADER);
-    const fragmentShaderSource = FRAGMENT_SHADERS[variant] || FRAGMENT_SHADERS.mist;
-    const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+    const fragmentShaderSource =
+      FRAGMENT_SHADERS[variant] || FRAGMENT_SHADERS.mist;
+    const fragmentShader = createShader(
+      gl.FRAGMENT_SHADER,
+      fragmentShaderSource,
+    );
 
     if (!vertexShader || !fragmentShader) {
       if (vertexShader) gl.deleteShader(vertexShader);
@@ -459,12 +604,61 @@ export function AnimatedGradient({
     const timeLocation = gl.getUniformLocation(program, "u_time");
     const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
 
+    // Custom configuration uniforms
+    let color1Loc: WebGLUniformLocation | null = null;
+    let color2Loc: WebGLUniformLocation | null = null;
+    let color3Loc: WebGLUniformLocation | null = null;
+    let dirLoc: WebGLUniformLocation | null = null;
+    let speed1Loc: WebGLUniformLocation | null = null;
+    let speed2Loc: WebGLUniformLocation | null = null;
+    let freq1Loc: WebGLUniformLocation | null = null;
+    let freq2Loc: WebGLUniformLocation | null = null;
+    let noiseStrLoc: WebGLUniformLocation | null = null;
+    let amp1Loc: WebGLUniformLocation | null = null;
+    let amp2Loc: WebGLUniformLocation | null = null;
+    let octLoc: WebGLUniformLocation | null = null;
+
+    if (variant === "custom") {
+      color1Loc = gl.getUniformLocation(program, "u_color1");
+      color2Loc = gl.getUniformLocation(program, "u_color2");
+      color3Loc = gl.getUniformLocation(program, "u_color3");
+      dirLoc = gl.getUniformLocation(program, "u_direction");
+      speed1Loc = gl.getUniformLocation(program, "u_speed1");
+      speed2Loc = gl.getUniformLocation(program, "u_speed2");
+      freq1Loc = gl.getUniformLocation(program, "u_frequency1");
+      freq2Loc = gl.getUniformLocation(program, "u_frequency2");
+      noiseStrLoc = gl.getUniformLocation(program, "u_noiseStrength");
+      amp1Loc = gl.getUniformLocation(program, "u_amplitude1");
+      amp2Loc = gl.getUniformLocation(program, "u_amplitude2");
+      octLoc = gl.getUniformLocation(program, "u_octaves");
+    }
+
     const startTime = Date.now();
 
     const render = () => {
       const elapsed = (Date.now() - startTime) / 1000;
       gl.uniform1f(timeLocation, elapsed * speed);
       gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+
+      if (variant === "custom") {
+        const c = config || {};
+        const col1 = hexToRgb(c.color1 || "#8b5cf6");
+        const col2 = hexToRgb(c.color2 || "#ec4899");
+        const col3 = hexToRgb(c.color3 || "#3b82f6");
+
+        gl.uniform3f(color1Loc, col1[0], col1[1], col1[2]);
+        gl.uniform3f(color2Loc, col2[0], col2[1], col2[2]);
+        gl.uniform3f(color3Loc, col3[0], col3[1], col3[2]);
+        gl.uniform1f(dirLoc, c.direction ?? 0);
+        gl.uniform1f(speed1Loc, c.speed1 ?? 20);
+        gl.uniform1f(speed2Loc, c.speed2 ?? 20);
+        gl.uniform1f(freq1Loc, c.frequency1 ?? 10);
+        gl.uniform1f(freq2Loc, c.frequency2 ?? 10);
+        gl.uniform1f(noiseStrLoc, c.noiseStrength ?? 10);
+        gl.uniform1f(amp1Loc, c.amplitude1 ?? 15);
+        gl.uniform1f(amp2Loc, c.amplitude2 ?? 15);
+        gl.uniform1f(octLoc, c.octaves ?? 2);
+      }
 
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       animationRef.current = requestAnimationFrame(render);
@@ -482,11 +676,12 @@ export function AnimatedGradient({
       gl.deleteProgram(program);
       gl.deleteBuffer(buffer);
     };
-  }, [variant, speed]);
+  }, [variant, speed, config]);
 
   return (
     <div className={cn("relative overflow-hidden bg-black", className)}>
-      <canvas ref={canvasRef} className="h-full w-full" style={{ opacity }} />
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" style={{ opacity }} />
+      {children && <div className="relative z-10 w-full h-full">{children}</div>}
     </div>
   );
 }
