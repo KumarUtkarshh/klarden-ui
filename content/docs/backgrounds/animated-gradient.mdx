@@ -37,39 +37,14 @@ export default function App() {
 }
 ```
 
-## Custom Configuration
-
-Use the `custom` variant to define organic, warped flows with your own custom shader parameters in real-time.
-
-```tsx
-import { AnimatedGradient } from "@/components/animated-gradient";
-
-export default function App() {
-  return (
-    <AnimatedGradient
-      variant="custom"
-      config={{
-        color1: "#ff007f",
-        color2: "#7f00ff",
-        color3: "#0000ff",
-        direction: 45,
-        speed1: 15,
-        speed2: 50,
-      }}
-      className="h-screen w-full"
-    />
-  );
-}
-```
-
 ## Properties
 
 <PropsTable>
   <Prop
     name="variant"
-    type='"mist" | "lava" | "prism" | "plasma" | "pulse" | "vortex" | "custom"'
+    type='"mist" | "lava"'
     default="mist"
-    description="Visual effect variant. Each creates a unique animated pattern."
+    description="Visual effect variant. mist creates a purple/indigo dynamic background, lava creates a rich warm blurry bonfire flow."
   />
   <Prop
     name="speed"
@@ -84,12 +59,6 @@ export default function App() {
     description="Canvas opacity (0-1). Use to blend with background layers."
   />
   <Prop
-    name="config"
-    type="CustomConfig"
-    default="—"
-    description="Custom shader configuration. Only applicable when variant is 'custom'. See CustomConfig options below."
-  />
-  <Prop
     name="className"
     type="string"
     default="—"
@@ -100,84 +69,5 @@ export default function App() {
     type="ReactNode"
     default="—"
     description="Overlay content to display on top of the gradient background."
-  />
-</PropsTable>
-
-### CustomConfig Options
-
-The `config` property accepts an object of type `CustomConfig` with the following parameters:
-
-<PropsTable>
-  <Prop
-    name="color1"
-    type="string"
-    default="#8b5cf6"
-    description="First primary gradient color in hex format (e.g. '#ff007f')."
-  />
-  <Prop
-    name="color2"
-    type="string"
-    default="#ec4899"
-    description="Second gradient color in hex format."
-  />
-  <Prop
-    name="color3"
-    type="string"
-    default="#3b82f6"
-    description="Third blending color in hex format."
-  />
-  <Prop
-    name="direction"
-    type="number"
-    default="0"
-    description="Flow rotation angle in degrees (0 to 360)."
-  />
-  <Prop
-    name="speed1"
-    type="number"
-    default="20"
-    description="Flow speed multiplier for the first primary warping noise layer."
-  />
-  <Prop
-    name="speed2"
-    type="number"
-    default="20"
-    description="Flow speed multiplier for the second warping noise layer."
-  />
-  <Prop
-    name="frequency1"
-    type="number"
-    default="10"
-    description="Noise frequency scale parameter for the first layer."
-  />
-  <Prop
-    name="frequency2"
-    type="number"
-    default="10"
-    description="Noise frequency scale parameter for the second layer."
-  />
-  <Prop
-    name="noiseStrength"
-    type="number"
-    default="10"
-    description="Domain warping displacement multiplier mapping."
-  />
-  <Prop
-    name="amplitude1"
-    type="number"
-    default="15"
-    description="Warp distortion intensity amplitude mapping."
-  />
-  <Prop
-    name="amplitude2"
-    type="number"
-    default="15"
-    description="Color blending distortion intensity amplitude."
-  />
-  <Prop
-    name="octaves"
-    type="number"
-    default="2"
-    description="Detail level octaves inside WebGL FBM noise shader loop (1 to 4)."
   />
 </PropsTable>

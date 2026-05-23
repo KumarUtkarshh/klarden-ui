@@ -6,10 +6,6 @@ import { cn } from "@/lib/utils";
 
 const presets = [
   { name: "Lava", value: "lava" },
-  { name: "Prism", value: "prism" },
-  { name: "Plasma", value: "plasma" },
-  { name: "Pulse", value: "pulse" },
-  { name: "Vortex", value: "vortex" },
   { name: "Mist", value: "mist" },
 ] as const;
 
