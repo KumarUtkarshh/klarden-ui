@@ -1,0 +1,118 @@
+---
+title: Plasma Wave
+description: A WebGL-powered high-performance interactive dual-band plasma wave animated background.
+category: Backgrounds
+---
+
+The Plasma Wave component creates mesmerizing, high-performance dual-band plasma waves using raw WebGL shaders (optimized through the lightweight `ogl` library). It features customizable speeds, bend intensities, rotatable views, and multi-color gradient bands.
+
+## Preview
+
+<ComponentPreview name="plasma-wave" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="plasma-wave" />
+
+### Basic Example
+
+```tsx
+import { PlasmaWave } from "@/registry/klarden-ui/plasma-wave";
+
+export default function App() {
+  return (
+    <PlasmaWave
+      colors={["#A855F7", "#06B6D4"]}
+      speed1={0.05}
+      speed2={0.05}
+      focalLength={0.8}
+      className="h-screen w-full"
+    />
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="colors"
+    type="[string, string]"
+    default='["#A855F7", "#06B6D4"]'
+    description="Array of two hex colors - one for each plasma wave band."
+  />
+  <Prop
+    name="speed1"
+    type="number"
+    default="0.05"
+    description="Speed of the first plasma wave."
+  />
+  <Prop
+    name="speed2"
+    type="number"
+    default="0.05"
+    description="Speed of the second plasma wave."
+  />
+  <Prop
+    name="dir2"
+    type="number"
+    default="1.0"
+    description="Direction multiplier for the second wave. Use -1 to reverse."
+  />
+  <Prop
+    name="focalLength"
+    type="number"
+    default="0.8"
+    description="Focal length of the camera projection."
+  />
+  <Prop
+    name="bend1"
+    type="number"
+    default="1"
+    description="Bend intensity of the first wave."
+  />
+  <Prop
+    name="bend2"
+    type="number"
+    default="0.5"
+    description="Bend intensity of the second wave."
+  />
+  <Prop
+    name="rotationDeg"
+    type="number"
+    default="0"
+    description="Rotation angle of the scene in degrees."
+  />
+  <Prop
+    name="xOffset"
+    type="number"
+    default="0"
+    description="Horizontal offset of the viewport."
+  />
+  <Prop
+    name="yOffset"
+    type="number"
+    default="0"
+    description="Vertical offset of the viewport."
+  />
+  <Prop
+    name="opacity"
+    type="number"
+    default="1"
+    description="Canvas opacity (0-1). Use to blend with background layers."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the container."
+  />
+  <Prop
+    name="children"
+    type="ReactNode"
+    default="—"
+    description="Overlay content to display on top of the plasma wave."
+  />
+</PropsTable>
