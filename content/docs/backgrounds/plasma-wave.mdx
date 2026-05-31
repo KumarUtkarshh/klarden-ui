@@ -1,0 +1,82 @@
+---
+title: Plasma Wave
+description: A WebGL-powered high-performance interactive dual-band plasma wave animated background.
+category: Backgrounds
+---
+
+The Plasma Wave component creates horizontally-mirrored interactive WebGL-powered dual-band plasma wave flows with custom parallax sways and lens chromatic aberrations.
+
+## Preview
+
+<ComponentPreview name="plasma-wave" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="plasma-wave" />
+
+### Basic Example
+
+```tsx
+import { PlasmaWave } from "@/registry/klarden-ui/plasma-wave";
+
+export default function App() {
+  return (
+    <PlasmaWave
+      colors={["#EAB308", "#E2E8F0"]}
+      speed1={0.06}
+      speed2={0.06}
+      focalLength={1.0}
+      className="h-screen w-full"
+    />
+  );
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="colors"
+    type="[string, string]"
+    default='["#A855F7", "#06B6D4"]'
+    description="Array of two hex colors - one for each plasma wave band."
+  />
+  <Prop
+    name="speed1"
+    type="number"
+    default="0.05"
+    description="Speed of the first plasma wave."
+  />
+  <Prop
+    name="speed2"
+    type="number"
+    default="0.05"
+    description="Speed of the second plasma wave."
+  />
+  <Prop
+    name="focalLength"
+    type="number"
+    default="0.8"
+    description="Focal length of the camera projection."
+  />
+  <Prop
+    name="opacity"
+    type="number"
+    default="1"
+    description="Canvas opacity (0-1). Use to blend with background layers."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="—"
+    description="Additional CSS classes for the container."
+  />
+  <Prop
+    name="children"
+    type="ReactNode"
+    default="—"
+    description="Overlay content to display on top of the plasma wave."
+  />
+</PropsTable>
