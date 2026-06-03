@@ -25,7 +25,7 @@ export default function App() {
   return (
     <div className="relative w-full h-[600px] bg-black">
       <GhostEther
-        colors={["#5227FF", "#FF9FFC", "#B497CF"]}
+        colors={["#7b2cbf", "#3f37c9", "#00f5d4"]}
         mouseForce={20}
         cursorSize={100}
       />
@@ -40,7 +40,7 @@ export default function App() {
   <Prop
     name="colors"
     type="string[]"
-    default='["#5227FF", "#FF9FFC", "#B497CF"]'
+    default='["#7B2CBF", "#3F37C9", "#00F5D4"]'
     description="Array of hex color stops used to build the velocity-to-color mapping palette."
   />
   <Prop
@@ -74,10 +74,28 @@ export default function App() {
     description="Viscosity coefficient applied when isViscous is active."
   />
   <Prop
+    name="iterationsViscous"
+    type="number"
+    default="32"
+    description="Number of Jacobi iterations for the viscosity solve step."
+  />
+  <Prop
     name="iterationsPoisson"
     type="number"
     default="32"
     description="Number of pressure Poisson iterations to enforce fluid incompressibility."
+  />
+  <Prop
+    name="dt"
+    type="number"
+    default="0.014"
+    description="Constant time step size used for fluid simulation updates."
+  />
+  <Prop
+    name="BFECC"
+    type="boolean"
+    default="true"
+    description="Enables Back and Forth Error Compensation and Correction for sharper advection textures."
   />
   <Prop
     name="isBounce"
@@ -90,5 +108,35 @@ export default function App() {
     type="boolean"
     default="true"
     description="Enables idle driving of the user cursor position when no interaction occurs."
+  />
+  <Prop
+    name="autoSpeed"
+    type="number"
+    default="0.5"
+    description="Wandering speed multiplier used when auto-demo is active."
+  />
+  <Prop
+    name="autoIntensity"
+    type="number"
+    default="2.2"
+    description="Force scaling applied to the auto-demo wandering trail."
+  />
+  <Prop
+    name="takeoverDuration"
+    type="number"
+    default="0.25"
+    description="Transition time (in seconds) when taking control over the auto-driver on interaction."
+  />
+  <Prop
+    name="autoResumeDelay"
+    type="number"
+    default="1000"
+    description="Delay time (in milliseconds) before the auto-demo resumes after user interaction stops."
+  />
+  <Prop
+    name="autoRampDuration"
+    type="number"
+    default="0.6"
+    description="Duration (in seconds) to fade in auto-demo movement once it resumes."
   />
 </PropsTable>
