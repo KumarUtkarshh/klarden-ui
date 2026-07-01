@@ -51,4 +51,6 @@ export const registry: Record<
   "plasma-wave": dynamic(() => import("@/registry/demos/plasma-wave-demo")),
   "ghost-ether": dynamic(() => import("@/registry/demos/ghost-ether-demo")),
   signature: dynamic(() => import("@/registry/demos/signature-demo")),
+  "logo-carousel": dynamic(() => import("@/registry/demos/logo-carousel-demo")),
+  "logo-carousel-right": dynamic(() => import("@/registry/demos/logo-carousel-demo-right")),
 };
