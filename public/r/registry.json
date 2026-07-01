@@ -316,6 +316,116 @@
       ],
       "registryDependencies": [],
       "category": "other"
+    },
+    {
+      "name": "logo-carousel",
+      "type": "registry:component",
+      "title": "Logo Carousel",
+      "description": "A beautiful, high-performance scrolling logo carousel component with pausing, custom directions, speed, and fade effects.",
+      "files": [
+        {
+          "path": "registry/klarden-ui/logo-carousel.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "public/logos/cursor.svg",
+          "type": "registry:file",
+          "target": "public/logos/cursor.svg"
+        },
+        {
+          "path": "public/logos/descript.svg",
+          "type": "registry:file",
+          "target": "public/logos/descript.svg"
+        },
+        {
+          "path": "public/logos/discord.svg",
+          "type": "registry:file",
+          "target": "public/logos/discord.svg"
+        },
+        {
+          "path": "public/logos/duolingo.svg",
+          "type": "registry:file",
+          "target": "public/logos/duolingo.svg"
+        },
+        {
+          "path": "public/logos/framer.svg",
+          "type": "registry:file",
+          "target": "public/logos/framer.svg"
+        },
+        {
+          "path": "public/logos/google.svg",
+          "type": "registry:file",
+          "target": "public/logos/google.svg"
+        },
+        {
+          "path": "public/logos/linear.svg",
+          "type": "registry:file",
+          "target": "public/logos/linear.svg"
+        },
+        {
+          "path": "public/logos/netflix.svg",
+          "type": "registry:file",
+          "target": "public/logos/netflix.svg"
+        },
+        {
+          "path": "public/logos/notion.svg",
+          "type": "registry:file",
+          "target": "public/logos/notion.svg"
+        },
+        {
+          "path": "public/logos/openai.svg",
+          "type": "registry:file",
+          "target": "public/logos/openai.svg"
+        },
+        {
+          "path": "public/logos/opensea.svg",
+          "type": "registry:file",
+          "target": "public/logos/opensea.svg"
+        },
+        {
+          "path": "public/logos/phantom.svg",
+          "type": "registry:file",
+          "target": "public/logos/phantom.svg"
+        },
+        {
+          "path": "public/logos/ramp.svg",
+          "type": "registry:file",
+          "target": "public/logos/ramp.svg"
+        },
+        {
+          "path": "public/logos/shopify.svg",
+          "type": "registry:file",
+          "target": "public/logos/shopify.svg"
+        },
+        {
+          "path": "public/logos/tesla.svg",
+          "type": "registry:file",
+          "target": "public/logos/tesla.svg"
+        },
+        {
+          "path": "public/logos/vercel.svg",
+          "type": "registry:file",
+          "target": "public/logos/vercel.svg"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "category": "media"
+    },
+    {
+      "name": "logo-carousel-right",
+      "type": "registry:component",
+      "title": "Logo Carousel Right",
+      "description": "Right scrolling Logo Carousel demo.",
+      "files": [
+        {
+          "path": "registry/demos/logo-carousel-demo-right.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "category": "media"
     }
   ]
 }

@@ -121,3 +121,28 @@
   pre {
   margin: 0 !important;
   }
+
+@keyframes logo-carousel {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - var(--gap, 1rem) / 2)); }
+}
+@keyframes logo-carousel-reverse {
+  from { transform: translateX(calc(-50% - var(--gap, 1rem) / 2)); }
+  to { transform: translateX(0); }
+}
+@keyframes logo-carousel-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-50% - var(--gap, 1rem) / 2)); }
+}
+@keyframes logo-carousel-y-reverse {
+  from { transform: translateY(calc(-50% - var(--gap, 1rem) / 2)); }
+  to { transform: translateY(0); }
+}
+
+.logo-carousel-logo {
+  filter: invert(1);
+}
+
+.dark .logo-carousel-logo {
+  filter: invert(0);
+}
