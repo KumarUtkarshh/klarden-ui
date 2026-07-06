@@ -1,6 +1,7 @@
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
+import { getCategoryMeta } from "./categories";
 
 const DOCS_PATH = path.join(process.cwd(), "content/docs");
 
@@ -43,7 +44,7 @@ export function getDocBySlug(slug: string[]): DocContent | null {
 
 export function getAllDocs(): DocMetadata[] {
   const slugs = getDocSlugs();
-  return slugs.map((slug) => {
+  const docs = slugs.map((slug) => {
     const fullPath = path.join(DOCS_PATH, slug) + ".mdx";
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data } = matter(fileContents);
@@ -53,6 +54,17 @@ export function getAllDocs(): DocMetadata[] {
       description: data.description || "",
       category: data.category || "General",
     };
+  });
+
+  return docs.sort((a, b) => {
+    const orderA = getCategoryMeta(a.category).order;
+    const orderB = getCategoryMeta(b.category).order;
+
+    if (orderA !== orderB) {
+      return orderA - orderB;
+    }
+
+    return a.title.localeCompare(b.title);
   });
 }
 
