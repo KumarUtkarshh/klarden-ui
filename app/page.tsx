@@ -29,16 +29,17 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground transition-colors duration-500">
+    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground transition-colors duration-500">
       <Navbar />
 
       <main className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
         <Hero />
         <Showcase />
+      </main>
 
-        {/* Footer */}
-        <footer className="mt-32 border-t border-border/40 pt-16 pb-16">
-
+      {/* Footer */}
+      <footer className="mt-32 border-t border-border/40 pt-16 pb-16 bg-background w-full">
+        <div className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-12 md:gap-8">
             {/* Column 1: Brand & Socials & Sponsors */}
             <div className="col-span-2 md:col-span-2 space-y-8">
@@ -152,28 +153,30 @@ export default function Home() {
               </ul>
             </div>
           </div>
+        </div>
 
-          {/* Sponsors Text Ticker */}
-          <div className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 border-t border-b border-border/40 py-8 my-12 overflow-hidden bg-background">
-            <LogoCarousel gap="6rem" duration={25} className="w-full">
-              {SPONSORS.map((sponsor, idx) => (
-                <span
-                  key={idx}
-                  className="text-2xl font-bold tracking-wider text-muted-foreground/45 hover:text-foreground transition-colors cursor-pointer select-none"
-                >
-                  {sponsor}
-                </span>
-              ))}
-            </LogoCarousel>
-          </div>
+        {/* Sponsors Text Ticker */}
+        <div className="border-t border-b border-border/40 py-8 my-12 overflow-hidden bg-background w-full">
+          <LogoCarousel gap="6rem" duration={25} className="w-full">
+            {SPONSORS.map((sponsor, idx) => (
+              <span
+                key={idx}
+                className="text-2xl font-bold tracking-wider text-muted-foreground/45 hover:text-foreground transition-colors cursor-pointer select-none"
+              >
+                {sponsor}
+              </span>
+            ))}
+          </LogoCarousel>
+        </div>
 
+        <div className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
           {/* Bottom Copyright */}
           <div className="mt-8 text-xs text-muted-foreground font-light">
             <p>© {new Date().getFullYear()} {SITE_CONFIG.name}</p>
           </div>
-        </footer>
-        <Analytics />
-      </main>
+        </div>
+      </footer>
+      <Analytics />
     </div>
   );
 }
