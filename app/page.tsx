@@ -9,6 +9,18 @@ import Link from "next/link";
 import GithubIcon from "@/components/ui/github-icon";
 import TwitterXIcon from "@/components/ui/twitter-x-icon";
 import BrandThreadsIcon from "@/components/ui/brand-threads-icon";
+import { LogoCarousel } from "@/registry/klarden-ui/logo-carousel";
+
+const SPONSORS = [
+  "Sponsor 1",
+  "Sponsor 2",
+  "Sponsor 3",
+  "Sponsor 4",
+  "Sponsor 5",
+  "Sponsor 6",
+  "Sponsor 7",
+  "Sponsor 8",
+];
 
 export const metadata = {
   title: `${SITE_CONFIG.name} | Refined Components for Design Engineers`,
@@ -26,6 +38,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="mt-32 border-t border-border/40 pt-16 pb-16">
+
           <div className="grid grid-cols-2 md:grid-cols-5 gap-12 md:gap-8">
             {/* Column 1: Brand & Socials & Sponsors */}
             <div className="col-span-2 md:col-span-2 space-y-8">
@@ -63,31 +76,13 @@ export default function Home() {
                   <TwitterXIcon size={20} className="text-muted-foreground hover:text-foreground" />
                 </Link>
                 <Link
-                  href="https://threads.net"
+                  href="https://www.threads.com/@utkrr.sh"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
                   <BrandThreadsIcon size={20} className="text-muted-foreground hover:text-foreground" />
                 </Link>
-              </div>
-
-              {/* Sponsors Section */}
-              <div className="space-y-2 pt-4">
-                <Link
-                  href="#"
-                  className="group flex items-center gap-1 text-sm font-semibold text-foreground hover:text-primary transition-colors"
-                >
-                  Sponsors
-                  <span className="text-[10px] text-muted-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
-                    ↗
-                  </span>
-                </Link>
-                <p className="text-xs text-muted-foreground font-light">
-                  <Link href="#" className="hover:underline">
-                    Be here
-                  </Link>
-                </p>
               </div>
             </div>
 
@@ -145,12 +140,12 @@ export default function Home() {
               <h4 className="text-sm font-semibold text-foreground">Legal</h4>
               <ul className="space-y-3 text-sm text-muted-foreground font-light">
                 <li>
-                  <Link href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/terms-of-service" className="hover:text-foreground transition-colors">
                     Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-foreground transition-colors">
+                  <Link href="/privacy-policy" className="hover:text-foreground transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
@@ -158,8 +153,22 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Sponsors Text Ticker */}
+          <div className="w-screen relative left-1/2 right-1/2 -translate-x-1/2 border-t border-b border-border/40 py-8 my-12 overflow-hidden bg-background">
+            <LogoCarousel gap="6rem" duration={25} className="w-full">
+              {SPONSORS.map((sponsor, idx) => (
+                <span
+                  key={idx}
+                  className="text-2xl font-bold tracking-wider text-muted-foreground/45 hover:text-foreground transition-colors cursor-pointer select-none"
+                >
+                  {sponsor}
+                </span>
+              ))}
+            </LogoCarousel>
+          </div>
+
           {/* Bottom Copyright */}
-          <div className="mt-20 pt-8 border-t border-border/20 text-xs text-muted-foreground font-light">
+          <div className="mt-8 text-xs text-muted-foreground font-light">
             <p>© {new Date().getFullYear()} {SITE_CONFIG.name}</p>
           </div>
         </footer>
