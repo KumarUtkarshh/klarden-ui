@@ -95,18 +95,18 @@ export default async function DocPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Breadcrumbs - Smaller & More Subtle */}
-      <nav className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+      {/* Breadcrumbs - Premium UI/UX Style */}
+      <nav className="flex items-center gap-2 text-xs font-medium text-zinc-400 dark:text-zinc-500">
         <Link
           href="/docs/introduction"
-          className="hover:text-primary transition-colors"
+          className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-200"
         >
           Docs
         </Link>
-        <ChevronRight size={10} className="opacity-40" />
-        <span className="opacity-70">{doc.category}</span>
-        <ChevronRight size={10} className="opacity-40" />
-        <span className="text-zinc-900 dark:text-zinc-50">{doc.title}</span>
+        <ChevronRight size={12} className="text-zinc-400 dark:text-zinc-300 shrink-0" />
+        <span className="truncate">{doc.category}</span>
+        <ChevronRight size={12} className="text-zinc-400 dark:text-zinc-300 shrink-0" />
+        <span className="text-zinc-900 dark:text-zinc-100 font-semibold truncate">{doc.title}</span>
       </nav>
 
       {/* Page Header - Tighter layout */}
@@ -130,13 +130,13 @@ export default async function DocPage({ params }: PageProps) {
             {prev ? (
               <Link
                 href={`/docs/${prev.slug}`}
-                className="p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-primary transition-all active:scale-90 shadow-xs"
+                className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
                 title={`Prev: ${prev.title}`}
               >
                 <ChevronLeft size={14} />
               </Link>
             ) : (
-              <div className="p-2 rounded-lg opacity-20 border border-zinc-200 dark:border-zinc-800 cursor-not-allowed">
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
                 <ChevronLeft size={14} />
               </div>
             )}
@@ -144,13 +144,13 @@ export default async function DocPage({ params }: PageProps) {
             {next ? (
               <Link
                 href={`/docs/${next.slug}`}
-                className="p-2 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-primary transition-all active:scale-90 shadow-xs"
+                className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
                 title={`Next: ${next.title}`}
               >
                 <ChevronRight size={14} />
               </Link>
             ) : (
-              <div className="p-2 rounded-lg opacity-20 border border-zinc-200 dark:border-zinc-800 cursor-not-allowed">
+              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
                 <ChevronRight size={14} />
               </div>
             )}
