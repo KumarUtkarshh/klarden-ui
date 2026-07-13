@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { List } from "lucide-react";
 
 interface HeadingItem {
   id: string;
@@ -86,9 +87,10 @@ export function TableOfContents() {
       onMouseLeave={() => setHoveredId(null)}
     >
       <div className="space-y-4">
-        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-900 dark:text-zinc-50 px-3">
-          On This Page
-        </p>
+        <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 px-3">
+          <List size={12} className="shrink-0" />
+          <span>On This Page</span>
+        </div>
         <ul className="space-y-0.5 text-xs relative">
           {headings.map((item) => {
             const isActive = activeId === item.id;

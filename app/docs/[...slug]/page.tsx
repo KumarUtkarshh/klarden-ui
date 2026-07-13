@@ -95,18 +95,18 @@ export default async function DocPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Breadcrumbs - Smaller & More Subtle */}
-      <nav className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
+      {/* Breadcrumbs - Premium UI/UX Style */}
+      <nav className="flex items-center gap-2 text-xs font-medium text-zinc-400 dark:text-zinc-500">
         <Link
           href="/docs/introduction"
-          className="hover:text-primary transition-colors"
+          className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-200"
         >
           Docs
         </Link>
-        <ChevronRight size={10} className="opacity-40" />
-        <span className="opacity-70">{doc.category}</span>
-        <ChevronRight size={10} className="opacity-40" />
-        <span className="text-zinc-900 dark:text-zinc-50">{doc.title}</span>
+        <ChevronRight size={12} className="text-zinc-400 dark:text-zinc-300 shrink-0" />
+        <span className="truncate">{doc.category}</span>
+        <ChevronRight size={12} className="text-zinc-400 dark:text-zinc-300 shrink-0" />
+        <span className="text-zinc-900 dark:text-zinc-100 font-semibold truncate">{doc.title}</span>
       </nav>
 
       {/* Page Header - Tighter layout */}
