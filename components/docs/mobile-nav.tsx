@@ -2,7 +2,7 @@
 
 import { LogoIcon } from "@/components/landing/logo-icon";
 import { DocMetadata } from "@/lib/docs";
-import { getCategoryMeta } from "@/lib/categories";
+import { getCategoryMeta, getCategoryKey } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -47,9 +47,9 @@ export function MobileNav({ items }: MobileNavProps) {
 
   const categories = items.reduce(
     (acc, item) => {
-      const category = item.category || "General";
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(item);
+      const categoryKey = getCategoryKey(item.category);
+      if (!acc[categoryKey]) acc[categoryKey] = [];
+      acc[categoryKey].push(item);
       return acc;
     },
     {} as Record<string, DocMetadata[]>,

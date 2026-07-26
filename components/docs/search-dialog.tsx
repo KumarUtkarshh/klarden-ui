@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { getCategoryMeta } from "@/lib/categories";
+import { getCategoryMeta, getCategoryKey } from "@/lib/categories";
 import { DocMetadata } from "@/lib/docs";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -44,9 +44,9 @@ export function SearchDialog({ items, open, onOpenChange }: SearchDialogProps) {
 
   const categories = items.reduce(
     (acc, item) => {
-      const category = item.category || "General";
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(item);
+      const categoryKey = getCategoryKey(item.category);
+      if (!acc[categoryKey]) acc[categoryKey] = [];
+      acc[categoryKey].push(item);
       return acc;
     },
     {} as Record<string, DocMetadata[]>,

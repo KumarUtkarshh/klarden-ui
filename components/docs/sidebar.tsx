@@ -1,7 +1,7 @@
 "use client";
 
 import { DocMetadata } from "@/lib/docs";
-import { getCategoryMeta } from "@/lib/categories";
+import { getCategoryMeta, getCategoryKey } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -18,9 +18,9 @@ export function Sidebar({ items }: SidebarProps) {
 
   const categories = items.reduce(
     (acc, item) => {
-      const category = item.category || "General";
-      if (!acc[category]) acc[category] = [];
-      acc[category].push(item);
+      const categoryKey = getCategoryKey(item.category);
+      if (!acc[categoryKey]) acc[categoryKey] = [];
+      acc[categoryKey].push(item);
       return acc;
     },
     {} as Record<string, DocMetadata[]>,
