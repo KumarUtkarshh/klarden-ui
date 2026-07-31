@@ -1,7 +1,7 @@
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
-import { getCategoryMeta } from "./categories";
+import { getCategoryMeta, getCategoryKey } from "./categories";
 
 const DOCS_PATH = path.join(process.cwd(), "content/docs");
 
@@ -37,7 +37,7 @@ export function getDocBySlug(slug: string[]): DocContent | null {
     slug: slug.join("/"),
     title: data.title || "Untitled",
     description: data.description || "",
-    category: data.category || "General",
+    category: getCategoryKey(data.category),
     content,
   };
 }
@@ -52,7 +52,7 @@ export function getAllDocs(): DocMetadata[] {
       slug,
       title: data.title || "Untitled",
       description: data.description || "",
-      category: data.category || "General",
+      category: getCategoryKey(data.category),
     };
   });
 

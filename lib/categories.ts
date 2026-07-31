@@ -3,7 +3,7 @@ import {
   MousePointerClick,
   Sliders,
   Route,
-  LayoutGrid,
+  AppWindow,
   Baseline,
   GalleryHorizontal,
   Sparkles,
@@ -17,13 +17,13 @@ export interface CategoryMeta {
 }
 
 export const CATEGORIES: Record<string, CategoryMeta> = {
-  "Getting Started": { title: "Getting Started", icon: Compass, order: 0 },
-  Button: { title: "Buttons", icon: MousePointerClick, order: 1 },
-  Form: { title: "Forms", icon: Sliders, order: 2 },
+  Overview: { title: "Overview", icon: Compass, order: 0 },
+  Buttons: { title: "Buttons", icon: MousePointerClick, order: 1 },
+  Inputs: { title: "Inputs", icon: Sliders, order: 2 },
   Navigation: { title: "Navigation", icon: Route, order: 3 },
-  Layout: { title: "Layouts", icon: LayoutGrid, order: 4 },
+  Cards: { title: "Cards", icon: AppWindow, order: 4 },
   Typography: { title: "Typography", icon: Baseline, order: 5 },
-  Media: { title: "Media", icon: GalleryHorizontal, order: 6 },
+  Carousels: { title: "Carousels", icon: GalleryHorizontal, order: 6 },
   Backgrounds: { title: "Backgrounds", icon: Sparkles, order: 7 },
 };
 
@@ -33,7 +33,20 @@ export const FALLBACK_CATEGORY: CategoryMeta = {
   order: 99,
 };
 
+const CATEGORY_ALIASES: Record<string, string> = {
+  "Getting Started": "Overview",
+  Button: "Buttons",
+  Form: "Inputs",
+  Layout: "Cards",
+  Media: "Carousels",
+};
+
+export function getCategoryKey(category?: string): string {
+  if (!category) return "General";
+  return CATEGORY_ALIASES[category] ?? category;
+}
+
 export function getCategoryMeta(category?: string): CategoryMeta {
-  if (!category) return FALLBACK_CATEGORY;
-  return CATEGORIES[category] ?? FALLBACK_CATEGORY;
+  const key = getCategoryKey(category);
+  return CATEGORIES[key] ?? FALLBACK_CATEGORY;
 }
