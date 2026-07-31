@@ -109,54 +109,55 @@ export default async function DocPage({ params }: PageProps) {
         <span className="text-zinc-900 dark:text-zinc-100 font-semibold truncate">{doc.title}</span>
       </nav>
 
-      {/* Page Header - Tighter layout */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1.5">
+      {/* Page Header */}
+      <header className="space-y-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h1 className="text-3xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50">
             {doc.title}
           </h1>
-          {doc.description && (
-            <p className="text-base text-zinc-500 dark:text-zinc-400 font-medium tracking-tight max-w-xl leading-relaxed">
-              {doc.description}
-            </p>
-          )}
-        </div>
 
-        {/* Page Actions - Compact & Single Line */}
-        <div className="flex items-center gap-2 shrink-0">
-          <OpenInChatGPTButton title={doc.title} description={doc.description} url={`${SITE_CONFIG.url}/docs/${doc.slug}`} />
+          {/* Page Actions - Top Right */}
+          <div className="flex items-center gap-2 shrink-0">
+            <OpenInChatGPTButton title={doc.title} description={doc.description} url={`${SITE_CONFIG.url}/docs/${doc.slug}`} />
 
-          <div className="flex items-center gap-1">
-            {prev ? (
-              <Link
-                href={`/docs/${prev.slug}`}
-                className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
-                title={`Prev: ${prev.title}`}
-              >
-                <ChevronLeft size={14} />
-              </Link>
-            ) : (
-              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
-                <ChevronLeft size={14} />
-              </div>
-            )}
+            <div className="flex items-center gap-1">
+              {prev ? (
+                <Link
+                  href={`/docs/${prev.slug}`}
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
+                  title={`Prev: ${prev.title}`}
+                >
+                  <ChevronLeft size={14} />
+                </Link>
+              ) : (
+                <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
+                  <ChevronLeft size={14} />
+                </div>
+              )}
 
-            {next ? (
-              <Link
-                href={`/docs/${next.slug}`}
-                className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
-                title={`Next: ${next.title}`}
-              >
-                <ChevronRight size={14} />
-              </Link>
-            ) : (
-              <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
-                <ChevronRight size={14} />
-              </div>
-            )}
+              {next ? (
+                <Link
+                  href={`/docs/${next.slug}`}
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 text-muted-foreground/80 hover:text-foreground hover:bg-zinc-100/50 dark:hover:bg-zinc-950/40 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-200 active:scale-95 shadow-xs cursor-pointer"
+                  title={`Next: ${next.title}`}
+                >
+                  <ChevronRight size={14} />
+                </Link>
+              ) : (
+                <div className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/20 opacity-30 text-muted-foreground/40 cursor-not-allowed">
+                  <ChevronRight size={14} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+
+        {doc.description && (
+          <p className="text-base text-zinc-500 dark:text-zinc-400 font-medium tracking-tight leading-relaxed max-w-3xl">
+            {doc.description}
+          </p>
+        )}
+      </header>
 
       <div className="h-px w-full bg-linear-to-r from-zinc-200 dark:from-zinc-800 to-transparent" />
 
