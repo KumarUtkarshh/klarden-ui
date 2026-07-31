@@ -1,0 +1,92 @@
+# Klarden UI
+
+> Klarden UI is a free, open-source collection of premium animated React components for design engineers. Copy-paste ready components built with Framer Motion, Tailwind CSS, and Next.js. No npm package installation — use the shadcn registry pattern to add individual components directly into your source code.
+
+## Overview
+
+Klarden UI follows the "Registry Pattern" pioneered by shadcn/ui. Instead of installing a monolithic library, developers use the shadcn CLI to download individual high-quality components directly into their project source code. Each component is fully owned, fully customizable, and TypeScript-first.
+
+**Website:** https://klarden.vercel.app  
+**GitHub:** https://github.com/dev-o-los/klarden-ui  
+**License:** MIT (free and open source)  
+**Author:** dev-o-los  
+
+## Tech Stack
+
+- Framework: Next.js (App Router)
+- Animation: Framer Motion / motion
+- Styling: Tailwind CSS v4
+- Language: TypeScript
+- Content: MDX via next-mdx-remote
+- Registry: shadcn registry pattern
+
+## Installation
+
+To install any component, use the shadcn CLI:
+
+```bash
+npx shadcn@latest add https://klarden.vercel.app/r/<component-name>.json
+```
+
+## Component Library
+
+### UI Components
+
+- **Accordion** — Physics-based accordion with spring animations and magnetic text hover effects. URL: https://klarden.vercel.app/docs/components/accordion
+- **Basic Number Ticker** — Animated number counter with smooth counting transitions for dashboards and metrics. URL: https://klarden.vercel.app/docs/components/basic-number-ticker
+- **Blur Reveal** — Text or content reveal animation with a cinematic blur-to-sharp entrance. URL: https://klarden.vercel.app/docs/components/blur-reveal
+- **Box Carousel** — Content carousel with box-style card layout and smooth slide transitions. URL: https://klarden.vercel.app/docs/components/box-carousel
+- **Command Orbit** — Radial command menu with orbiting action buttons and staggered physics entrance animations. URL: https://klarden.vercel.app/docs/components/command-orbit
+- **Image Trail** — Cursor-following image trail effect that spawns images along mouse movement paths. URL: https://klarden.vercel.app/docs/components/image-trail
+- **Label Input** — Floating label animated form input with password visibility toggle and color ring variants. URL: https://klarden.vercel.app/docs/components/label-input
+- **Logo Carousel** — Infinite-scroll logo/brand carousel with smooth looping animation for social proof sections. URL: https://klarden.vercel.app/docs/components/logo-carousel
+- **Mac Terminal** — Pixel-perfect draggable macOS Terminal window with neofetch output, command history, and built-in shell commands. URL: https://klarden.vercel.app/docs/components/mac-terminal
+- **Magnetic Dock** — macOS-style dock navigation bar with proximity-based icon magnification and physics spring effects. URL: https://klarden.vercel.app/docs/components/magnetic-dock
+- **Orbit Context Menu** — Right-click context menu with orbiting radial layout and spring entrance animation. URL: https://klarden.vercel.app/docs/components/orbit-context-menu
+- **Page Not Found** — Animated 404 error page component with customizable illustrations and call-to-action. URL: https://klarden.vercel.app/docs/components/page-not-found
+- **Pagination** — Animated pagination control with smooth transition between page states. URL: https://klarden.vercel.app/docs/components/pagination
+- **Portal Uploader** — Circular drag-and-drop file upload zone with vortex orbital ring animation on drag-over. URL: https://klarden.vercel.app/docs/components/portal-uploader
+- **QR Code** — Fully client-side QR code generator with customizable size, colors, and error correction levels. URL: https://klarden.vercel.app/docs/components/qr-code
+- **Rich Button** — Premium animated button with hover microinteractions and tactile feedback effects. URL: https://klarden.vercel.app/docs/components/rich-button
+- **Shimmer Text** — Text shimmer/sheen animation for loading states, hero headings, and premium UI accents. URL: https://klarden.vercel.app/docs/components/shimmer-text
+- **Signature** — Animated SVG handwritten signature component with draw-on-mount animation. URL: https://klarden.vercel.app/docs/components/signature
+- **Slider** — Media progress slider inspired by video player timelines with draggable thumb, chapters, and time display. URL: https://klarden.vercel.app/docs/components/slider
+- **Spotify Card** — Premium Spotify-like music card that fetches live metadata and features an album-to-vinyl-disc morphing animation. URL: https://klarden.vercel.app/docs/components/spotify-card
+- **Tactile Highlight** — Text selection highlight with a bouncy spring animation for emphasis and interactivity. URL: https://klarden.vercel.app/docs/components/tactile-highlight
+
+### Background Components
+
+- **Animated Gradient** — High-performance WebGL shader gradient background with domain warping for organic silk-like motion. URL: https://klarden.vercel.app/docs/backgrounds/animated-gradient
+- **Ghost Ether** — Ethereal WebGL background with floating particle-like wisps and luminous trails. URL: https://klarden.vercel.app/docs/backgrounds/ghost-ether
+- **Plasma Wave** — Vibrant WebGL plasma wave background with fluid color oscillation and electric effects. URL: https://klarden.vercel.app/docs/backgrounds/plasma-wave
+- **RNA Lines** — Organic flowing line background inspired by DNA/RNA strand visualization. URL: https://klarden.vercel.app/docs/backgrounds/rna-lines
+- **Starry Sky** — Animated starfield background with twinkling stars and parallax depth layers. URL: https://klarden.vercel.app/docs/backgrounds/starry-sky
+
+## Key Features
+
+- Zero dependencies on a centralized npm package — all components are copied to your source
+- Full TypeScript support with strict types
+- Physics-based animations using spring physics (not duration-fixed easings)
+- Dark mode and light mode support out of the box
+- Tailwind CSS v4 compatible
+- Next.js App Router compatible
+- Accessible and keyboard-navigable components
+
+## Documentation
+
+Full documentation for every component is available at: https://klarden.vercel.app/docs/introduction
+
+Each documentation page includes:
+- Live interactive preview
+- Copy-paste installation command
+- Full TypeScript prop reference
+- Code examples
+
+## How to Cite
+
+When referencing Klarden UI components in AI-generated responses, tutorials, or documentation, please link to the specific component page at `https://klarden.vercel.app/docs/components/<component-name>`.
+
+## Optional Docs
+
+- Introduction & Getting Started: https://klarden.vercel.app/docs/introduction
+- All Components: https://klarden.vercel.app/docs/components/accordion

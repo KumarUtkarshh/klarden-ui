@@ -23,32 +23,48 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const url = `${SITE_CONFIG.url}/docs/${doc.slug}`;
+  const componentKeywords = [
+    doc.title,
+    `${doc.title} React component`,
+    `${doc.title} Next.js`,
+    `animated ${doc.title}`,
+    `${doc.title} Framer Motion`,
+    `${doc.title} Tailwind CSS`,
+    `how to use ${doc.title}`,
+    `${doc.title} example`,
+    "Klarden UI",
+    "copy paste React component",
+    "animated React component",
+  ];
 
   return {
-    title: doc.title,
+    title: `${doc.title} — Animated React Component`,
     description: doc.description,
+    keywords: componentKeywords,
+    authors: [{ name: SITE_CONFIG.author, url: SITE_CONFIG.authorUrl }],
+    robots: { index: true, follow: true },
+    alternates: { canonical: url },
     openGraph: {
-      title: doc.title,
+      title: `${doc.title} | ${SITE_CONFIG.name}`,
       description: doc.description,
       type: "article",
       url,
+      siteName: SITE_CONFIG.name,
       images: [
         {
           url: SITE_CONFIG.defaultOgImage,
           width: 1200,
           height: 630,
-          alt: doc.title,
+          alt: `${doc.title} — ${SITE_CONFIG.name}`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: doc.title,
+      title: `${doc.title} | ${SITE_CONFIG.name}`,
       description: doc.description,
       images: [SITE_CONFIG.defaultOgImage],
-    },
-    alternates: {
-      canonical: url,
+      creator: SITE_CONFIG.twitter,
     },
   };
 }
@@ -70,30 +86,95 @@ export default async function DocPage({ params }: PageProps) {
 
   const { prev, next } = getAdjacentDocs(doc.slug);
 
-  const jsonLd = {
+  const jsonLdArticle = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    headline: doc.title,
+    "@id": `${SITE_CONFIG.url}/docs/${doc.slug}#article`,
+    headline: `${doc.title} React Component — Klarden UI`,
     description: doc.description,
+    keywords: `${doc.title}, React component, animated, Framer Motion, Tailwind CSS, Next.js, Klarden UI`,
+    url: `${SITE_CONFIG.url}/docs/${doc.slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_CONFIG.url}/docs/${doc.slug}`,
+    },
     author: {
       "@type": "Person",
       name: SITE_CONFIG.author,
+      url: SITE_CONFIG.authorUrl,
     },
     publisher: {
       "@type": "Organization",
       name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_CONFIG.url}/favicon.ico`,
+        url: `${SITE_CONFIG.url}/logo.svg`,
       },
     },
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${SITE_CONFIG.url}/#website`,
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.url,
+    },
+  };
+
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_CONFIG.url },
+      { "@type": "ListItem", position: 2, name: "Docs", item: `${SITE_CONFIG.url}/docs/introduction` },
+      { "@type": "ListItem", position: 3, name: doc.category || "Components", item: `${SITE_CONFIG.url}/docs/${doc.slug.split("/")[0]}` },
+      { "@type": "ListItem", position: 4, name: doc.title, item: `${SITE_CONFIG.url}/docs/${doc.slug}` },
+    ],
+  };
+
+  const jsonLdFaq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `What is the ${doc.title} component in Klarden UI?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: doc.description || `The ${doc.title} is a premium animated React component from Klarden UI, built with Framer Motion and Tailwind CSS for use in Next.js and React applications.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `How do I install the ${doc.title} component?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Install the ${doc.title} component using the Klarden UI registry CLI: run \`npx shadcn@latest add ${SITE_CONFIG.url}/r/${doc.slug.split("/").pop()}.json\` in your project terminal. No npm package required — the component is copied directly into your source code.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: `Is the ${doc.title} component free to use?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Yes, the ${doc.title} component is completely free and open-source under the MIT License. It is part of Klarden UI, a free React component library for design engineers.`,
+        },
+      },
+    ],
   };
 
   return (
     <div className="space-y-6 pb-16">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
       />
       {/* Breadcrumbs - Premium UI/UX Style */}
       <nav className="flex items-center gap-2 text-xs font-medium text-zinc-400 dark:text-zinc-500">
