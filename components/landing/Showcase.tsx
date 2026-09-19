@@ -5,11 +5,68 @@ import { MagneticDock } from "@/registry/klarden-ui/magnetic-dock";
 import { SpotifyCard } from "@/registry/klarden-ui/spotify/spotify-card";
 import { TactileHighlight } from "@/registry/klarden-ui/tactile-highlight";
 import { Signature } from "@/registry/klarden-ui/signature";
-import { Pagination, usePaginationState } from "@/registry/klarden-ui/pagination";
+import {
+  Pagination,
+  usePaginationState,
+} from "@/registry/klarden-ui/pagination";
 import BoxCarousel from "@/registry/klarden-ui/box-carousel";
 import { ImageTrail, ImageTrailItem } from "@/registry/klarden-ui/image-trail";
-import { motion, type Variants } from "framer-motion";
-import { Layout, MousePointer2, Type, Zap, PenTool, Box, ChevronRight, Image as ImageIcon } from "lucide-react";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
+import {
+  Layout,
+  MousePointer2,
+  Type,
+  Zap,
+  PenTool,
+  Box,
+  ChevronRight,
+  Image as ImageIcon,
+} from "lucide-react";
+import { useState, useRef } from "react";
+import { cn } from "@/lib/utils";
+
+const SPOTIFY_TRACKS = [
+  {
+    id: "dark-thoughts",
+    url: "https://open.spotify.com/track/7EW7Yivb93qKAtp5qEm5of",
+  },
+  {
+    id: "why",
+    url: "https://open.spotify.com/track/5iis4YlH20yv6wqjkwnyGo",
+  },
+  {
+    id: "ball-hog",
+    url: "https://open.spotify.com/track/6DiBmgLYK0r6uidXhn8wD8",
+  },
+];
+
+const spotifySlideVariants: Variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 80 : -80,
+    opacity: 0,
+    scale: 0.95,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 28 },
+      opacity: { duration: 0.25 },
+      scale: { duration: 0.25 },
+    },
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 80 : -80,
+    opacity: 0,
+    scale: 0.95,
+    transition: {
+      x: { type: "spring", stiffness: 300, damping: 28 },
+      opacity: { duration: 0.2 },
+      scale: { duration: 0.2 },
+    },
+  }),
+};
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -69,6 +126,48 @@ const TRAIL_IMAGES = [
 
 export function Showcase() {
   const pagination = usePaginationState(1);
+  const [spotifyTrackIndex, setSpotifyTrackIndex] = useState(0);
+  const [spotifyDirection, setSpotifyDirection] = useState(0);
+  const lastWheelTime = useRef(0);
+
+  const handleSpotifyChange = (newIndex: number) => {
+    if (newIndex === spotifyTrackIndex) return;
+    setSpotifyDirection(newIndex > spotifyTrackIndex ? 1 : -1);
+    setSpotifyTrackIndex(newIndex);
+  };
+
+  const handleSpotifyNext = () => {
+    setSpotifyDirection(1);
+    setSpotifyTrackIndex((prev) => (prev + 1) % SPOTIFY_TRACKS.length);
+  };
+
+  const handleSpotifyPrev = () => {
+    setSpotifyDirection(-1);
+    setSpotifyTrackIndex(
+      (prev) => (prev - 1 + SPOTIFY_TRACKS.length) % SPOTIFY_TRACKS.length,
+    );
+  };
+
+  const handleSpotifyWheel = (e: React.WheelEvent) => {
+    const now = Date.now();
+    if (now - lastWheelTime.current < 400) return;
+
+    if (Math.abs(e.deltaX) > 20) {
+      if (e.deltaX > 0) {
+        handleSpotifyNext();
+      } else {
+        handleSpotifyPrev();
+      }
+      lastWheelTime.current = now;
+    } else if (Math.abs(e.deltaY) > 30 && e.shiftKey) {
+      if (e.deltaY > 0) {
+        handleSpotifyNext();
+      } else {
+        handleSpotifyPrev();
+      }
+      lastWheelTime.current = now;
+    }
+  };
 
   return (
     <motion.div
@@ -123,16 +222,73 @@ export function Showcase() {
       {/* Spotify Card showcase */}
       <motion.div
         variants={itemVariants}
-        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-center min-h-80"
+        onWheel={handleSpotifyWheel}
+        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-between min-h-80 select-none"
       >
-        <div className="absolute top-6 left-6">
-          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs">
+        <div className="absolute top-6 left-6 z-10 pointer-events-none">
+          <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs pointer-events-auto">
             <Zap size={10} /> Media
           </div>
-          <h3 className="text-xl font-bold tracking-tight">Spotify Card</h3>
+          <h3 className="text-xl font-bold tracking-tight pointer-events-auto">
+            Spotify Card
+          </h3>
         </div>
-        <div className="mt-12 scale-90 xl:scale-100 transition-transform">
-          <SpotifyCard trackUrl="https://open.spotify.com/track/7EW7Yivb93qKAtp5qEm5of?si=301fefb2256f44cd" />
+
+        {/* Carousel Card with Mouse Drag / Slide */}
+        <div className="relative w-full flex-1 flex items-center justify-center mt-12 overflow-hidden">
+          <AnimatePresence
+            initial={false}
+            custom={spotifyDirection}
+            mode="wait"
+          >
+            <motion.div
+              key={spotifyTrackIndex}
+              custom={spotifyDirection}
+              variants={spotifySlideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(_, { offset, velocity }) => {
+                const swipeThreshold = 40;
+                if (offset.x < -swipeThreshold || velocity.x < -250) {
+                  handleSpotifyNext();
+                } else if (offset.x > swipeThreshold || velocity.x > 250) {
+                  handleSpotifyPrev();
+                }
+              }}
+              className="cursor-grab active:cursor-grabbing scale-90 xl:scale-100 transition-transform touch-pan-y"
+            >
+              <SpotifyCard trackUrl={SPOTIFY_TRACKS[spotifyTrackIndex].url} />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* 3 Ellipses / Dots Indicators */}
+        <div className="flex items-center justify-center gap-2 mt-2 z-10">
+          {SPOTIFY_TRACKS.map((track, i) => {
+            const isActive = i === spotifyTrackIndex;
+            return (
+              <button
+                key={track.id}
+                type="button"
+                onClick={() => handleSpotifyChange(i)}
+                aria-label={`Go to song ${i + 1}`}
+                className="relative py-1.5 px-1 flex items-center justify-center cursor-pointer group/dot focus:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-full"
+              >
+                <span
+                  className={cn(
+                    "block rounded-full transition-all duration-300",
+                    isActive
+                      ? "w-6 h-1.5 bg-foreground"
+                      : "w-1.5 h-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/60",
+                  )}
+                />
+              </button>
+            );
+          })}
         </div>
       </motion.div>
 
@@ -233,7 +389,7 @@ export function Showcase() {
           </div>
           <h3 className="text-xl font-bold tracking-tight">Image Trail</h3>
         </div>
-        
+
         {/* Background grid representation */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
 
@@ -272,7 +428,7 @@ export function Showcase() {
               </ImageTrailItem>
             ))}
           </ImageTrail>
-          
+
           <span className="text-xs text-muted-foreground font-medium pointer-events-none select-none z-10 bg-background/50 backdrop-blur-xs px-3 py-1.5 rounded-full border border-border">
             Move mouse here to view trail
           </span>
