@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.tgz
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Internal agent scratch
+.sisyphus/
+.omo/

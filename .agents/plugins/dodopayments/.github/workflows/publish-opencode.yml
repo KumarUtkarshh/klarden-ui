@@ -1,0 +1,51 @@
+name: Publish @dodopayments/opencode-plugin
+
+on:
+    release:
+        types: [published]
+    workflow_dispatch:
+        inputs:
+            dry_run:
+                description: "Run npm publish --dry-run only"
+                type: boolean
+                default: true
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+                  registry-url: "https://registry.npmjs.org"
+
+
+            # npm Trusted Publishing (OIDC) needs npm >= 11.5.1; the Node
+            # version above ships an older npm. Pin 11.6.2 for reproducible runs
+            # (11.5.2 fixed an OIDC/provenance ordering bug, 11.6.2 resolves
+            # trusted-publishing failures seen in the wild).
+            - name: Upgrade npm for trusted publishing
+              run: npm install -g npm@11.6.2
+            - name: Verify generated artifacts are in sync
+              run: node scripts/build.mjs --check
+
+            - name: Verify Agent Plugins conformance
+              run: node scripts/conformance.mjs
+
+            - name: Verify package contents (dry pack)
+              run: npm pack --dry-run
+
+            - name: Publish (dry run)
+              if: github.event_name == 'workflow_dispatch' && inputs.dry_run == true
+              run: npm publish --dry-run --access public
+
+            - name: Publish
+              if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.dry_run == false)
+              run: npm publish --provenance --access public
