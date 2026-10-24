@@ -162,7 +162,7 @@ export function SpotifyCard({ trackUrl, className }: SpotifyCardProps) {
     return (
       <div
         className={cn(
-          "w-95 h-32.5 rounded-3xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 backdrop-blur-xl",
+          "w-full max-w-95 h-28 sm:h-32.5 rounded-3xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 backdrop-blur-xl",
           className,
         )}
       >
@@ -180,7 +180,7 @@ export function SpotifyCard({ trackUrl, className }: SpotifyCardProps) {
   return (
     <div
       className={cn(
-        "group relative w-95 h-32.5 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 border border-black/5 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-2xl",
+        "group relative w-full max-w-95 h-28 sm:h-32.5 rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 border border-black/5 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-2xl",
         className,
       )}
     >
@@ -247,16 +247,16 @@ export function SpotifyCard({ trackUrl, className }: SpotifyCardProps) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex items-center h-full px-5 gap-6">
+      <div className="relative z-10 flex items-center h-full px-4 sm:px-5 gap-3.5 sm:gap-6">
         {/* Album Cover / Disc */}
-        <div className="relative flex items-center justify-center w-24 h-24 shrink-0">
+        <div className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 shrink-0">
           <motion.div
             layout
             animate={{
               borderRadius: isPlaying ? "100%" : "16px",
             }}
             transition={{ duration: 0.6, ease: "circOut" }}
-            className="relative w-24 h-24 overflow-hidden shadow-2xl cursor-pointer ring-1 ring-black/5 dark:ring-white/10 z-10"
+            className="relative w-20 h-20 sm:w-24 sm:h-24 overflow-hidden shadow-2xl cursor-pointer ring-1 ring-black/5 dark:ring-white/10 z-10"
             onClick={togglePlayback}
           >
             <motion.div
@@ -281,7 +281,7 @@ export function SpotifyCard({ trackUrl, className }: SpotifyCardProps) {
                   opacity: isPlaying ? 1 : 0,
                   scale: isPlaying ? 1 : 0.5,
                 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-black/90 dark:bg-black/95 border border-white/20 flex items-center justify-center pointer-events-none shadow-xl"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black/90 dark:bg-black/95 border border-white/20 flex items-center justify-center pointer-events-none shadow-xl"
               >
                 <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
               </motion.div>
@@ -290,21 +290,21 @@ export function SpotifyCard({ trackUrl, className }: SpotifyCardProps) {
         </div>
 
         {/* Info Section */}
-        <div className="flex-1 min-w-0 flex flex-col justify-center gap-1 overflow-hidden pr-8">
+        <div className="flex-1 min-w-0 flex flex-col justify-center gap-1 overflow-hidden pr-6 sm:pr-8">
           <div className="flex flex-col min-w-0">
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight leading-tight truncate">
+            <h3 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white tracking-tight leading-tight truncate">
               {title}
             </h3>
-            <span className="text-sm font-semibold text-zinc-600 dark:text-zinc-400 truncate opacity-80">
+            <span className="text-xs sm:text-sm font-semibold text-zinc-600 dark:text-zinc-400 truncate opacity-80">
               {artist}
             </span>
           </div>
         </div>
 
         {/* Spotify Branding */}
-        <div className="absolute top-5 right-6">
+        <div className="absolute top-4 right-4 sm:top-5 sm:right-6">
           <SpotifyLogo
-            className="w-5 h-5 text-zinc-900 dark:text-white"
+            className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-900 dark:text-white"
             isPlaying={isPlaying}
           />
         </div>

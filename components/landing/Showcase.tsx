@@ -223,7 +223,7 @@ export function Showcase() {
       <motion.div
         variants={itemVariants}
         onWheel={handleSpotifyWheel}
-        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 p-6 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-between min-h-80 select-none"
+        className="md:col-span-5 group relative overflow-hidden rounded-3xl border border-border bg-card/50 px-4 py-6 sm:px-6 sm:py-8 md:p-8 shadow-sm backdrop-blur-sm transition-colors duration-500 flex flex-col items-center justify-between min-h-80 select-none"
       >
         <div className="absolute top-6 left-6 z-10 pointer-events-none">
           <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-background border border-border text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-2 w-fit shadow-xs pointer-events-auto">
@@ -235,7 +235,7 @@ export function Showcase() {
         </div>
 
         {/* Carousel Card with Mouse Drag / Slide */}
-        <div className="relative w-full flex-1 flex items-center justify-center mt-12 overflow-hidden">
+        <div className="relative w-full flex-1 flex items-center justify-center mt-12 py-2 px-1 sm:px-3 overflow-hidden">
           <AnimatePresence
             initial={false}
             custom={spotifyDirection}
@@ -259,9 +259,12 @@ export function Showcase() {
                   handleSpotifyPrev();
                 }
               }}
-              className="cursor-grab active:cursor-grabbing scale-90 xl:scale-100 transition-transform touch-pan-y"
+              className="w-full max-w-95 flex items-center justify-center cursor-grab active:cursor-grabbing touch-pan-y"
             >
-              <SpotifyCard trackUrl={SPOTIFY_TRACKS[spotifyTrackIndex].url} />
+              <SpotifyCard
+                trackUrl={SPOTIFY_TRACKS[spotifyTrackIndex].url}
+                className="w-full"
+              />
             </motion.div>
           </AnimatePresence>
         </div>
