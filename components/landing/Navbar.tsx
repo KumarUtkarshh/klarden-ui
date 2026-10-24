@@ -47,6 +47,21 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-2">
           <SearchWrapper items={docs} />
+          <a
+            href="https://kulhad.co/dev-o-los"
+            target="_blank"
+            rel="noreferrer"
+            className="hidden sm:inline-flex items-center shrink-0 transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]"
+            title="Buy me a kulhad"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://kulhad.co/api/button.png?text=Buy%20me%20a%20kulhad&color=%238E3414"
+              alt="Buy me a kulhad"
+              height={36}
+              className="h-9 w-auto rounded-xl shadow-xs"
+            />
+          </a>
           <GitHubStarButton />
           <ModeToggle />
         </div>

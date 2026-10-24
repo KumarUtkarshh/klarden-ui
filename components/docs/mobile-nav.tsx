@@ -201,21 +201,38 @@ export function MobileNav({ items }: MobileNavProps) {
                 </div>
 
                 {/* Mobile Drawer Actions Footer */}
-                <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl flex items-center gap-2">
-                  <div className="flex-1">
-                    <SearchButton
-                      onOpen={() => {
-                        setOpen(false);
-                        // Dispatch the custom event after the drawer begins closing to avoid focus-trap conflicts
-                        setTimeout(() => {
-                          document.dispatchEvent(new CustomEvent("open-search"));
-                        }, 100);
-                      }}
-                      className="flex w-full"
-                    />
+                <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-xl space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <a
+                      href="https://kulhad.co/dev-o-los"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center shrink-0 transition-transform duration-200 hover:scale-[1.03] active:scale-[0.98]"
+                      title="Buy me a kulhad"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="https://kulhad.co/api/button.png?text=Buy%20me%20a%20kulhad&color=%238E3414"
+                        alt="Buy me a kulhad"
+                        height={36}
+                        className="h-9 w-auto rounded-xl shadow-xs"
+                      />
+                    </a>
+                    <div className="flex items-center gap-2">
+                      <GitHubStarButton size="sm" className="h-9" />
+                      <ModeToggle />
+                    </div>
                   </div>
-                  <GitHubStarButton size="sm" className="h-9" />
-                  <ModeToggle />
+                  <SearchButton
+                    onOpen={() => {
+                      setOpen(false);
+                      // Dispatch the custom event after the drawer begins closing to avoid focus-trap conflicts
+                      setTimeout(() => {
+                        document.dispatchEvent(new CustomEvent("open-search"));
+                      }, 100);
+                    }}
+                    className="flex w-full"
+                  />
                 </div>
               </motion.div>
             </div>
