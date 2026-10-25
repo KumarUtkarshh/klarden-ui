@@ -1,10 +1,16 @@
+"use client";
+
+import { useRef } from "react";
 import { LogoIcon } from "@/components/landing/logo-icon";
 import { SITE_CONFIG } from "@/lib/constants";
 import Link from "next/link";
 import GithubIcon from "@/components/ui/github-icon";
 import TwitterXIcon from "@/components/ui/twitter-x-icon";
 import BrandThreadsIcon from "@/components/ui/brand-threads-icon";
+import HeartIcon from "@/components/ui/heart-icon";
+import type { AnimatedIconHandle } from "@/components/ui/types";
 import { LogoCarousel } from "@/registry/klarden-ui/logo-carousel";
+import { RichButton } from "@/registry/klarden-ui/rich-button";
 
 const SPONSORS = [
   "Sponsor 1",
@@ -18,6 +24,7 @@ const SPONSORS = [
 ];
 
 export function Footer() {
+  const heartRef = useRef<AnimatedIconHandle>(null);
   return (
     <footer className="mt-32 border-t border-border/40 pt-16 pb-16 bg-background w-full">
       <div className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
@@ -47,7 +54,10 @@ export function Footer() {
                 rel="noreferrer"
                 className="hover:text-foreground transition-colors"
               >
-                <GithubIcon size={20} className="text-muted-foreground hover:text-foreground" />
+                <GithubIcon
+                  size={20}
+                  className="text-muted-foreground hover:text-foreground"
+                />
               </Link>
               <Link
                 href={`https://x.com/${SITE_CONFIG.twitter.replace("@", "")}`}
@@ -55,7 +65,10 @@ export function Footer() {
                 rel="noreferrer"
                 className="hover:text-foreground transition-colors"
               >
-                <TwitterXIcon size={20} className="text-muted-foreground hover:text-foreground" />
+                <TwitterXIcon
+                  size={20}
+                  className="text-muted-foreground hover:text-foreground"
+                />
               </Link>
               <Link
                 href="https://www.threads.net/@utkrr.sh"
@@ -63,12 +76,39 @@ export function Footer() {
                 rel="noreferrer"
                 className="hover:text-foreground transition-colors"
               >
-                <BrandThreadsIcon size={20} className="text-muted-foreground hover:text-foreground" />
+                <BrandThreadsIcon
+                  size={20}
+                  className="text-muted-foreground hover:text-foreground"
+                />
               </Link>
             </div>
 
-            {/* Kulhad Support */}
-            <div className="pt-1">
+            {/* Support Actions */}
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <Link
+                href="/donate"
+                target="_blank"
+                rel="noreferrer"
+                onMouseEnter={() => heartRef.current?.startAnimation()}
+                onMouseLeave={() => heartRef.current?.stopAnimation()}
+                className="inline-flex items-center shrink-0"
+              >
+                <RichButton
+                  size="default"
+                  color="default"
+                  className="rounded-full h-11 px-5 text-sm font-semibold tracking-tight border-border cursor-pointer shadow-xs"
+                >
+                  <HeartIcon
+                    ref={heartRef}
+                    size={17}
+                    fill="#f43f5e"
+                    color="#f43f5e"
+                    className="shrink-0 text-rose-500 drop-shadow-[0_0_6px_rgba(244,63,94,0.4)] transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <span className="ml-2.5 whitespace-nowrap">Donate to Klarden</span>
+                </RichButton>
+              </Link>
+
               <a
                 href="https://kulhad.co/dev-o-los"
                 target="_blank"
@@ -81,7 +121,7 @@ export function Footer() {
                   src="https://kulhad.co/api/button.png?text=Buy%20me%20a%20kulhad&color=%238E3414"
                   alt="Buy me a kulhad"
                   height={44}
-                  className="h-11 w-auto rounded-xl shadow-xs"
+                  className="h-11 w-auto rounded-full shadow-xs"
                 />
               </a>
             </div>
@@ -92,18 +132,37 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-foreground">Product</h4>
             <ul className="space-y-3 text-sm text-muted-foreground font-light">
               <li>
-                <Link href="/docs/introduction" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/docs/introduction"
+                  className="hover:text-foreground transition-colors"
+                >
                   Docs
                 </Link>
               </li>
               <li>
-                <Link href="/docs/components/rich-button" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/docs/components/rich-button"
+                  className="hover:text-foreground transition-colors"
+                >
                   Components
                 </Link>
               </li>
               <li>
-                <Link href="/sponsor" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/sponsor"
+                  className="hover:text-foreground transition-colors"
+                >
                   Sponsor
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/donate"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-foreground transition-colors cursor-pointer text-left"
+                >
+                  Donate
                 </Link>
               </li>
             </ul>
@@ -114,17 +173,29 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-foreground">Social</h4>
             <ul className="space-y-3 text-sm text-muted-foreground font-light">
               <li>
-                <Link href={SITE_CONFIG.github} target="_blank" className="hover:text-foreground transition-colors">
+                <Link
+                  href={SITE_CONFIG.github}
+                  target="_blank"
+                  className="hover:text-foreground transition-colors"
+                >
                   GitHub
                 </Link>
               </li>
               <li>
-                <Link href={`https://x.com/${SITE_CONFIG.twitter.replace("@", "")}`} target="_blank" className="hover:text-foreground transition-colors">
+                <Link
+                  href={`https://x.com/${SITE_CONFIG.twitter.replace("@", "")}`}
+                  target="_blank"
+                  className="hover:text-foreground transition-colors"
+                >
                   X (Twitter)
                 </Link>
               </li>
               <li>
-                <Link href="https://www.threads.net/@utkrr.sh" target="_blank" className="hover:text-foreground transition-colors">
+                <Link
+                  href="https://www.threads.net/@utkrr.sh"
+                  target="_blank"
+                  className="hover:text-foreground transition-colors"
+                >
                   Threads
                 </Link>
               </li>
@@ -136,12 +207,18 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-foreground">Legal</h4>
             <ul className="space-y-3 text-sm text-muted-foreground font-light">
               <li>
-                <Link href="/terms-of-service" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/terms-of-service"
+                  className="hover:text-foreground transition-colors"
+                >
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/privacy-policy" className="hover:text-foreground transition-colors">
+                <Link
+                  href="/privacy-policy"
+                  className="hover:text-foreground transition-colors"
+                >
                   Privacy Policy
                 </Link>
               </li>
@@ -186,7 +263,9 @@ export function Footer() {
       <div className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
         {/* Bottom Copyright */}
         <div className="mt-8 text-xs text-muted-foreground font-light">
-          <p>© {new Date().getFullYear()} {SITE_CONFIG.name}</p>
+          <p>
+            © {new Date().getFullYear()} {SITE_CONFIG.name}
+          </p>
         </div>
       </div>
     </footer>
