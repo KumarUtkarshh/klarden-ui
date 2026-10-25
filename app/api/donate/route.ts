@@ -61,6 +61,7 @@ export async function POST(request: Request) {
             name: donorName?.trim() || undefined,
           }
         : undefined,
+      minimal_address: true,
       metadata: {
         category: "donation",
         amount_usd: parsedAmount.toFixed(2),
@@ -70,6 +71,14 @@ export async function POST(request: Request) {
       feature_flags: {
         allow_currency_selection: true,
         allow_customer_editing_email: true,
+        allow_customer_editing_name: true,
+        allow_phone_number_collection: false,
+        require_phone_number: false,
+        allow_customer_editing_city: false,
+        allow_customer_editing_state: false,
+        allow_customer_editing_street: false,
+        allow_customer_editing_zipcode: false,
+        allow_tax_id: false,
       },
       return_url: returnUrl,
       cancel_url: origin,

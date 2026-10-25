@@ -5,7 +5,6 @@ import GithubIcon from "@/components/ui/github-icon";
 import TwitterXIcon from "@/components/ui/twitter-x-icon";
 import BrandThreadsIcon from "@/components/ui/brand-threads-icon";
 import { LogoCarousel } from "@/registry/klarden-ui/logo-carousel";
-import { DonationModal } from "@/components/landing/donation-modal";
 import { Heart } from "lucide-react";
 
 const SPONSORS = [
@@ -71,15 +70,15 @@ export function Footer() {
 
             {/* Support Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <DonationModal>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-2 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 px-4 py-2.5 text-xs font-semibold tracking-wide border border-zinc-800 dark:border-zinc-200 hover:opacity-90 transition-all active:scale-[0.98] shadow-xs cursor-pointer"
-                >
-                  <Heart className="size-3.5 fill-rose-500 text-rose-500" />
-                  <span>Donate to Klarden</span>
-                </button>
-              </DonationModal>
+              <Link
+                href="/donate"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-zinc-950 dark:bg-zinc-100 text-white dark:text-zinc-950 px-4 py-2.5 text-xs font-semibold tracking-wide border border-zinc-800 dark:border-zinc-200 hover:opacity-90 transition-all active:scale-[0.98] shadow-xs cursor-pointer"
+              >
+                <Heart className="size-3.5 fill-rose-500 text-rose-500" />
+                <span>Donate to Klarden</span>
+              </Link>
 
               <a
                 href="https://kulhad.co/dev-o-los"
@@ -119,14 +118,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <DonationModal>
-                  <button
-                    type="button"
-                    className="hover:text-foreground transition-colors cursor-pointer text-left"
-                  >
-                    Donate
-                  </button>
-                </DonationModal>
+                <Link
+                  href="/donate"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-foreground transition-colors cursor-pointer text-left"
+                >
+                  Donate
+                </Link>
               </li>
             </ul>
           </div>
