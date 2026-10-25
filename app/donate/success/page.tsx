@@ -25,7 +25,8 @@ function SuccessCard() {
       </h1>
 
       <p className="mt-4 text-muted-foreground text-sm md:text-base font-light max-w-md leading-relaxed">
-        Your donation directly fuels the ongoing development of tactile, fluid-motion components for Klarden UI. A receipt has been sent to your email by Dodo Payments.
+        Your donation directly fuels the ongoing development of tactile,
+        fluid-motion components for Klarden UI.
       </p>
 
       <div className="mt-8 flex items-center gap-4">
@@ -46,7 +47,13 @@ export default function DonateSuccessPage() {
     <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground transition-colors duration-500">
       <Navbar />
       <main className="max-w-350 mx-auto px-6 md:px-10 lg:px-12">
-        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center">Loading...</div>}>
+        <Suspense
+          fallback={
+            <div className="min-h-[50vh] flex items-center justify-center">
+              Loading...
+            </div>
+          }
+        >
           <SuccessCard />
         </Suspense>
       </main>
