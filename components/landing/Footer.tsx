@@ -105,7 +105,9 @@ export function Footer() {
                     color="#f43f5e"
                     className="shrink-0 text-rose-500 drop-shadow-[0_0_6px_rgba(244,63,94,0.4)] transition-transform duration-300 group-hover:scale-110"
                   />
-                  <span className="ml-2.5 whitespace-nowrap">Donate to Klarden</span>
+                  <span className="ml-2.5 whitespace-nowrap">
+                    Support Klarden
+                  </span>
                 </Link>
               </RichButton>
 
@@ -153,16 +155,6 @@ export function Footer() {
                   className="hover:text-foreground transition-colors"
                 >
                   Sponsor
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/donate"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-foreground transition-colors cursor-pointer text-left"
-                >
-                  Donate
                 </Link>
               </li>
               <li>
