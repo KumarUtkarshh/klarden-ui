@@ -85,18 +85,18 @@ export function Footer() {
 
             {/* Support Actions */}
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <Link
-                href="/donate"
-                target="_blank"
-                rel="noreferrer"
-                onMouseEnter={() => heartRef.current?.startAnimation()}
-                onMouseLeave={() => heartRef.current?.stopAnimation()}
-                className="inline-flex items-center shrink-0"
+              <RichButton
+                asChild
+                size="default"
+                color="default"
+                className="rounded-full h-11 px-5 text-sm font-semibold tracking-tight border-border cursor-pointer shadow-xs"
               >
-                <RichButton
-                  size="default"
-                  color="default"
-                  className="rounded-full h-11 px-5 text-sm font-semibold tracking-tight border-border cursor-pointer shadow-xs"
+                <Link
+                  href="/donate"
+                  target="_blank"
+                  rel="noreferrer"
+                  onMouseEnter={() => heartRef.current?.startAnimation()}
+                  onMouseLeave={() => heartRef.current?.stopAnimation()}
                 >
                   <HeartIcon
                     ref={heartRef}
@@ -106,8 +106,8 @@ export function Footer() {
                     className="shrink-0 text-rose-500 drop-shadow-[0_0_6px_rgba(244,63,94,0.4)] transition-transform duration-300 group-hover:scale-110"
                   />
                   <span className="ml-2.5 whitespace-nowrap">Donate to Klarden</span>
-                </RichButton>
-              </Link>
+                </Link>
+              </RichButton>
 
               <a
                 href="https://kulhad.co/dev-o-los"
@@ -163,6 +163,23 @@ export function Footer() {
                   className="hover:text-foreground transition-colors cursor-pointer text-left"
                 >
                   Donate
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/llm-info"
+                  className="hover:text-foreground transition-colors"
+                >
+                  LLM Info
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/llms.txt"
+                  target="_blank"
+                  className="hover:text-foreground transition-colors"
+                >
+                  llms.txt
                 </Link>
               </li>
             </ul>

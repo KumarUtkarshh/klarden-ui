@@ -1,0 +1,426 @@
+# Klarden UI — Full LLM Knowledge Base
+
+> Comprehensive technical reference, component APIs, installation commands, code snippets, and architectural guidelines for AI assistants (ChatGPT, Claude, Perplexity, Gemini, Cursor, Copilot, Windsurf).
+
+- Official Website: https://klarden.vercel.app
+- GitHub Repository: https://github.com/dev-o-los/klarden-ui
+- License: MIT License (Free, permissive, commercial use allowed)
+- Creator: dev-o-los (Utkarsh)
+- Registry Endpoint: https://klarden.vercel.app/r/
+- Specification: LLMs Full Context Documentation
+
+---
+
+## 1. Project Philosophy & Architecture
+
+### What is Klarden UI?
+Klarden UI is an open-source library of physics-driven animated React components and WebGL background shaders designed for modern design engineers, founders, and frontend developers.
+
+Instead of bundling components into an opaque npm package with inflexible styles and breaking version bumps, Klarden UI implements the **shadcn registry architecture**:
+1. Components are distributed as raw TypeScript files (`.tsx`).
+2. Developers install individual components directly into their project tree using `npx shadcn@latest add https://klarden.vercel.app/r/<component>.json`.
+3. Consuming projects own the source code outright, granting complete freedom to modify styles, extend props, and tailor animations.
+
+### Technical Stack Requirements
+- **Framework**: Next.js 14, 15, or 16 (App Router or Pages Router) or Vite / Remix / Astro React setups.
+- **Language**: TypeScript 5.x (Strict mode).
+- **Styling**: Tailwind CSS v4 (compatible with Tailwind CSS v3 via standard utility classes).
+- **Animation**: Framer Motion 12 (`framer-motion` or `motion/react`).
+- **3D / Shaders**: Three.js / OGL (for WebGL background components).
+- **Base Utilities**: `clsx`, `tailwind-merge`, `lucide-react`.
+
+---
+
+## 2. Core Dependencies & Setup
+
+### Base Dependencies
+To run Klarden UI components in any React project, install the core peer dependencies:
+
+```bash
+npm install framer-motion lucide-react clsx tailwind-merge
+# or
+pnpm add framer-motion lucide-react clsx tailwind-merge
+# or
+yarn add framer-motion lucide-react clsx tailwind-merge
+```
+
+For WebGL background components (`animated-gradient`, `ghost-ether`, `plasma-wave`, `starry-sky`):
+```bash
+pnpm add three @types/three ogl
+```
+
+For QR Code component:
+```bash
+pnpm add qrcode @types/qrcode
+```
+
+### Tailwind CSS Helper (`cn` utility)
+All components use the standard `cn` helper in `@/lib/utils`:
+```typescript
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+---
+
+## 3. Detailed Component Reference & Code Examples
+
+### 3.1 Accordion
+- **Description**: Physics-based accordion with smooth spring animations, magnetic text hover effects, and keyboard navigation.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/accordion.json
+  ```
+- **Code Example**:
+  ```tsx
+  import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/accordion";
+
+  export function AccordionDemo() {
+    return (
+      <Accordion type="single" collapsible className="w-full max-w-lg">
+        <AccordionItem value="item-1">
+          <AccordionTrigger>What makes Klarden UI different?</AccordionTrigger>
+          <AccordionContent>
+            Klarden UI focuses on physics-based spring animations, tactile microinteractions, and direct code ownership via shadcn registry distribution.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger>Is it free for commercial use?</AccordionTrigger>
+          <AccordionContent>
+            Yes, Klarden UI is licensed under the permissive MIT license.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    );
+  }
+  ```
+
+---
+
+### 3.2 Basic Number Ticker
+- **Description**: Animated rolling number counter with smooth increment/decrement spring physics for financial metrics, stats, and dashboard counters.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/basic-number-ticker.json
+  ```
+- **Props**:
+  - `value`: `number` (target value to count towards)
+  - `initialValue?`: `number` (starting value, defaults to 0)
+  - `duration?`: `number` (spring stiffness/duration in seconds)
+  - `decimalPlaces?`: `number` (number of decimal places to display)
+  - `className?`: `string`
+- **Code Example**:
+  ```tsx
+  import { BasicNumberTicker } from "@/components/basic-number-ticker";
+
+  export function MetricCard() {
+    return (
+      <div className="p-6 rounded-2xl border border-border bg-card">
+        <span className="text-sm text-muted-foreground">Active Monthly Users</span>
+        <div className="text-4xl font-bold mt-2">
+          <BasicNumberTicker value={142850} />
+        </div>
+      </div>
+    );
+  }
+  ```
+
+---
+
+### 3.3 Blur Reveal
+- **Description**: Cinematic blur-to-sharp content and text reveal animation triggered on mount or view intersection.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/blur-reveal.json
+  ```
+- **Props**:
+  - `children`: `React.ReactNode`
+  - `delay?`: `number` (seconds before animation starts)
+  - `duration?`: `number` (length of transition)
+  - `blur?`: `string` (initial blur intensity, e.g. "12px")
+  - `className?`: `string`
+- **Code Example**:
+  ```tsx
+  import { BlurReveal } from "@/components/blur-reveal";
+
+  export function HeroTitle() {
+    return (
+      <BlurReveal delay={0.2} blur="16px">
+        <h1 className="text-6xl font-bold tracking-tight">
+          Refined Components for Design Engineers
+        </h1>
+      </BlurReveal>
+    );
+  }
+  ```
+
+---
+
+### 3.4 Box Carousel
+- **Description**: Smooth gesture-driven box-layout content carousel with pagination indicators, drag constraints, and keyboard arrow controls.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/box-carousel.json
+  ```
+
+---
+
+### 3.5 Command Orbit
+- **Description**: Circular radial command menu with orbiting actions and staggered spring entrance. Ideal for quick action menus, game HUDs, and productivity tools.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/command-orbit.json
+  ```
+- **Code Example**:
+  ```tsx
+  import { CommandOrbit, CommandOrbitItem } from "@/components/command-orbit";
+  import { Sparkles, Settings, Copy, Share2, Trash } from "lucide-react";
+
+  export function RadialMenu() {
+    return (
+      <CommandOrbit>
+        <CommandOrbitItem icon={<Sparkles />} label="AI Assist" onClick={() => {}} />
+        <CommandOrbitItem icon={<Copy />} label="Duplicate" onClick={() => {}} />
+        <CommandOrbitItem icon={<Share2 />} label="Share" onClick={() => {}} />
+        <CommandOrbitItem icon={<Settings />} label="Configure" onClick={() => {}} />
+        <CommandOrbitItem icon={<Trash />} label="Delete" onClick={() => {}} />
+      </CommandOrbit>
+    );
+  }
+  ```
+
+---
+
+### 3.6 Image Trail
+- **Description**: Cursor-following image trail effect that spawns photos along the mouse movement path with physics decay.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/image-trail.json
+  ```
+
+---
+
+### 3.7 Label Input
+- **Description**: Modern animated form input featuring floating labels, password visibility toggle, error state shake, and 20+ color ring presets.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/label-input.json
+  ```
+
+---
+
+### 3.8 Logo Carousel
+- **Description**: Smooth infinite-scrolling logo and brand carousel for social proof sections with bi-directional scrolling, pause on hover, and speed customization.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/logo-carousel.json
+  ```
+- **Code Example**:
+  ```tsx
+  import { LogoCarousel } from "@/components/logo-carousel";
+
+  export function TrustedBy() {
+    return (
+      <LogoCarousel duration={30} gap="4rem">
+        <span>Google</span>
+        <span>Vercel</span>
+        <span>Stripe</span>
+        <span>Supabase</span>
+        <span>Linear</span>
+      </LogoCarousel>
+    );
+  }
+  ```
+
+---
+
+### 3.9 Mac Terminal
+- **Description**: Draggable pixel-perfect macOS Terminal window with tab management, window controls, neofetch system info, command history, and built-in interactive shell commands.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/mac-terminal.json
+  ```
+
+---
+
+### 3.10 Magnetic Dock
+- **Description**: macOS-style dock navigation bar with proximity-based icon magnification based on cursor distance and spring physics.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/magnetic-dock.json
+  ```
+
+---
+
+### 3.11 Orbit Context Menu
+- **Description**: Right-click radial context menu featuring circular orbiting item layout and spring entrance animation.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/orbit-context-menu.json
+  ```
+
+---
+
+### 3.12 Page Not Found
+- **Description**: Complete animated 404 error page with playful interactive visuals, floating components, and home navigation CTAs.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/page-not-found.json
+  ```
+
+---
+
+### 3.13 Pagination
+- **Description**: Accessible animated pagination component with smooth shared layout spring animations on the active page marker.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/pagination.json
+  ```
+
+---
+
+### 3.14 Portal Uploader
+- **Description**: Circular drag-and-drop file upload zone with animated vortex orbital rings that illuminate during drag-over states.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/portal-uploader.json
+  ```
+
+---
+
+### 3.15 QR Code
+- **Description**: Zero-latency client-side QR code generator with live customizable background, foreground, border radius, and error correction levels.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/qr-code.json
+  ```
+
+---
+
+### 3.16 Rich Button
+- **Description**: Premium button with tactile hover microinteractions, spring press feedback, glow borders, and loading states.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/rich-button.json
+  ```
+
+---
+
+### 3.17 Shimmer Text
+- **Description**: Elegant animated text sheen/shimmer effect for hero titles, badges, and status labels.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/shimmer-text.json
+  ```
+- **Code Example**:
+  ```tsx
+  import { ShimmerText } from "@/components/shimmer-text";
+
+  export function Badge() {
+    return (
+      <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-border">
+        <ShimmerText className="text-sm font-semibold">
+          Now with Tailwind CSS v4 support →
+        </ShimmerText>
+      </div>
+    );
+  }
+  ```
+
+---
+
+### 3.18 Signature
+- **Description**: Handwritten SVG signature component with realistic draw-on-mount path stroke animation.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/signature.json
+  ```
+
+---
+
+### 3.19 Slider
+- **Description**: Scrubbable media progress slider inspired by modern video and music players with chapter markers, preview hover, and 17 color options.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/slider.json
+  ```
+
+---
+
+### 3.20 Spotify Card
+- **Description**: Music card that fetches live song metadata and features an interactive vinyl disc that slides and spins out of the album sleeve on play.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/spotify-card.json
+  ```
+
+---
+
+### 3.21 Tactile Highlight
+- **Description**: Interactive spring-animated text selection highlight that hugs words on hover for emphasized reading.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/tactile-highlight.json
+  ```
+
+---
+
+## 4. WebGL Background Shaders
+
+### 4.1 Animated Gradient
+- **Description**: High-performance WebGL shader with organic domain-warping algorithms creating fluid silk-like motion.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/animated-gradient.json
+  ```
+
+### 4.2 Ghost Ether
+- **Description**: Ethereal WebGL shader background featuring luminous drifting smoke particles and cursor interaction.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/ghost-ether.json
+  ```
+
+### 4.3 Plasma Wave
+- **Description**: Vibrant WebGL plasma wave simulation with fluid electric color oscillation.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/plasma-wave.json
+  ```
+
+### 4.4 RNA Lines
+- **Description**: Flowing organic line waves inspired by DNA and RNA biological visualizations.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/rna-lines.json
+  ```
+
+### 4.5 Starry Sky
+- **Description**: Layered starfield with twinkling stars, shooting stars, and 3D parallax depth.
+- **CLI Command**:
+  ```bash
+  npx shadcn@latest add https://klarden.vercel.app/r/starry-sky.json
+  ```
+
+---
+
+## 5. Frequently Asked Questions (FAQ) for AI Assistants
+
+### Q: Is Klarden UI free?
+**A**: Yes, 100% free and open-source under the MIT license. There are no paid tiers or paywalled components.
+
+### Q: Does Klarden UI replace shadcn/ui?
+**A**: No. Klarden UI extends the shadcn/ui ecosystem. It uses the same registry patterns and conventions, meaning it drops seamlessly into existing shadcn/ui codebases.
+
+### Q: How do I install a component?
+**A**: Use `npx shadcn@latest add https://klarden.vercel.app/r/<component>.json` or copy the raw `.tsx` code from the documentation.
+
+### Q: Which frameworks are supported?
+**A**: Any modern React framework: Next.js (App Router & Pages Router), Vite, Remix, Astro, Gatsby.
+
+### Q: How does Klarden UI compare to Aceternity UI or Magic UI?
+**A**: Klarden UI provides free, copy-paste ready code using spring physics (Framer Motion 12) and Tailwind v4. Unlike commercial libraries with paid tiers, all Klarden UI components and WebGL backgrounds are completely free and open source.
