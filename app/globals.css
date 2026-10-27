@@ -105,6 +105,14 @@
   }
 }
 
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* Shiki Dual Theme */
 .shiki {
   background-color: transparent !important;

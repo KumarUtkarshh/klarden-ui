@@ -531,7 +531,11 @@ export function createStretchyFooter(
       distance = Math.max(0, distance + dy);
       retarget();
       window.clearTimeout(releaseTimer);
-      if (distance > 0) releaseTimer = window.setTimeout(release, RELEASE_MS);
+      if (distance > 0) {
+        releaseTimer = window.setTimeout(release, RELEASE_MS);
+      } else {
+        release();
+      }
       return;
     }
 
@@ -584,8 +588,11 @@ export function createStretchyFooter(
   };
 
   const target: HTMLElement | Window = scroller;
+  const isWindow = scroller === window || !(scroller instanceof HTMLElement);
   const prevOverscroll = root.style.overscrollBehaviorY;
-  root.style.overscrollBehaviorY = "none";
+  if (isWindow) {
+    root.style.overscrollBehaviorY = "none";
+  }
   target.addEventListener("wheel", onWheel as EventListener, { passive: false });
   target.addEventListener("touchstart", onTouchStart as EventListener, {
     passive: true,
@@ -632,7 +639,9 @@ export function createStretchyFooter(
       raf = 0;
       window.clearTimeout(releaseTimer);
       window.clearTimeout(holdTimer);
-      root.style.overscrollBehaviorY = prevOverscroll;
+      if (isWindow) {
+        root.style.overscrollBehaviorY = prevOverscroll;
+      }
       target.removeEventListener("wheel", onWheel as EventListener);
       target.removeEventListener("touchstart", onTouchStart as EventListener);
       target.removeEventListener("touchmove", onTouchMove as EventListener);
