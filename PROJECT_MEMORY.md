@@ -93,7 +93,7 @@
 
 ## Current Status
 - **Completed Work**:
-  - 26 production-ready animated components and WebGL backgrounds in registry.
+  - 27 production-ready animated components and WebGL backgrounds in registry.
   - Full MDX documentation site with live preview tabs, props tables, and code snippets.
   - Dodo Payments donation route and checkout integration.
   - Dark/light mode theme support.
@@ -103,6 +103,7 @@
   - Expand test suite for hooks and utility functions.
 
 ## Change Log
+- **2026-10-27**: Added `StretchyFooter` component (`registry/klarden-ui/stretchy-footer.tsx`), interactive demo (`registry/demos/stretchy-footer-demo.tsx`), MDX documentation (`content/docs/components/stretchy-footer.mdx`), registry entry in `registry.json`, generated `public/r/stretchy-footer.json`, and updated `public/llms.txt`.
 - **2026-10-26**: Initialized `PROJECT_MEMORY.md` capturing architecture, tech stack, registry setup, API routes, and code conventions.
 - **2026-10-26**: Added AI discoverability files: `public/llms.txt`, `public/llms-full.txt`, dedicated `/llm-info` route with JSON-LD schemas, sitemap inclusion, and footer links.
 - **2026-10-26**: Fixed Footer hydration mismatch error by converting `RichButton` to `asChild` wrapping `<Link>`, eliminating illegal HTML `<button>` nesting inside `<a>`, and added `LLM Info` to top Navbar.

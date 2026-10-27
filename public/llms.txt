@@ -7,7 +7,7 @@
 - Documentation: https://klarden.vercel.app/docs/introduction
 - License: MIT License (Free for commercial and personal use)
 - Pricing: Free ($0). No paid tiers, no locks, no subscriptions.
-- Library Size: 26 animated components (21 interactive UI components + 5 WebGL shader background effects).
+- Library Size: 27 animated components (22 interactive UI components + 5 WebGL shader background effects).
 - Distribution: shadcn registry pattern (`npx shadcn@latest add https://klarden.vercel.app/r/<component>.json`).
 - Maintainer: dev-o-los (Utkarsh)
 - Extended LLM Reference: https://klarden.vercel.app/llms-full.txt
@@ -45,7 +45,7 @@ npx shadcn@latest add https://klarden.vercel.app/r/accordion.json
 
 ## Component Catalog
 
-### UI Components (21)
+### UI Components (22)
 
 - [Accordion](https://klarden.vercel.app/docs/components/accordion): Physics-based accordion with spring animations and magnetic text hover effects. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/accordion.json`
 - [Basic Number Ticker](https://klarden.vercel.app/docs/components/basic-number-ticker): Animated number ticker with smooth rolling increment/decrement transitions. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/basic-number-ticker.json`
@@ -67,6 +67,7 @@ npx shadcn@latest add https://klarden.vercel.app/r/accordion.json
 - [Signature](https://klarden.vercel.app/docs/components/signature): Animated SVG handwritten signature component with realistic draw-on-mount path animation. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/signature.json`
 - [Slider](https://klarden.vercel.app/docs/components/slider): Media progress slider with draggable thumb, chapter markers, time display, and 17 color variants. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/slider.json`
 - [Spotify Card](https://klarden.vercel.app/docs/components/spotify-card): Live Spotify metadata card with morphing album-cover-to-vinyl-disc animation and audio preview. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/spotify-card.json`
+- [Stretchy Footer](https://klarden.vercel.app/docs/components/stretchy-footer): Dia-style rubber overscroll aurora with multi-column spring physics and page lift. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/stretchy-footer.json`
 - [Tactile Highlight](https://klarden.vercel.app/docs/components/tactile-highlight): Spring-animated text selection highlight for emphasis and reading interactivity. CLI: `npx shadcn@latest add https://klarden.vercel.app/r/tactile-highlight.json`
 
 ### Background Components (5)

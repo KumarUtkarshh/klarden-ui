@@ -1,0 +1,197 @@
+---
+title: Stretchy Footer
+description: A Dia-style rubber overscroll component with a multi-column rainbow aurora that stretches up past the viewport floor and springs back with physics-based wobble.
+category: Navigation
+---
+
+The `StretchyFooter` component implements a rubber-band overscroll experience inspired by Dia. When the user scrolls past the bottom boundary, a stepped pyramid of gradient columns stretches up from the floor while lifting the page content, snapping back with customizable spring damping and wobbling harmonics.
+
+## Preview
+
+<ComponentPreview name="stretchy-footer" />
+
+## Usage
+
+### Installation
+
+<InstallBlock command="stretchy-footer" />
+
+### Basic Scroller Example
+
+Wrap your content directly inside `StretchyFooter`. The component provides an internal scroll container with overscroll physics:
+
+```tsx
+import { StretchyFooter } from "@/components/ui/stretchy-footer";
+
+export default function Page() {
+  return (
+    <StretchyFooter className="h-[500px]">
+      <div className="p-8">
+        <h2 className="text-xl font-bold">Scroll down</h2>
+        <p className="mt-2 text-muted-foreground">
+          Continue scrolling past the end to reveal the stretchy aurora.
+        </p>
+      </div>
+    </StretchyFooter>
+  );
+}
+```
+
+### Full-Page Window Scroll
+
+To bind overscroll to the entire browser window instead of a nested container, set `windowScroll={true}` and designate the lifted element using `contentSelector`:
+
+```tsx
+import { StretchyFooter } from "@/components/ui/stretchy-footer";
+
+export default function RootPage() {
+  return (
+    <>
+      <main data-stretchy-page className="min-h-screen">
+        <section className="py-24">
+          <h1>Full Page Content</h1>
+        </section>
+      </main>
+
+      {/* Renders a fixed portal on document.body */}
+      <StretchyFooter
+        windowScroll
+        contentSelector="[data-stretchy-page]"
+        maxStretch={320}
+      />
+    </>
+  );
+}
+```
+
+### External Scroll Container
+
+If you have a custom scroller (like a modal or drawer), pass its ref to `scrollRef`:
+
+```tsx
+import { useRef } from "react";
+import { StretchyFooter } from "@/components/ui/stretchy-footer";
+
+export function CustomModal() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <div className="relative h-96 overflow-hidden">
+      <StretchyFooter
+        scrollRef={scrollerRef}
+        contentSelector="[data-modal-body]"
+      />
+      <div ref={scrollerRef} className="h-full overflow-y-auto">
+        <div data-modal-body className="p-6">
+          Modal content...
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Programmatic Triggers
+
+You can trigger the stretch and release animation programmatically without user touch or wheel input using `playStretchyFooterDemo`:
+
+```tsx
+import { playStretchyFooterDemo } from "@/components/ui/stretchy-footer";
+
+async function triggerRubberEffect() {
+  await playStretchyFooterDemo({
+    target: "my-footer-demo-id",
+    amount: 0.9,
+    holdMs: 800,
+  });
+}
+```
+
+## Properties
+
+<PropsTable>
+  <Prop
+    name="maxStretch"
+    type="number"
+    default="280"
+    description="Peak height in pixels that the aurora can stretch from the floor."
+  />
+  <Prop
+    name="colors"
+    type="string[]"
+    default="DEFAULT_COLORS"
+    description="Array of CSS color hex/rgb strings forming the vertical gradient strip from top to bottom."
+  />
+  <Prop
+    name="columns"
+    type="number"
+    default="9"
+    description="Number of vertical gradient columns across the aurora width."
+  />
+  <Prop
+    name="stiffness"
+    type="number"
+    default="380"
+    description="Spring stiffness determining snap-back acceleration."
+  />
+  <Prop
+    name="damping"
+    type="number"
+    default="32"
+    description="Spring damping factor controlling wobble oscillation decay."
+  />
+  <Prop
+    name="blur"
+    type="number"
+    default="16"
+    description="Gaussian blur radius in pixels applied to the canvas."
+  />
+  <Prop
+    name="glow"
+    type="number"
+    default="0"
+    description="White floor bloom opacity between 0 and 1."
+  />
+  <Prop
+    name="flip"
+    type="boolean"
+    default="false"
+    description="Inverts column pyramid so edges stand tallest and the center dips."
+  />
+  <Prop
+    name="rotate"
+    type="0 | 180"
+    default="0"
+    description="Set to 180 to invert the aurora so columns hang from the lifting page edge."
+  />
+  <Prop
+    name="windowScroll"
+    type="boolean"
+    default="false"
+    description="Binds overscroll to the window and renders a fixed bottom viewport portal."
+  />
+  <Prop
+    name="scrollRef"
+    type="RefObject<HTMLElement | null>"
+    default="undefined"
+    description="Ref to an external scroll container when painting overlay-only."
+  />
+  <Prop
+    name="contentSelector"
+    type="string"
+    default="'[data-stretchy-page]'"
+    description="CSS selector for the page element that lifts during stretch."
+  />
+  <Prop
+    name="demoId"
+    type="string"
+    default="undefined"
+    description="Unique identifier to scope programmatic play triggers."
+  />
+  <Prop
+    name="className"
+    type="string"
+    default="undefined"
+    description="Additional Tailwind CSS classes applied to the root container."
+  />
+</PropsTable>

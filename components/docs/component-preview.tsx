@@ -25,7 +25,8 @@ export function ComponentPreview({ name, usageCode }: ComponentPreviewProps) {
     name.startsWith("starry-sky") ||
     name.startsWith("image-trail") ||
     name.startsWith("page-not-found") ||
-    name.startsWith("mac-terminal");
+    name.startsWith("mac-terminal") ||
+    name.startsWith("stretchy-footer");
 
   const copyToClipboard = () => {
     setCopied(true);
